@@ -28,7 +28,8 @@ configure({
     return messages[ctx.rule.name] || `The field ${ctx.field} is invalid.`;
   },
 });
-
+const leftSideRef = ref(null);
+const rightSideRef = ref(null);
 const videoRef = ref(null);
 
 onMounted(() => {
@@ -38,6 +39,24 @@ onMounted(() => {
       {scale: 1, filter: "blur(0px)", duration: 2, ease: "power2.out"}
   );
 });
+
+
+onMounted(() => {
+    gsap.from(leftSideRef.value, {
+      x: '-100%',
+      opacity: 0,
+      duration: 2,
+      ease: 'power2.out',
+    });
+
+    gsap.from(rightSideRef.value, {
+      x: '100%',
+      opacity: 0,
+      duration: 2,
+      ease: 'power2.out',
+    });
+});
+
 </script>
 
 <template>
@@ -52,7 +71,7 @@ onMounted(() => {
         muted
         playsinline></video>
     <div class="hero-content">
-      <div class="left-side">
+      <div class="left-side" ref="leftSideRef">
         <div class="main-title">
           <h1>Монетизируй свой трафик</h1>
           <p>С прямым рекламодателем iGaming продуктов</p>
@@ -65,7 +84,7 @@ onMounted(() => {
       <div class="middle-side">
         <BottomNav/>
       </div>
-      <div class="right-side">
+      <div class="right-side" ref="rightSideRef">
         <Form @submit="onSubmit" class="form">
           <h2>Присоединяйся</h2>
           <div class="form-group">
@@ -116,7 +135,7 @@ onMounted(() => {
           </div>
           <button type="submit" class="register-button">Зарегистрироваться</button>
         </Form>
-      </div>
+      </div  >
     </div>
   </div>
 </template>
