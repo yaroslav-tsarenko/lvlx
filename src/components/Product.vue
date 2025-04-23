@@ -20,7 +20,6 @@ import slide1Benefits from "../assets/images/slider1-benefits.svg"
         </div>
       </div>
       <div class="slider-info">
-
         <div class="slider-info-details">
           <div class="slider-product-info">
             <h2>Продукт</h2>
@@ -78,6 +77,10 @@ import slide1Benefits from "../assets/images/slider1-benefits.svg"
   justify-content: center;
   align-items: center;
   justify-items: center;
+
+  @media screen and (max-width: 1028px) {
+    display: none;
+  }
 }
 
 .pagination{
@@ -154,7 +157,6 @@ import slide1Benefits from "../assets/images/slider1-benefits.svg"
     --s: 120px;  /* control the size of the cut */
     --a: 20deg; /* control the depth of the curvature */
     --p: 50%;   /* control the position */
-
     --_m:,#000 calc(100% - 1px),#0000;
     --_r:var(--r) at calc(100% - var(--r));
     --_d:(var(--s) + var(--r))*cos(var(--a));
@@ -172,6 +174,13 @@ import slide1Benefits from "../assets/images/slider1-benefits.svg"
   width: 100%;
   justify-content: space-between;
   align-items: center;
+
+  @media screen and (max-width: 768px) {
+    flex-direction: column;
+    align-content: center;
+    justify-content: center;
+    align-items: center;
+  }
 }
 
 .unions-block{

@@ -76,9 +76,11 @@ onMounted(() => {
 <style scoped>
 .header {
   padding: 1rem;
-  text-align: center;
   position: sticky;
+  text-align: center;
   font-size: 1.5rem;
+  top: 0;
+  z-index: 999;
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -101,6 +103,10 @@ onMounted(() => {
   cursor: pointer;
   overflow: hidden;
   position: relative;
+
+  @media screen and (max-width: 1028px) {
+    padding: 5px 5px 5px 20px;
+  }
 }
 
 .arrow {
@@ -126,6 +132,11 @@ onMounted(() => {
   cursor: pointer;
   border: 1px solid var(--line-color);
   transition: background-color 0.3s ease;
+
+
+  @media screen and (max-width: 1028px) {
+    display: none;
+  }
 }
 
 .language-selector {
@@ -145,6 +156,10 @@ onMounted(() => {
   background-position: right 10px center;
   background-size: 12px;
   transition: 0.3s all ease;
+
+  @media screen and (max-width: 1028px) {
+    display: none;
+  }
 }
 
 .language-selector:hover {

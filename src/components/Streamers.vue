@@ -139,6 +139,11 @@ const unpinnedMessages = computed(() => chatItems.value.filter(item => !item.pin
   max-width: 1840px;
   flex-direction: column;
   position: relative;
+
+
+  @media screen and (max-width: 768px) {
+    display: none;
+  }
 }
 
 .streamer-chat-content {

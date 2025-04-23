@@ -4,7 +4,7 @@ import eggs from '../assets/gifs/eggs.gif';
 import chart from '../assets/gifs/graph.gif';
 import referralIcon from "../assets/icons/referral-icon.svg"
 
-import { getTextByLanguage } from "@/config";
+import {getTextByLanguage} from "@/config";
 
 const texts = getTextByLanguage();
 </script>
@@ -13,40 +13,40 @@ const texts = getTextByLanguage();
   <div class="benefits">
     <img :src="referralIcon" alt="referral-icon" width="350" height="80" class="referral-icon">
     <div class="benefits-wrapper">
-      <h2>{{texts.Benefits.title}}</h2>
+      <h2>{{ texts.Benefits.title }}</h2>
       <div class="unions">
         <div class="union-item">
-          {{texts.Benefits.benefitFirst}}
+          {{ texts.Benefits.benefitFirst }}
         </div>
         <div class="union-item">
-          {{texts.Benefits.benefitSecond}}
+          {{ texts.Benefits.benefitSecond }}
         </div>
         <div class="union-item">
-          {{texts.Benefits.benefitThird}}
+          {{ texts.Benefits.benefitThird }}
         </div>
         <div class="union-item">
-          {{texts.Benefits.benefitFourth}}
+          {{ texts.Benefits.benefitFourth }}
         </div>
       </div>
       <div class="products">
         <div class="product-item">
           <div class="product-item-description">
-            <h3>{{texts.Benefits.productCardTitleFirst}}</h3>
-            <p>{{texts.Benefits.productCardDescriptionFirst}}</p>
+            <h3>{{ texts.Benefits.productCardTitleFirst }}</h3>
+            <p>{{ texts.Benefits.productCardDescriptionFirst }}</p>
           </div>
           <img :src="eggs" alt="rocket" width="200" height="200" class="gif"/>
         </div>
         <div class="product-item">
           <div class="product-item-description">
-            <h3>{{texts.Benefits.productCardTitleSecond}}</h3>
-            <p>{{texts.Benefits.productCardDescriptionSecond}}</p>
+            <h3>{{ texts.Benefits.productCardTitleSecond }}</h3>
+            <p>{{ texts.Benefits.productCardDescriptionSecond }}</p>
           </div>
           <img :src="chart" alt="rocket" width="200" height="200" class="gif"/>
         </div>
         <div class="product-item">
           <div class="product-item-description">
-            <h3>{{texts.Benefits.productCardTitleThird}}</h3>
-            <p>{{texts.Benefits.productCardDescriptionThird}}</p>
+            <h3>{{ texts.Benefits.productCardTitleThird }}</h3>
+            <p>{{ texts.Benefits.productCardDescriptionThird }}</p>
           </div>
           <img :src="rocket" alt="rocket" width="200" height="200" class="gif"/>
         </div>
@@ -94,10 +94,21 @@ const texts = getTextByLanguage();
   var(--_g) 0 calc(-1 * var(--_d) - var(--y));
   mask-repeat: no-repeat;
 
+  @media screen and (max-width: 1028px) {
+    padding: 15% 0;
+    background-size: cover;
+    gap: 10px;
+    border-radius: 0;
+  }
+
   h2 {
     color: white;
     font-size: 70px;
     font-weight: 500;
+
+    @media screen and (max-width: 1028px) {
+      font-size: 40px;
+    }
   }
 }
 
@@ -117,6 +128,11 @@ const texts = getTextByLanguage();
   justify-content: center;
   align-items: center;
   width: 100%;
+
+  @media screen and (max-width: 1028px) {
+    flex-direction: column;
+    gap: 0;
+  }
 }
 
 .union-item {
@@ -129,11 +145,22 @@ const texts = getTextByLanguage();
   height: 120px;
   background: url("../assets/icons/orange-union.svg") no-repeat center;
   background-size: contain;
+
+  @media screen and (max-width: 1028px) {
+    width: 250px;
+    height: 60px;
+  }
 }
 
 .products {
   display: flex;
   gap: 20px;
+
+  @media screen and (max-width: 768px) {
+    width: 100%;
+    overflow: auto;
+    height: 100%;
+  }
 }
 
 .product-item {
@@ -146,9 +173,30 @@ const texts = getTextByLanguage();
   justify-content: center;
   align-items: center;
   padding: 40px;
-  background: url("../assets/images/product-item-bg.png") no-repeat center;
+  background: rgba(255, 255, 255, 0.13);
+  border: 1px solid rgba(255, 255, 255, 0.4);
   backdrop-filter: blur(10px);
-  background-size: contain;
+    --r: 20px; /* the radius */
+    --s: 30px; /* size of inner curve */
+    --x: 20px; /* horizontal offset (no percentage) */
+    --y: 10px; /* vertical offset (no percentage) */
+    aspect-ratio: 1;
+    border-radius: var(--r);
+    --_m:/calc(2*var(--r)) calc(2*var(--r)) radial-gradient(#000 70%,#0000 72%);
+    --_g:conic-gradient(at calc(100% - var(--r)) var(--r),#0000 25%,#000 0);
+    --_d:(var(--s) + var(--r));
+    mask:
+        calc(100% - var(--_d) - var(--x)) 0 var(--_m),
+        100% calc(var(--_d) + var(--y)) var(--_m),
+        radial-gradient(var(--s) at 100% 0,#0000 99%,#000 calc(100% + 1px))
+        calc(-1*var(--r) - var(--x)) calc(var(--r) + var(--y)),
+        var(--_g) calc(-1*var(--_d) - var(--x)) 0,
+        var(--_g) 0 calc(var(--_d) + var(--y));
+    mask-repeat: no-repeat;
+
+  @media screen and (max-width: 768px) {
+   scale: 0.8;
+  }
 }
 
 .product-item-description {

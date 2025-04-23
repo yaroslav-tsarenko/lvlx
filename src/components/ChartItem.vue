@@ -48,6 +48,11 @@ defineProps({
   color: var(--white);
   background: transparent;
   transition: background 0.3s ease;
+
+
+  @media screen and (max-width: 768px) {
+    padding: 9px;
+  }
 }
 
 .chart-item.highlighted {

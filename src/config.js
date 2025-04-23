@@ -5,9 +5,11 @@ const texts = {
         },
         BottomNav: {
             benefits: "Advantages",
+            menu: "Menu",
             product: "Product",
             forStreamers: "For Streamers",
             faq: "FAQ",
+            register: "Register",
         },
         Hero: {
             title: "Monetize your traffic",
@@ -45,8 +47,10 @@ const texts = {
         BottomNav: {
             benefits: "Преимущества",
             product: "Продукт",
+            menu: "Меню",
             forStreamers: "Стримерам",
             faq: "FAQ",
+            register: "Зарегистрироваться",
         },
         Hero: {
             title: "Монетизируй свой трафик",

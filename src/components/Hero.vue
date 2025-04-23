@@ -2,11 +2,13 @@
 import {onMounted, ref} from 'vue';
 import {gsap} from 'gsap';
 import bgVideo from '../assets/videos/girl.mp4';
+import bgVideoMobile from '../assets/videos/girl mobile.mp4';
 import revShare from '../assets/images/rev-share-desktop.svg';
 import tgIcon from '../assets/icons/telegram-icon.svg';
 import cpaShare from '../assets/images/cpa-desktop.svg';
+import revShareMob from '../assets/images/revShareMob.svg';
+import cpaShareMob from '../assets/images/cpaMob.svg';
 import Header from "@/components/Header.vue";
-import BottomNav from "@/components/BottomNav.vue";
 import {defineRule, Form, Field, ErrorMessage, configure} from "vee-validate";
 import {required, email, min, confirmed, regex} from "@vee-validate/rules";
 import PhoneInput from "@/components/PhoneInput.vue";
@@ -19,6 +21,20 @@ defineRule("email", email);
 defineRule("min", min);
 defineRule("confirmed", confirmed);
 defineRule("phone", regex);
+
+const videoSrc = ref(bgVideo);
+
+onMounted(() => {
+  const updateVideoSource = () => {
+    videoSrc.value = window.innerWidth <= 768 ? bgVideoMobile : bgVideo;
+  };
+
+  updateVideoSource();
+  window.addEventListener('resize', updateVideoSource);
+  return () => {
+    window.removeEventListener('resize', updateVideoSource);
+  };
+});
 
 configure({
   generateMessage: (ctx) => {
@@ -69,11 +85,12 @@ onMounted(() => {
     <video
         ref="videoRef"
         class="bg-video"
-        :src="bgVideo"
+        :src="videoSrc"
         autoplay
         loop
         muted
-        playsinline></video>
+        playsinline>
+    </video>
     <div class="hero-content">
       <div class="left-side" ref="leftSideRef">
         <div class="main-title">
@@ -84,9 +101,10 @@ onMounted(() => {
           <img :src="revShare" alt="rev share" width="320" height="160"/>
           <img :src="cpaShare" alt="cpa share" width="320" height="160"/>
         </div>
-      </div>
-      <div class="middle-side">
-        <BottomNav/>
+        <div class="left-side-images-mob">
+          <img :src="revShareMob" alt="rev share" width="150" height="60"/>
+          <img :src="cpaShareMob" alt="cpa share" width="150" height="60"/>
+        </div>
       </div>
       <div class="right-side" ref="rightSideRef">
         <Form @submit="onSubmit" class="form">
@@ -160,6 +178,10 @@ onMounted(() => {
   max-width: 1840px;
   margin: 0 auto;
   overflow: hidden;
+
+  @media screen and (max-width: 768px) {
+    padding: 20px;
+  }
 }
 
 .bg-video {
@@ -181,6 +203,13 @@ onMounted(() => {
   justify-content: space-between;
   color: white;
   text-align: center;
+
+  @media screen and (max-width: 768px) {
+    width: 100%;
+    align-content: center;
+    justify-content: center;
+    align-items: center;
+  }
 }
 
 .left-side {
@@ -189,6 +218,10 @@ onMounted(() => {
   width: fit-content;
   justify-content: space-between;
   flex-direction: column;
+
+  @media screen and (max-width: 768px) {
+    padding: 50px 0 0 0;
+  }
 }
 
 .main-title {
@@ -205,6 +238,13 @@ onMounted(() => {
     font-weight: 400;
     color: var(--black);
     line-height: 94%;
+
+
+    @media screen and (max-width: 476px) {
+      font-size: 40px;
+      font-weight: 500;
+      text-align: center;
+    }
   }
 
   p {
@@ -214,22 +254,40 @@ onMounted(() => {
     color: var(--black);
     line-height: 130%;
   }
+
+  @media screen and (max-width: 768px) {
+    align-content: center;
+    text-align: center;
+    justify-content: center;
+  }
+}
+
+.left-side-images-mob{
+  display: none;
+
+  @media screen and (max-width: 768px) {
+    display: flex;
+    gap: 10px;
+    padding: 0 0 12% 0;
+    width: 100%;
+  }
+
+  img{
+    width: 100%;
+    height: auto;
+  }
 }
 
 .left-side-images {
   display: flex;
   flex-direction: column;
   gap: 10px;
-}
 
-.middle-side {
-  display: flex;
-  justify-content: flex-end;
-  align-items: flex-end;
-  flex-direction: column;
-  gap: 20px;
-  z-index: 999;
-  margin: 0 auto;
+  @media screen and (max-width: 768px) {
+    display: none;
+    gap: 10px;
+    width: 100%;
+  }
 }
 
 .form {
@@ -266,6 +324,10 @@ onMounted(() => {
   justify-content: center;
   align-items: center;
   justify-items: center;
+
+  @media screen and (max-width: 1028px) {
+    display: none;
+  }
 }
 
 .error {
