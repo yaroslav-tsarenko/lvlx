@@ -124,6 +124,6 @@ const texts = {
 };
 
 export const getTextByLanguage = () => {
-    const selectedLanguage = localStorage.getItem("selectedLanguageLVLX") || "EN";
+    const selectedLanguage = localStorage.getItem("selectedLanguageLVLX") || "RU";
     return texts[selectedLanguage];
 };
