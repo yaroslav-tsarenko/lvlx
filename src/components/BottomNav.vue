@@ -1,6 +1,9 @@
 <script setup>
 import homeIcon from '../assets/icons/home-icon.svg';
 import vLine from '../assets/images/v-line.svg';
+import { getTextByLanguage } from "@/config";
+
+const texts = getTextByLanguage();
 </script>
 
 <template>
@@ -9,13 +12,13 @@ import vLine from '../assets/images/v-line.svg';
       <img :src="homeIcon" alt="home icon" width="24" height="24"/>
     </button>
     <img :src="vLine" alt="home icon" width="1" height="52"/>
-    <button class="nav-button">Преимущества</button>
+    <button class="nav-button">{{texts.BottomNav.benefits}}</button>
     <img :src="vLine" alt="home icon" width="1" height="52"/>
-    <button class="nav-button">Продукт</button>
+    <button class="nav-button">{{texts.BottomNav.product}}</button>
     <img :src="vLine" alt="home icon" width="1" height="52"/>
-    <button class="nav-button">Стримерам</button>
+    <button class="nav-button">{{texts.BottomNav.forStreamers}}</button>
     <img :src="vLine" alt="home icon" width="1" height="52"/>
-    <button class="nav-button">FAQ</button>
+    <button class="nav-button">{{texts.BottomNav.faq}}</button>
   </div>
 </template>
 
@@ -34,6 +37,7 @@ import vLine from '../assets/images/v-line.svg';
   background-color: var(--black);
   border-radius: 50px;
   padding: 7px;
+  z-index: 999;
 }
 
 .nav-button{

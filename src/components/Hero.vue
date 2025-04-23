@@ -9,6 +9,10 @@ import Header from "@/components/Header.vue";
 import BottomNav from "@/components/BottomNav.vue";
 import {defineRule, Form, Field, ErrorMessage, configure} from "vee-validate";
 import {required, email, min, confirmed, regex} from "@vee-validate/rules";
+import PhoneInput from "@/components/PhoneInput.vue";
+import {getTextByLanguage} from "@/config.js";
+
+const texts = getTextByLanguage();
 
 defineRule("required", required);
 defineRule("email", email);
@@ -73,8 +77,8 @@ onMounted(() => {
     <div class="hero-content">
       <div class="left-side" ref="leftSideRef">
         <div class="main-title">
-          <h1>Монетизируй свой трафик</h1>
-          <p>С прямым рекламодателем iGaming продуктов</p>
+          <h1>{{texts.Hero.title}}</h1>
+          <p>{{texts.Hero.subtitle}}</p>
         </div>
         <div class="left-side-images">
           <img :src="revShare" alt="rev share" width="320" height="160"/>
@@ -86,16 +90,23 @@ onMounted(() => {
       </div>
       <div class="right-side" ref="rightSideRef">
         <Form @submit="onSubmit" class="form">
-          <h2>Присоединяйся</h2>
+          <h2>{{texts.Form.title}}</h2>
           <div class="form-group">
-            <Field id="companyName" name="Company Name" type="text" class="input-field" rules="required"
-                   placeholder="Название компании"/>
+            <Field
+                id="companyName"
+                name="Company Name"
+                type="text"
+                class="input-field"
+                rules="required"
+                :placeholder="texts.Form.companyNamePlaceholder"
+            />
             <ErrorMessage name="Company Name" class="error"/>
           </div>
           <div class="form-group">
-            <Field id="email" name="Email" type="email" rules="required|email" placeholder="Email" class="input-field"/>
+            <Field id="email" name="Email" type="email" rules="required|email"  :placeholder="texts.Form.emailPlaceholder" class="input-field"/>
             <ErrorMessage name="Email" class="error"/>
           </div>
+          <PhoneInput/>
           <div class="custom-input">
             <img :src="tgIcon" alt="Telegram Icon" width="22" height="22"/>
             <hr class="v-line"/>
@@ -105,7 +116,7 @@ onMounted(() => {
             <div class="form-group">
               <Field
                   id="password"
-                  placeholder="Пароль"
+                  :placeholder="texts.Form.passwordPlaceholder"
                   class="input-field"
                   name="Password"
                   type="password"
@@ -113,14 +124,13 @@ onMounted(() => {
               />
               <ErrorMessage name="Password" class="error"/>
             </div>
-
             <div class="form-group">
               <Field
                   class="input-field"
                   id="repeatPassword"
                   name="Repeat Password"
                   type="password"
-                  placeholder="Ещё раз"
+                  :placeholder="texts.Form.repeatPasswordPlaceholder"
                   rules="required|confirmed:@password"
               />
               <ErrorMessage name="Repeat Password" class="error"/>
@@ -129,8 +139,8 @@ onMounted(() => {
           <div class="checkbox-field">
             <Field type="checkbox" name="Terms" rules="required"/>
             <p>
-              Я принимаю
-              <a href="#">правила и условия</a>
+              {{texts.Form.agreementServices}}
+              <a href="#"> {{texts.Form.rulesAgreement}}</a>
             </p>
           </div>
           <button type="submit" class="register-button">Зарегистрироваться</button>
@@ -146,6 +156,9 @@ onMounted(() => {
   position: relative;
   width: 100%;
   height: 98dvh;
+  max-height: 1080px;
+  max-width: 1840px;
+  margin: 0 auto;
   overflow: hidden;
 }
 
@@ -215,6 +228,7 @@ onMounted(() => {
   align-items: flex-end;
   flex-direction: column;
   gap: 20px;
+  z-index: 999;
   margin: 0 auto;
 }
 

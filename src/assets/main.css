@@ -2,7 +2,7 @@
 @import './base.css';
 
 #app {
-  padding: 20px 40px;
+  padding: 20px 40px 0 20px;
   font-family: "Inter Tight", sans-serif;
 }
 

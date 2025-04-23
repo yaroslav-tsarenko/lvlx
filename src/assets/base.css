@@ -1,9 +1,9 @@
 :root {
   --white: #fff;
   --grey: #939393;
-  --grey-transparent: rgba(147, 147, 147, 0.34);
+  --grey-transparent: rgba(177, 177, 177, 0.16);
   --black: #010101;
-  --orange: #F84204;
+  --orange: #f84204;
   --orange-hover: #E62900;
   --line-color: #D3D3D3;
 }

@@ -1,0 +1,183 @@
+<script setup>
+import rocket from '../assets/gifs/rocket.gif';
+import eggs from '../assets/gifs/eggs.gif';
+import chart from '../assets/gifs/graph.gif';
+import referralIcon from "../assets/icons/referral-icon.svg"
+
+import { getTextByLanguage } from "@/config";
+
+const texts = getTextByLanguage();
+</script>
+
+<template>
+  <div class="benefits">
+    <img :src="referralIcon" alt="referral-icon" width="350" height="80" class="referral-icon">
+    <div class="benefits-wrapper">
+      <h2>{{texts.Benefits.title}}</h2>
+      <div class="unions">
+        <div class="union-item">
+          {{texts.Benefits.benefitFirst}}
+        </div>
+        <div class="union-item">
+          {{texts.Benefits.benefitSecond}}
+        </div>
+        <div class="union-item">
+          {{texts.Benefits.benefitThird}}
+        </div>
+        <div class="union-item">
+          {{texts.Benefits.benefitFourth}}
+        </div>
+      </div>
+      <div class="products">
+        <div class="product-item">
+          <div class="product-item-description">
+            <h3>{{texts.Benefits.productCardTitleFirst}}</h3>
+            <p>{{texts.Benefits.productCardDescriptionFirst}}</p>
+          </div>
+          <img :src="eggs" alt="rocket" width="200" height="200" class="gif"/>
+        </div>
+        <div class="product-item">
+          <div class="product-item-description">
+            <h3>{{texts.Benefits.productCardTitleSecond}}</h3>
+            <p>{{texts.Benefits.productCardDescriptionSecond}}</p>
+          </div>
+          <img :src="chart" alt="rocket" width="200" height="200" class="gif"/>
+        </div>
+        <div class="product-item">
+          <div class="product-item-description">
+            <h3>{{texts.Benefits.productCardTitleThird}}</h3>
+            <p>{{texts.Benefits.productCardDescriptionThird}}</p>
+          </div>
+          <img :src="rocket" alt="rocket" width="200" height="200" class="gif"/>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</template>
+
+<style scoped>
+
+.benefits {
+  display: flex;
+  max-width: 1840px;
+  margin: 0 auto;
+  position: relative;
+}
+
+.benefits-wrapper {
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  width: 100%;
+  justify-content: center;
+  align-content: center;
+  align-items: center;
+  justify-items: center;
+  border-radius: 30px;
+  height: fit-content;
+  padding: 140px 0;
+  overflow: hidden;
+  --r: 50px; /* the radius */
+  --s: 40px; /* size of inner curve */
+  --x: 270px; /* horizontal offset (no percentage) */
+  --y: 10px; /* vertical offset (no percentage) */
+  background: url("../assets/images/orange-bg-lines.svg") no-repeat center;
+  background-size: contain;
+  --_m: / calc(2 * var(--r)) calc(2 * var(--r)) radial-gradient(#000 70%, #0000 72%);
+  --_g: conic-gradient(from 180deg at var(--r) calc(100% - var(--r)), #0000 25%, #000 0);
+  --_d:(var(--s) + var(--r));
+  mask: calc(var(--_d) + var(--x)) 100% var(--_m),
+  0 calc(100% - var(--_d) - var(--y)) var(--_m),
+  radial-gradient(var(--s) at 0 100%, #0000 99%, #000 calc(100% + 1px)) calc(var(--r) + var(--x)) calc(-1 * var(--r) - var(--y)),
+  var(--_g) calc(var(--_d) + var(--x)) 0,
+  var(--_g) 0 calc(-1 * var(--_d) - var(--y));
+  mask-repeat: no-repeat;
+
+  h2 {
+    color: white;
+    font-size: 70px;
+    font-weight: 500;
+  }
+}
+
+.referral-icon {
+  display: flex;
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  z-index: 999;
+}
+
+.unions {
+  display: flex;
+  margin: 0 auto;
+  gap: 10px;
+  align-content: center;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+}
+
+.union-item {
+  display: flex;
+  max-width: 326px;
+  width: 100%;
+  align-content: center;
+  justify-content: center;
+  align-items: center;
+  height: 120px;
+  background: url("../assets/icons/orange-union.svg") no-repeat center;
+  background-size: contain;
+}
+
+.products {
+  display: flex;
+  gap: 20px;
+}
+
+.product-item {
+  display: flex;
+  flex-direction: column;
+  height: 580px;
+  width: 430px;
+  position: relative;
+  align-content: center;
+  justify-content: center;
+  align-items: center;
+  padding: 40px;
+  background: url("../assets/images/product-item-bg.png") no-repeat center;
+  backdrop-filter: blur(10px);
+  background-size: contain;
+}
+
+.product-item-description {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  color: var(--white);
+  z-index: 99;
+  margin: 0 0 auto 0;
+
+  h3 {
+    font-size: 40px;
+    font-weight: 400;
+    max-width: 250px;
+    line-height: 95%;
+  }
+
+  p {
+    font-size: 16px;
+    font-weight: 400;
+  }
+}
+
+.gif {
+  display: flex;
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  height: auto;
+}
+
+</style>

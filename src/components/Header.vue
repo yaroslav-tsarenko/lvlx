@@ -1,23 +1,22 @@
 <script setup lang="ts">
-import { ref, onMounted } from 'vue';
+import { ref, onMounted, watch } from 'vue';
 import { gsap } from 'gsap';
 import logo from '../assets/logo/lvlx-logo.svg';
 import arrowTopRight from '../assets/icons/arrow-top-right.svg';
+const selectedLanguage = ref('RU'); // default
+import { getTextByLanguage } from "@/config";
 
-const selectedLanguage = ref('EN');
-
-const languageOptions = [
-  { label: 'UA', value: 'UA' },
-  { label: 'RU', value: 'RU' },
-  { label: 'EN', value: 'EN' }
-];
-
+const texts = getTextByLanguage();
 const changeLanguage = (value: string) => {
-  console.log('Language changed to:', value);
+  selectedLanguage.value = value;
+  localStorage.setItem('selectedLanguageLVLX', value);
+  window.location.reload();
 };
 
 onMounted(() => {
-  // Header animation
+  const storedLang = localStorage.getItem('selectedLanguageLVLX');
+  if (storedLang) selectedLanguage.value = storedLang;
+
   gsap.from('.header', {
     y: '-100%',
     opacity: 0,
@@ -26,7 +25,6 @@ onMounted(() => {
     ease: 'power2.out',
   });
 
-  // Button hover animation
   const buttonWrapper = document.querySelector('.custom-button-wrapper');
   const text = buttonWrapper?.querySelector('p');
   const arrow = buttonWrapper?.querySelector('.arrow-icon');
@@ -38,29 +36,25 @@ onMounted(() => {
         opacity: 0,
         duration: 0.3,
         onComplete: () => {
-          gsap.to([text, arrow], {
-            y: 20,
-            opacity: 0,
-            duration: 0,
-          });
+          gsap.set([text, arrow], { y: 20, opacity: 0 });
           gsap.to([text, arrow], {
             y: 0,
             opacity: 1,
             duration: 0.3,
           });
-        }
+        },
       });
     });
   }
 });
 </script>
 
+
 <template>
   <header class="header">
-    <img :src="logo" alt="Logo" class="logo" width="150" height="30" />
+    <img :src="logo" alt="Logo" class="logo" width="150" height="30"/>
     <div class="nav">
-      <select class="language-selector">
-        <option value="UA">UA</option>
+      <select v-model="selectedLanguage" @change="changeLanguage($event.target.value)" class="language-selector">
         <option value="RU">RU</option>
         <option value="EN">EN</option>
       </select>
@@ -69,10 +63,10 @@ onMounted(() => {
       </button>
       <div class="custom-button-wrapper">
         <p>
-          Связаться
+          {{ texts.Header.text }}
         </p>
         <div class="arrow">
-          <img :src="arrowTopRight" class="arrow-icon" alt="arrow" width="13" height="13" />
+          <img :src="arrowTopRight" class="arrow-icon" alt="arrow" width="13" height="13"/>
         </div>
       </div>
     </div>
@@ -83,12 +77,12 @@ onMounted(() => {
 .header {
   padding: 1rem;
   text-align: center;
+  position: sticky;
   font-size: 1.5rem;
   display: flex;
   justify-content: space-between;
   align-items: center;
   justify-items: center;
-  position: relative;
   color: #343a40;
 }
 
