@@ -121,7 +121,7 @@ const texts = getTextByLanguage();
 
 .union-item {
   display: flex;
-  max-width: 326px;
+  max-width: 356px;
   width: 100%;
   align-content: center;
   justify-content: center;

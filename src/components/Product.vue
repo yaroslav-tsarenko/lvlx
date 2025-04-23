@@ -29,28 +29,28 @@ import slide1Benefits from "../assets/images/slider1-benefits.svg"
             </p>
           </div>
           <div class="unions-block">
-            <div class="union-item">
+            <div class="union-item-plus">
               In-house колл-центр
               <img :src="unionIcon" alt="icon" width="20" height="20">
             </div>
-            <div class="union-item">
-              In-house колл-центр
+            <div class="union-item-plus">
+              VIP программа
               <img :src="unionIcon" alt="icon" width="20" height="20">
             </div>
-            <div class="union-item">
-              In-house колл-центр
+            <div class="union-item-plus">
+              KZ, RU, TR, IN
               <img :src="unionIcon" alt="icon" width="20" height="20">
             </div>
-            <div class="union-item">
-              In-house колл-центр
+            <div class="union-item-plus">
+              Лицензия Anjouan
               <img :src="unionIcon" alt="icon" width="20" height="20">
             </div>
-            <div class="union-item">
-              In-house колл-центр
+            <div class="union-item-plus">
+              Reg2dep 20-50%
               <img :src="unionIcon" alt="icon" width="20" height="20">
             </div>
-            <div class="union-item">
-              In-house колл-центр
+            <div class="union-item-plus">
+              Экспертная поддержка
               <img :src="unionIcon" alt="icon" width="20" height="20">
             </div>
           </div>
@@ -169,7 +169,7 @@ import slide1Benefits from "../assets/images/slider1-benefits.svg"
 .slider-info-details{
   display: flex;
   align-content: center;
-  width: 80%;
+  width: 100%;
   justify-content: space-between;
   align-items: center;
 }
@@ -180,14 +180,14 @@ import slide1Benefits from "../assets/images/slider1-benefits.svg"
   gap: 15px;
 }
 
-.union-item{
+.union-item-plus{
   display: flex;
   gap: 82px;
-  max-width: 250px;
+  max-width: 280px;
   width: 100%;
   align-content: center;
   font-size: 16px;
-  justify-content: center;
+  justify-content: space-between;
   align-items: center;
 }
 
