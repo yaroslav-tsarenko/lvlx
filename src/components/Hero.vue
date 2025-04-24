@@ -4,17 +4,39 @@ import {gsap} from 'gsap';
 import bgVideo from '../assets/videos/girl.mp4';
 import bgVideoMobile from '../assets/videos/girl mobile.mp4';
 import revShare from '../assets/images/rev-share-desktop.svg';
-import tgIcon from '../assets/icons/telegram-icon.svg';
 import cpaShare from '../assets/images/cpa-desktop.svg';
 import revShareMob from '../assets/images/revShareMob.svg';
 import cpaShareMob from '../assets/images/cpaMob.svg';
 import Header from "@/components/Header.vue";
-import {defineRule, Form, Field, ErrorMessage, configure} from "vee-validate";
+import {defineRule, Field, ErrorMessage, configure} from "vee-validate";
 import {required, email, min, confirmed, regex} from "@vee-validate/rules";
-import PhoneInput from "@/components/PhoneInput.vue";
 import {getTextByLanguage} from "@/config.js";
-
+import axios from "axios";
+import Form from "@/components/Form.vue";
+import Popup from "@/components/Popup.vue";
 const texts = getTextByLanguage();
+
+const formData = ref({
+  companyName: '',
+  email: '',
+  telegram: '',
+});
+
+const onSubmit = async () => {
+  try {
+    console.log('Submitting form data:', formData.value);
+    const response = await axios.post('http://localhost:8080/request/submit-form-lvlx', formData.value, {
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    });
+    alert(response.data.message || 'Form submitted successfully!');
+    console.log('Server Response:', response.data);
+  } catch (error) {
+    console.error('Error submitting form:', error.response?.data || error.message);
+    alert('Failed to submit the form. Please try again.');
+  }
+};
 
 defineRule("required", required);
 defineRule("email", email);
@@ -42,7 +64,6 @@ configure({
       required: `Поле обязательно для заполнения.`,
       email: "Поле обязательно для заполнения.",
       min: `Поле обязательно для заполнения.`,
-      confirmed: "Поле обязательно для заполнения.",
       phone: "Поле обязательно для заполнения.",
     };
     return messages[ctx.rule.name] || `The field ${ctx.field} is invalid.`;
@@ -57,6 +78,32 @@ onMounted(() => {
       videoRef.value,
       {scale: 1.5, filter: "blur(20px)"},
       {scale: 1, filter: "blur(0px)", duration: 2, ease: "power2.out"}
+  );
+});
+
+const h1Ref = ref(null);
+onMounted(() => {
+  const h1Element = h1Ref.value;
+  const text = h1Element.textContent;
+
+  const lines = text.match(/.{1,12}/g) || [];
+
+  // Wrap each line in a block and each character in a span
+  h1Element.innerHTML = lines
+      .map(
+          (line) =>
+              `<div style="display: block;">${line
+                  .split('')
+                  .map((char) => `<span>${char === ' ' ? '&nbsp;' : char}</span>`)
+                  .join('')}</div>`
+      )
+      .join('');
+
+  // Animate each character
+  gsap.fromTo(
+      h1Element.querySelectorAll('span'),
+      { opacity: 0, y: 50 },
+      { opacity: 1, y: 0, stagger: 0.05, duration: 1, ease: 'power2.out' }
   );
 });
 
@@ -77,9 +124,21 @@ onMounted(() => {
     });
 });
 
+const isPopupVisible = ref(false);
+
+const handleFormSubmitted = () => {
+  isPopupVisible.value = true;
+};
+
+const closePopup = () => {
+  isPopupVisible.value = false;
+};
+
 </script>
 
 <template>
+  <Popup :visible="isPopupVisible" @update:visible="closePopup" />
+
   <div class="hero">
     <Header/>
     <video
@@ -94,7 +153,7 @@ onMounted(() => {
     <div class="hero-content">
       <div class="left-side" ref="leftSideRef">
         <div class="main-title">
-          <h1>{{texts.Hero.title}}</h1>
+          <h1 ref="h1Ref">{{ texts.Hero.title }}</h1>
           <p>{{texts.Hero.subtitle}}</p>
         </div>
         <div class="left-side-images">
@@ -107,63 +166,8 @@ onMounted(() => {
         </div>
       </div>
       <div class="right-side" ref="rightSideRef">
-        <Form @submit="onSubmit" class="form">
-          <h2>{{texts.Form.title}}</h2>
-          <div class="form-group">
-            <Field
-                id="companyName"
-                name="Company Name"
-                type="text"
-                class="input-field"
-                rules="required"
-                :placeholder="texts.Form.companyNamePlaceholder"
-            />
-            <ErrorMessage name="Company Name" class="error"/>
-          </div>
-          <div class="form-group">
-            <Field id="email" name="Email" type="email" rules="required|email"  :placeholder="texts.Form.emailPlaceholder" class="input-field"/>
-            <ErrorMessage name="Email" class="error"/>
-          </div>
-          <PhoneInput/>
-          <div class="custom-input">
-            <img :src="tgIcon" alt="Telegram Icon" width="22" height="22"/>
-            <hr class="v-line"/>
-            <input type="text" placeholder="@username">
-          </div>
-          <div class="flex-container">
-            <div class="form-group">
-              <Field
-                  id="password"
-                  :placeholder="texts.Form.passwordPlaceholder"
-                  class="input-field"
-                  name="Password"
-                  type="password"
-                  rules="required|min:6"
-              />
-              <ErrorMessage name="Password" class="error"/>
-            </div>
-            <div class="form-group">
-              <Field
-                  class="input-field"
-                  id="repeatPassword"
-                  name="Repeat Password"
-                  type="password"
-                  :placeholder="texts.Form.repeatPasswordPlaceholder"
-                  rules="required|confirmed:@password"
-              />
-              <ErrorMessage name="Repeat Password" class="error"/>
-            </div>
-          </div>
-          <div class="checkbox-field">
-            <Field type="checkbox" name="Terms" rules="required"/>
-            <p>
-              {{texts.Form.agreementServices}}
-              <a href="#"> {{texts.Form.rulesAgreement}}</a>
-            </p>
-          </div>
-          <button type="submit" class="register-button">Зарегистрироваться</button>
-        </Form>
-      </div  >
+        <Form @formSubmitted="handleFormSubmitted" />
+      </div>
     </div>
   </div>
 </template>
@@ -231,11 +235,11 @@ onMounted(() => {
   align-items: start;
   gap: 20px;
   text-align: left;
-  max-width: 650px;
+  max-width: 350px;
 
   h1 {
     font-size: 90px;
-    font-weight: 400;
+    font-weight: 500;
     color: var(--black);
     line-height: 94%;
 
@@ -308,14 +312,7 @@ onMounted(() => {
   }
 }
 
-.form-group {
-  width: 100%;
-  display: flex;
-  align-content: flex-start;
-  justify-items: flex-start;
-  align-items: flex-start;
-  flex-direction: column;
-}
+
 
 .right-side {
   display: flex;
@@ -370,51 +367,5 @@ onMounted(() => {
   width: 100%;
 }
 
-.checkbox-field{
-  display: flex;
-  gap: 10px;
-  align-items: center;
-  justify-content: start;
-  justify-items: start;
-  margin-top: 10px;
-
-  p{
-    font-size: 16px;
-    color: var(--black);
-    text-align: left;
-
-    a{
-      color: var(--orange);
-      text-decoration: none;
-    }
-  }
-}
-
-.custom-input{
-  display: flex;
-  width: 100%;
-  gap: 10px;
-  border-radius: 16px;
-  padding: 12px;
-  border: 1px solid var(--line-color);
-  transition: 0.2s ease-in-out;
-
-  input{
-    width: 100%;
-    border: none;
-    outline: none;
-    font-size: 14px;
-    padding-left: 10px;
-  }
-
-  hr{
-    outline: none;
-    border: 1px solid var(--line-color);
-  }
-}
-
-.custom-input:hover{
-  border: 1px solid var(--orange);
-}
 
 </style>

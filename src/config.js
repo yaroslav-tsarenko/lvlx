@@ -12,7 +12,7 @@ const texts = {
             register: "Register",
         },
         Hero: {
-            title: "Monetize your traffic",
+            title: "Monetize    your traffic",
             subtitle: "With a direct advertiser of iGaming products",
         },
         Form: {

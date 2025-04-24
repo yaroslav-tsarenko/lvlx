@@ -131,7 +131,7 @@ const texts = getTextByLanguage();
 
   @media screen and (max-width: 1028px) {
     flex-direction: column;
-    gap: 0;
+    gap: 20px;
   }
 }
 
@@ -147,7 +147,7 @@ const texts = getTextByLanguage();
   background-size: contain;
 
   @media screen and (max-width: 1028px) {
-    width: 250px;
+    width: 350px;
     height: 60px;
   }
 }

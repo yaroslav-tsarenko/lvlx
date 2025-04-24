@@ -6,9 +6,11 @@ import Benefits from "@/components/Benefits.vue";
 import Product from "@/components/Product.vue";
 import Streamers from "@/components/Streamers.vue";
 import BottomNav from "@/components/BottomNav.vue";
-import Header from "@/components/Header.vue";
 import ProductMobile from "@/components/ProductMobile.vue";
 import StreamersMobile from "@/components/StreamersMobile.vue";
+import Popup from "@/components/Popup.vue";
+
+
 </script>
 <template>
   <Hero/>
@@ -16,6 +18,7 @@ import StreamersMobile from "@/components/StreamersMobile.vue";
   <Benefits/>
   <Product/>
   <ProductMobile/>
+  <Streamers/>
   <StreamersMobile/>
   <FAQ/>
   <Footer/>

@@ -1,8 +1,22 @@
 <script setup>
-import {ref, onMounted, computed} from 'vue';
+import { ref, onMounted, computed, watch } from 'vue';
 import axios from 'axios';
-import {getTextByLanguage} from "@/config.js";
+import { getTextByLanguage } from "@/config.js";
+
+const props = defineProps({
+  modelValue: String,
+  id: String,
+  name: String,
+  required: Boolean,
+  placeholder: {
+    type: String,
+    default: ''
+  }
+});
+
+const emit = defineEmits(['update:modelValue']);
 const texts = getTextByLanguage();
+
 const phoneNumber = ref('');
 const countries = ref([]);
 const searchQuery = ref('');
@@ -12,6 +26,21 @@ const selectedCountry = ref({
   code: '+48',
 });
 
+// Emit combined full phone number
+const updatePhone = () => {
+  emit('update:modelValue', `${selectedCountry.value.code}${phoneNumber.value}`);
+};
+
+watch(phoneNumber, updatePhone);
+
+// Sync props.modelValue externally (optional)
+watch(() => props.modelValue, (value) => {
+  if (value && value.startsWith(selectedCountry.value.code)) {
+    phoneNumber.value = value.replace(selectedCountry.value.code, '');
+  }
+});
+
+// Fetch countries
 const fetchCountries = async () => {
   try {
     const response = await axios.get('https://restcountries.com/v3.1/all');
@@ -25,40 +54,40 @@ const fetchCountries = async () => {
   }
 };
 
-// Filter countries based on search query
+onMounted(fetchCountries);
+
 const filteredCountries = computed(() =>
     countries.value.filter((country) =>
         country.name.toLowerCase().includes(searchQuery.value.toLowerCase())
     )
 );
 
-// Fetch countries on component mount
-onMounted(fetchCountries);
-
-// Toggle dropdown visibility
 const isDropdownOpen = ref(false);
 const toggleDropdown = () => {
   isDropdownOpen.value = !isDropdownOpen.value;
 };
 
-// Select a country from the dropdown
 const selectCountry = (country) => {
   selectedCountry.value = country;
   isDropdownOpen.value = false;
+  updatePhone();
 };
 </script>
 
 <template>
   <div class="phone-outer">
     <div class="phone-wrapper">
-      <button @click="toggleDropdown">
-        <img :src="selectedCountry.flag" alt="Flag" width="22" height="22" class="country-flag"/>
+      <button type="button" @click="toggleDropdown">
+        <img :src="selectedCountry.flag" alt="Flag" width="22" height="22" class="country-flag" />
         {{ selectedCountry.code }}
       </button>
-      <hr/>
+      <hr />
       <input
+          :id="id"
+          :name="name"
+          :required="required"
           type="text"
-          :placeholder="texts.Form.phonePlaceholder"
+          :placeholder="placeholder || texts.Form.phonePlaceholder"
           v-model="phoneNumber"
           @input="phoneNumber = phoneNumber.replace(/[^0-9]/g, '')"
       />
@@ -75,16 +104,19 @@ const selectCountry = (country) => {
             v-for="country in filteredCountries"
             :key="country.name"
             @click="selectCountry(country)"
-            class="country-item">
+            class="country-item"
+        >
           <span>
-          <img :src="country.flag" alt="Flag" width="20" height="15" class="country-flag"/>
-            {{ country.name }}</span>
+            <img :src="country.flag" alt="Flag" width="20" height="15" class="country-flag" />
+            {{ country.name }}
+          </span>
           <span>{{ country.code }}</span>
         </li>
       </ul>
     </div>
   </div>
 </template>
+
 
 <style scoped>
 
