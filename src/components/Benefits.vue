@@ -1,16 +1,27 @@
 <script setup>
+import { onMounted } from 'vue';
+import { gsap } from 'gsap';
 import rocket from '../assets/gifs/rocket.gif';
 import eggs from '../assets/gifs/eggs.gif';
 import chart from '../assets/gifs/graph.gif';
-import referralIcon from "../assets/icons/referral-icon.svg"
+import referralIcon from "../assets/icons/referral-icon.svg";
 
-import {getTextByLanguage} from "@/config";
+import { getTextByLanguage } from "@/config";
 
 const texts = getTextByLanguage();
+
+onMounted(() => {
+  gsap.from('.benefits-wrapper', {
+    opacity: 0,
+    y: 50,
+    duration: 1.5,
+    ease: 'power3.out',
+  });
+});
 </script>
 
 <template>
-  <div class="benefits">
+  <div class="benefits" id="benefits-section">
     <img :src="referralIcon" alt="referral-icon" width="350" height="80" class="referral-icon">
     <div class="benefits-wrapper">
       <h2>{{ texts.Benefits.title }}</h2>

@@ -7,7 +7,7 @@ import slider1Text from "@/assets/images/slider1-text.svg";
 </script>
 
 <template>
-  <div class="product-mobile-wrapper">
+  <div class="product-mobile-wrapper" >
     <div class="product-mobile">
       <div class="product-description-mobile">
         <h3>Продукт</h3>

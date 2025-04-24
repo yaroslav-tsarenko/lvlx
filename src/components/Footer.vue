@@ -6,7 +6,7 @@ import yt from '../assets/icons/youtube-icon.svg';
 </script>
 
 <template>
-  <footer class="footer">
+  <footer class="footer" id="footer-section">
     <div class="footer-upper">
       <div class="footer-header">
         <p>Монетизируй свой трафик с прямым рекламодателем iGaming продуктов.</p>

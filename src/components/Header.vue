@@ -25,6 +25,8 @@ onMounted(() => {
     ease: 'power2.out',
   });
 
+
+
   const buttonWrapper = document.querySelector('.custom-button-wrapper');
   const text = buttonWrapper?.querySelector('p');
   const arrow = buttonWrapper?.querySelector('.arrow-icon');
@@ -47,6 +49,10 @@ onMounted(() => {
     });
   }
 });
+
+const redirectToTelegram = () => {
+  window.location.href = "https://t.me/your_telegram_channel";
+};
 </script>
 
 
@@ -58,10 +64,10 @@ onMounted(() => {
         <option value="RU">RU</option>
         <option value="EN">EN</option>
       </select>
-      <button class="button">
+      <button class="button"  @click="redirectToTelegram">
         PR
       </button>
-      <div class="custom-button-wrapper">
+      <div class="custom-button-wrapper"  @click="redirectToTelegram">
         <p>
           {{ texts.Header.text }}
         </p>

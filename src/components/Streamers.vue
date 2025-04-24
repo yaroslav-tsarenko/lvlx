@@ -76,7 +76,7 @@ const unpinnedMessages = computed(() => chatItems.value.filter(item => !item.pin
 
 
 <template>
-  <div class="streamers-wrapper">
+  <div class="streamers-wrapper" id="streamers-section">
     <img :src="streamerIcon" alt="icon" width="350" height="80" class="streamer-icon">
     <div class="streamers-container">
       <img :src="subtract" alt="Subtract Icon" class="subtract">

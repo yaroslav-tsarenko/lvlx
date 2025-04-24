@@ -11,7 +11,7 @@ const texts = getTextByLanguage();
 </script>
 
 <template>
-  <div class="for-streamers-mobile-wrapper">
+  <div class="for-streamers-mobile-wrapper" id="streamers-section">
     <img :src="streams" alt="streams" width="180" height="50" class="streams-icon">
     <div class="for-streamers-mobile">
       <h2>Стримерам</h2>

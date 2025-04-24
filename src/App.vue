@@ -8,7 +8,6 @@ import Streamers from "@/components/Streamers.vue";
 import BottomNav from "@/components/BottomNav.vue";
 import ProductMobile from "@/components/ProductMobile.vue";
 import StreamersMobile from "@/components/StreamersMobile.vue";
-import Popup from "@/components/Popup.vue";
 
 
 </script>

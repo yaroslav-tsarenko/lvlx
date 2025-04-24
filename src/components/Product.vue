@@ -6,7 +6,7 @@ import slide1Benefits from "../assets/images/slider1-benefits.svg"
 </script>
 
 <template>
-  <div class="slider-wrapper">
+  <div class="slider-wrapper" id="product-section">
     <div class="slider-info-wrapper">
       <div class="pagination">
         <div class="pagination-item">

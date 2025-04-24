@@ -139,7 +139,7 @@ const closePopup = () => {
 <template>
   <Popup :visible="isPopupVisible" @update:visible="closePopup" />
 
-  <div class="hero">
+  <div class="hero" id="home-section">
     <Header/>
     <video
         ref="videoRef"
