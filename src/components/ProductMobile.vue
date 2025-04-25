@@ -1,72 +1,142 @@
 <script setup>
-import tablet from "../assets/images/tablet.svg"
+import tablet from "../assets/images/slider-1-tablet-mobile.svg"
+import tablet2 from "@/assets/images/slider-2-tablet-mobile.svg";
+import tablet3 from "@/assets/images/slider-3-tablet-mobile.svg";
+
 import unionIcon from "@/assets/icons/union-plus.svg";
-import slider1Benefits from "@/assets/images/slider1-benefits.svg";
-import slider1BenefitsMobile from "@/assets/images/slider1BenefitsMobile.svg";
-import slider1Text from "@/assets/images/slider1-text.svg";
+import slide1Text from "@/assets/images/slider1-text.svg";
+import slide1Benefits from "@/assets/images/slider1BenefitsMobile.svg";
+import slide2Benefits from "@/assets/images/slider-2-benefits-mobile.svg";
+import slide3Benefits from "@/assets/images/slider-3-benefits-mobile.svg";
+import slide2Text from "@/assets/images/slider2Text.svg";
+import slide3Text from "@/assets/images/slider3Text.svg";
+import {nextTick, ref, watch} from "vue";
+const currentSlide = ref(0);
+
+import { getTextByLanguage } from '@/config';
+const texts = getTextByLanguage();
+
+const slides = [
+  {
+    tablet: tablet,
+    text: slide1Text,
+    benefitsMobile: slide1Benefits,
+  },
+  {
+    tablet: tablet2,
+    text: slide2Text,
+    benefitsMobile: slide2Benefits,
+  },
+  {
+    tablet: tablet3,
+    text: slide3Text,
+    benefitsMobile: slide3Benefits,
+  },
+];
+
+const changeSlide = (index) => {
+  currentSlide.value = index;
+};
+
+watch(currentSlide, async () => {
+  await nextTick(); // Wait for the DOM to update
+  gsap.fromTo(
+      ".slide-description",
+      { opacity: 0 },
+      { opacity: 1, duration: 0.5, ease: "power1.out" }
+  );
+});
 </script>
 
 <template>
   <div class="product-mobile-wrapper" >
     <div class="product-mobile">
       <div class="product-description-mobile">
-        <h3>Продукт</h3>
-        <p>Партнерская программа LVLX является прямым рекламодателем iGaming продуктов и предоставляет офферы на
-          онлайн-казино и БК</p>
+        <h3>{{texts.Product.title}}</h3>
+        <p>{{texts.Product.description}}</p>
         <div class="unions-block">
           <div class="union-item-plus">
-            In-house колл-центр
+            {{texts.Product.plusOne}}
             <img :src="unionIcon" alt="icon" width="20" height="20">
           </div>
           <div class="union-item-plus">
-            VIP программа
+            {{texts.Product.plusTwo}}
             <img :src="unionIcon" alt="icon" width="20" height="20">
           </div>
           <div class="union-item-plus">
-            KZ, RU, TR, IN
+            {{texts.Product.plusThree}}
             <img :src="unionIcon" alt="icon" width="20" height="20">
           </div>
           <div class="union-item-plus">
-            Лицензия Anjouan
+            {{texts.Product.plusFour}}
             <img :src="unionIcon" alt="icon" width="20" height="20">
           </div>
           <div class="union-item-plus">
-            Reg2dep 20-50%
+            {{texts.Product.plusFive}}
             <img :src="unionIcon" alt="icon" width="20" height="20">
           </div>
           <div class="union-item-plus">
-            Экспертная поддержка
+            {{texts.Product.plusSix}}
             <img :src="unionIcon" alt="icon" width="20" height="20">
           </div>
         </div>
       </div>
       <div class="tablet-content">
-        <img :src="tablet" alt="tablet" width="322" height="450">
+        <img :src="slides[currentSlide].tablet" alt="tablet" width="322" height="450" class="tablet">
       </div>
     </div>
     <div class="product-mobile-slide-info-wrapper">
       <div class="slider-pagination-mobile">
-        <div class="pagination-item-mobile">
-          1
-        </div>
-        <div class="pagination-item-mobile">
-          2
-        </div>
-        <div class="pagination-item-mobile">
-          3
+        <div
+            v-for="(slide, index) in slides"
+            :key="'pagination-' + index"
+            class="pagination-item-mobile"
+            :class="{ active: currentSlide === index }"
+            @click="changeSlide(index)"
+        >
+          {{ index + 1 }}
         </div>
       </div>
       <div class="product-mobile-slide-info">
-        <img :src="slider1Text" alt="image" width="304" height="116" class="slider-text">
-        <img :src="slider1Benefits" alt="image" width="728" height="147" class="slider-benefits-mob-first">
-        <img :src="slider1BenefitsMobile" alt="image" width="728" height="147" class="slider-benefits-mob-second">
-
+        <img :src="slides[currentSlide].text" alt="image" width="304" height="116" class="slider-text">
+        <img :src="slides[currentSlide].benefits" alt="image" width="728" height="147" class="slider-benefits-mob-first">
+        <img :src="slides[currentSlide].benefitsMobile" alt="image" width="728" height="147" class="slider-benefits-mob-second">
       </div>
     </div>
   </div>
 </template>
 
 <style scoped>
+
+@keyframes sway {
+  0% {
+    transform: translateX(0) rotate(0deg);
+  }
+  25% {
+    transform: translateX(-5px) rotate(-3deg);
+  }
+  50% {
+    transform: translateX(-10px) rotate(-5deg);
+  }
+  75% {
+    transform: translateX(-5px) rotate(3deg);
+  }
+  100% {
+    transform: translateX(0) rotate(0deg);
+  }
+}
+
+.tablet-mobile {
+  position: absolute;
+  top: 10%;
+  left: 60%;
+  height: 822px;
+  width: auto;
+  transform: translateY(-50%);
+  transform-origin: center;
+  animation: sway 3s ease-in-out infinite;
+}
+
 
 .product-mobile-wrapper {
   display: none;

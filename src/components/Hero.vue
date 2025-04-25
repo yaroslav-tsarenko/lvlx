@@ -154,6 +154,7 @@ const closePopup = () => {
       <div class="left-side" ref="leftSideRef">
         <div class="main-title">
           <h1 ref="h1Ref">{{ texts.Hero.title }}</h1>
+          <h2>{{ texts.Hero.title }}</h2>
           <p>{{texts.Hero.subtitle}}</p>
         </div>
         <div class="left-side-images">
@@ -237,6 +238,22 @@ const closePopup = () => {
   text-align: left;
   max-width: 350px;
 
+  h2{
+    display: none;
+
+    @media screen and (max-width: 476px) {
+      display: flex;
+      font-size: 37px;
+      font-weight: 500;
+      align-items: center;
+      justify-content: center;
+      justify-items: center;
+      text-align: center;
+      margin: 0 auto;
+      color: var(--black);
+    }
+  }
+
   h1 {
     font-size: 90px;
     font-weight: 500;
@@ -248,6 +265,7 @@ const closePopup = () => {
       font-size: 40px;
       font-weight: 500;
       text-align: center;
+      display: none;
     }
   }
 

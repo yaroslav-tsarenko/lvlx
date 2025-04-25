@@ -14,24 +14,23 @@ const texts = getTextByLanguage();
   <div class="for-streamers-mobile-wrapper" id="streamers-section">
     <img :src="streams" alt="streams" width="180" height="50" class="streams-icon">
     <div class="for-streamers-mobile">
-      <h2>Стримерам</h2>
-      <p>Партнерка LVLX предлагает индивидуальные условия сотрудничества для стримеров, включающие различные модели
-        оплаты: RevShare, CPA, Hybrid, FIX для достижения крутого win-win результата</p>
+      <h2>{{ texts.ForStreamers.title }}</h2>
+      <p>{{ texts.ForStreamers.description }}</p>
       <div class="unions-black-mobile">
         <div class="union-black-mobile-item">
-          Уникальные бонусы
+          {{ texts.ForStreamers.plusOne }}
         </div>
         <div class="union-black-mobile-item">
-          Конвертящие промо
+          {{ texts.ForStreamers.plusTwo }}
         </div>
         <div class="union-black-mobile-item">
-          Кастомные креативы
+          {{ texts.ForStreamers.plusThree }}
         </div>
       </div>
       <div class="streamers-mobile-duck">
         <img :src="mobileDuck" alt="Mobile Duck" width="350" height="500" class="mobile-duck">
         <button>
-          Стань стримером
+          {{ texts.ForStreamers.becomeStreamer }}
         </button>
       </div>
       <div class="charts-mobile">
@@ -127,6 +126,7 @@ const texts = getTextByLanguage();
     width: fit-content;
     padding: 20px 40px;
     border-radius: 15px;
+    font-size: 20px;
     margin: auto auto 40% auto;
     outline: none;
     border: none;

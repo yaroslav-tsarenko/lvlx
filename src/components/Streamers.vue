@@ -233,9 +233,9 @@ const unpinnedMessages = computed(() => chatItems.value.filter(item => !item.pin
   display: flex;
   position: absolute;
   z-index: 1;
-  height: 1150px;
+  height: 777px;
   width: auto;
-  bottom: -45%;
+  bottom: 0;
   left: 50%;
   transform: translateX(-50%);
 }
