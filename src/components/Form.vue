@@ -32,7 +32,7 @@ const onSubmit = async () => {
 
   try {
     console.log('Submitting:', formData.value);
-    const response = await axios.post('http://localhost:8080/request/submit-form-lvlx', formData.value, {
+    const response = await axios.post('https://landing-ua-be.onrender.com/request/submit-form-lvlx', formData.value, {
       headers: { 'Content-Type': 'application/json' },
     });
     console.log(response.data.message || 'Form submitted successfully!');
