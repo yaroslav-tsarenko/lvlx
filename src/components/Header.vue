@@ -7,6 +7,7 @@ const selectedLanguage = ref('RU'); // default
 import { getTextByLanguage } from "@/config";
 
 const texts = getTextByLanguage();
+
 const changeLanguage = (value: string) => {
   selectedLanguage.value = value;
   localStorage.setItem('selectedLanguageLVLX', value);

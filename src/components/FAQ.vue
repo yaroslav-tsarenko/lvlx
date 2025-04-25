@@ -3,7 +3,6 @@ import { ref } from 'vue';
 import arrowBlack from '../assets/icons/arrow-black.svg';
 import arrowOrange from '../assets/icons/arrow-orange.svg';
 import { getTextByLanguage } from '@/config';
-
 const texts = getTextByLanguage();
 const faqItems = texts.Faq.faqItems;
 

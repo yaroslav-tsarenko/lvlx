@@ -32,6 +32,18 @@ defineProps({
 </template>
 
 <style scoped>
+
+@keyframes fade-in {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
 .chart-item {
   display: flex;
   flex-direction: column;
@@ -48,7 +60,7 @@ defineProps({
   color: var(--white);
   background: transparent;
   transition: background 0.3s ease;
-
+  animation: fade-in 0.5s ease-in-out;
 
   @media screen and (max-width: 768px) {
     padding: 9px;
@@ -71,6 +83,7 @@ defineProps({
     padding: 0;
     margin: 0;
     font-weight: 600;
+    animation: fade-in 0.5s ease-in-out;
     color: inherit;
   }
 
@@ -79,6 +92,7 @@ defineProps({
     font-weight: 400;
     color: inherit;
     padding: 0;
+    animation: fade-in 0.5s ease-in-out;
     margin: 0;
   }
 }

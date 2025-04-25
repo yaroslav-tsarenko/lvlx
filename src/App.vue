@@ -8,19 +8,36 @@ import Streamers from "@/components/Streamers.vue";
 import BottomNav from "@/components/BottomNav.vue";
 import ProductMobile from "@/components/ProductMobile.vue";
 import StreamersMobile from "@/components/StreamersMobile.vue";
+import FadeInOnScroll from "@/components/FadeInOnScroll.vue";
 
 
 </script>
 <template>
-  <Hero/>
+  <FadeInOnScroll>
+    <Hero/>
+  </FadeInOnScroll>
   <BottomNav/>
-  <Benefits/>
-  <Product/>
-  <ProductMobile/>
-  <Streamers/>
-  <StreamersMobile/>
-  <FAQ/>
-  <Footer/>
+  <FadeInOnScroll>
+    <Benefits/>
+  </FadeInOnScroll>
+  <FadeInOnScroll>
+    <Product/>
+  </FadeInOnScroll>
+  <FadeInOnScroll>
+    <ProductMobile/>
+  </FadeInOnScroll>
+  <FadeInOnScroll>
+    <Streamers/>
+  </FadeInOnScroll>
+  <FadeInOnScroll>
+    <StreamersMobile/>
+  </FadeInOnScroll>
+  <FadeInOnScroll>
+    <FAQ/>
+  </FadeInOnScroll>
+  <FadeInOnScroll>
+    <Footer/>
+  </FadeInOnScroll>
 </template>
 <style scoped>
 

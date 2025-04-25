@@ -3,15 +3,19 @@ import logo from '../assets/logo/lvlx-logo-white.svg';
 import tg from '../assets/icons/telegram-social.svg';
 import inst from '../assets/icons/instagram-icon.svg';
 import yt from '../assets/icons/youtube-icon.svg';
+
+import {getTextByLanguage} from '@/config';
+const texts = getTextByLanguage();
+
 </script>
 
 <template>
   <footer class="footer" id="footer-section">
     <div class="footer-upper">
       <div class="footer-header">
-        <p>Монетизируй свой трафик с прямым рекламодателем iGaming продуктов.</p>
+        <p>{{ texts.Footer.text }}</p>
         <img :src="logo" alt="logo" width="150" height="30"/>
-        <button>Зарегистрироваться</button>
+        <button>{{ texts.Footer.register }}</button>
       </div>
       <div class="footer-middle">
         <div class="footer-item">
@@ -19,7 +23,7 @@ import yt from '../assets/icons/youtube-icon.svg';
           <h1>@afflvlx</h1>
         </div>
         <div class="footer-item">
-          <p>Электронная почта</p>
+          <p>{{ texts.Footer.email }}</p>
           <h1>partners@lvlx.top</h1>
           <div class="footer-socials">
             <img :src="tg" alt="icon" width="60" height="60">
@@ -30,9 +34,9 @@ import yt from '../assets/icons/youtube-icon.svg';
       </div>
     </div>
     <div class="footer-bottom">
+
       <p>
-        2025 Все права защищены. Несанкционированное воспроизведение, публикация,
-        передача или любая другая форма копирования строго запрещены.
+        {{ texts.Footer.allRightsReserved }}
       </p>
     </div>
   </footer>
@@ -156,7 +160,7 @@ import yt from '../assets/icons/youtube-icon.svg';
   gap: 10px;
 }
 
-.footer-bottom{
+.footer-bottom {
   display: flex;
   padding: 60px;
   background: url("../assets/images/footer-bg.svg") no-repeat center;
@@ -164,7 +168,7 @@ import yt from '../assets/icons/youtube-icon.svg';
   border-radius: 35px 35px 0 0;
   border-top: 1px dashed var(--grey);
 
-  p{
+  p {
     color: var(--white);
     max-width: 650px;
   }

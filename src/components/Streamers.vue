@@ -13,6 +13,8 @@ import ChartItem from "@/components/ChartItem.vue";
 import usersPlate from "../assets/images/users-plate.svg";
 import likesPlate from "../assets/images/likes-plate.svg";
 import visitorsPlate from "../assets/images/visitors-plate.svg";
+import { getTextByLanguage } from '@/config';
+const texts = getTextByLanguage();
 
 const chatItems = ref([
   {
@@ -72,6 +74,8 @@ const getRandomColor = () => {
 
 const pinnedMessages = computed(() => chatItems.value.filter(item => item.pinned));
 const unpinnedMessages = computed(() => chatItems.value.filter(item => !item.pinned));
+
+
 </script>
 
 
@@ -84,28 +88,27 @@ const unpinnedMessages = computed(() => chatItems.value.filter(item => !item.pin
       <img :src="egg" alt="Egg" width="380" height="380" class="egg">
       <img :src="duck" alt="duck" width="700" height="800" class="duck">
       <div class="charts-wrapper">
-        <p>Партнерка LVLX предлагает индивидуальные условия сотрудничества для стримеров, включающие различные модели
-          оплаты: RevShare, CPA, Hybrid, FIX для достижения крутого win-win результата</p>
+        <p>{{texts.ForStreamers.description}}</p>
         <div class="charts">
-          <ChartItem p="посещений" h4="11236" :chart="visitorsChart"/>
+          <ChartItem :p="texts.ForStreamers.visits" h4="11236" :chart="visitorsChart"/>
           <div class="charts-column">
-            <ChartItem p="регистраций" h4="1404" :chart="registerChart"/>
-            <ChartItem p="доход" h4="$32760" :chart="earningsChart" highlighted/>
+            <ChartItem :p="texts.ForStreamers.registrations" h4="1404" :chart="registerChart"/>
+            <ChartItem :p="texts.ForStreamers.earnings" h4="$32760" :chart="earningsChart" highlighted/>
           </div>
-          <ChartItem p="депозитов" h4="468" :chart="depositChart"/>
+          <ChartItem :p="texts.ForStreamers.deposits" h4="468" :chart="depositChart"/>
         </div>
       </div>
       <div class="for-streamers">
-        <h2>Стримерам</h2>
+        <h2>{{texts.ForStreamers.title}}</h2>
         <button>
-          Стань стримером
+          {{texts.ForStreamers.becomeStreamer}}
         </button>
       </div>
       <div class="chat-and-unions">
         <div class="unions-black">
-          <div class="union-item-black">Уникальные бонусы</div>
-          <div class="union-item-black">Конвертящие промо</div>
-          <div class="union-item-black">Быстрые выплаты</div>
+          <div class="union-item-black">{{texts.ForStreamers.plusOne}}</div>
+          <div class="union-item-black">{{texts.ForStreamers.plusTwo}}</div>
+          <div class="union-item-black">{{texts.ForStreamers.plusThree}}</div>
         </div>
         <div class="streamer-chat">
           <h4>Чат стрима</h4>

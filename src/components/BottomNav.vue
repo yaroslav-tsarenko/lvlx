@@ -8,6 +8,7 @@ import hLine from '../assets/images/line-image.svg';
 import {getTextByLanguage} from '@/config';
 
 const texts = getTextByLanguage();
+
 const isMenuOpen = ref(false);
 const currentIcon = ref(burgerButton);
 
@@ -22,6 +23,7 @@ const scrollToSection = (sectionId) => {
     section.scrollIntoView({behavior: 'smooth'});
   }
 };
+
 </script>
 
 <template>
@@ -106,7 +108,7 @@ const scrollToSection = (sectionId) => {
 }
 
 .bottom-nav {
-  display: none;
+  display: flex;
   width: fit-content;
   gap: 10px;
   justify-content: center;
@@ -151,7 +153,7 @@ const scrollToSection = (sectionId) => {
 }
 
 .bottom-nav-mobile {
-  display: flex;
+  display: none;
   width: fit-content;
   gap: 10px;
   justify-content: center;
@@ -206,4 +208,5 @@ const scrollToSection = (sectionId) => {
 .home-button:hover {
   box-shadow: 0px 4px 20px var(--orange);
 }
+
 </style>

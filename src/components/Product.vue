@@ -1,30 +1,71 @@
 <script setup>
-import tablet from "../assets/images/tablet.svg"
+import tablet from "../assets/images/tablet-1-slider.png"
+import tablet2 from "../assets/images/tablet-2-slider.png"
+import tablet3 from "../assets/images/tablet-3-slider.png"
 import unionIcon from "../assets/icons/union-plus.svg"
 import slide1Text from "../assets/images/slider1-text.svg"
+import slide2Text from "../assets/images/slider2Text.svg"
+import slide3Text from "../assets/images/slider3Text.svg"
 import slide1Benefits from "../assets/images/slider1-benefits.svg"
+import slide2Benefits from "../assets/images/slider2Benefits.svg"
+import slide3Benefits from "../assets/images/slider3Benefits.svg"
+import { ref, watch, nextTick } from 'vue';
+import { getTextByLanguage } from '@/config';
+const texts = getTextByLanguage();
+const currentSlide = ref(0);
+
+const slides = [
+  {
+    tablet: tablet,
+    text: slide1Text,
+    benefits: slide1Benefits,
+  },
+  {
+    tablet: tablet2,
+    text: slide2Text,
+    benefits: slide2Benefits,
+  },
+  {
+    tablet: tablet3,
+    text: slide3Text,
+    benefits: slide3Benefits,
+  },
+];
+
+const changeSlide = (index) => {
+  currentSlide.value = index;
+};
+
+watch(currentSlide, async () => {
+  await nextTick(); // Wait for the DOM to update
+  gsap.fromTo(
+      ".slide-description",
+      { opacity: 0 },
+      { opacity: 1, duration: 0.5, ease: "power1.out" }
+  );
+});
 </script>
 
 <template>
   <div class="slider-wrapper" id="product-section">
     <div class="slider-info-wrapper">
       <div class="pagination">
-        <div class="pagination-item">
-          1
-        </div>
-        <div class="pagination-item">
-          2
-        </div>
-        <div class="pagination-item">
-          3
+        <div
+            v-for="(slide, index) in slides"
+            :key="'pagination-' + index"
+            class="pagination-item"
+            :class="{ active: currentSlide === index }"
+            @click="changeSlide(index)"
+        >
+          {{ index + 1 }}
         </div>
       </div>
       <div class="slider-info">
         <div class="slider-info-details">
           <div class="slider-product-info">
-            <h2>Продукт</h2>
+            <h2>{{texts.Product.title}}</h2>
             <p>
-              Партнерская программа LVLX является прямым рекламодателем iGaming продуктов и предоставляет офферы на онлайн-казино и БК
+              {{texts.Product.description}}
             </p>
           </div>
           <div class="unions-block">
@@ -54,19 +95,56 @@ import slide1Benefits from "../assets/images/slider1-benefits.svg"
             </div>
           </div>
         </div>
-        <div class="slide-description">
-          <img :src="slide1Text" alt="image" width="530" height="220">
-          <img :src="slide1Benefits" alt="image" width="1080" height="220">
-        </div>
+          <div class="slide-description" :key="currentSlide">
+            <img :src="slides[currentSlide].text" alt="image" width="530" height="220">
+            <img :src="slides[currentSlide].benefits" alt="image" width="1080" height="220">
+          </div>
       </div>
     </div>
     <div class="slides">
-      <img :src="tablet" alt="tablet" width="630" height="822" class="tablet"/>
+        <img
+            :src="slides[currentSlide].tablet"
+            alt="tablet"
+            width="630"
+            height="822"
+            class="tablet"
+            :key="currentSlide"
+        />
     </div>
   </div>
 </template>
 
 <style scoped>
+
+@keyframes sway {
+  0% {
+    transform: translateX(0) rotate(0deg);
+  }
+  25% {
+    transform: translateX(-5px) rotate(-3deg);
+  }
+  50% {
+    transform: translateX(-10px) rotate(-5deg);
+  }
+  75% {
+    transform: translateX(-5px) rotate(3deg);
+  }
+  100% {
+    transform: translateX(0) rotate(0deg);
+  }
+}
+
+.tablet {
+  position: absolute;
+  top: 10%;
+  left: 60%;
+  height: 822px;
+  width: auto;
+  transform: translateY(-50%);
+  transform-origin: center;
+  animation: sway 3s ease-in-out infinite;
+}
+
 .slider-wrapper {
   display: flex;
   width: 100%;
@@ -76,11 +154,18 @@ import slide1Benefits from "../assets/images/slider1-benefits.svg"
   align-content: center;
   justify-content: center;
   align-items: center;
+  background: url("../assets/images/lvlx-big-bg.svg") no-repeat center;
+  background-size: cover;
   justify-items: center;
 
   @media screen and (max-width: 1028px) {
     display: none;
   }
+}
+
+.pagination-item.active {
+  background: var(--orange);
+  color: var(--white);
 }
 
 .pagination{
@@ -129,12 +214,7 @@ import slide1Benefits from "../assets/images/slider1-benefits.svg"
   gap: 30px;
 }
 
-.tablet {
-  position: absolute;
-  top: 50%;
-  left: 60%;
-  transform: translateY(-50%);
-}
+
 
 .slider-info-wrapper{
   display: flex;
