@@ -10,13 +10,12 @@ import ProductMobile from "@/components/ProductMobile.vue";
 import StreamersMobile from "@/components/StreamersMobile.vue";
 import FadeInOnScroll from "@/components/FadeInOnScroll.vue";
 
-
 </script>
 <template>
+  <BottomNav/>
   <FadeInOnScroll>
     <Hero/>
   </FadeInOnScroll>
-  <BottomNav/>
   <FadeInOnScroll>
     <Benefits/>
   </FadeInOnScroll>
