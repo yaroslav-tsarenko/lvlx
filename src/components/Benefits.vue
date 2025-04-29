@@ -62,7 +62,6 @@ onMounted(() => {
         </div>
       </div>
     </div>
-
   </div>
 </template>
 
@@ -140,8 +139,10 @@ onMounted(() => {
     }
 
     @media screen and (max-width: 476px) {
-      font-size: 40px;
+      font-size: 50px;
+      flex-direction: column;
       line-height: 120%;
+      margin: 15px 0;
     }
   }
 }
