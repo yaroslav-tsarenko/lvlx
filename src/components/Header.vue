@@ -93,6 +93,10 @@ const redirectToTelegram = () => {
   align-items: center;
   justify-items: center;
   color: #343a40;
+
+  @media screen and (max-width: 768px) {
+    padding: 0;
+  }
 }
 
 .custom-button-wrapper {
@@ -113,6 +117,8 @@ const redirectToTelegram = () => {
 
   @media screen and (max-width: 1028px) {
     padding: 5px 5px 5px 20px;
+    gap: 2px;
+    width: 100%;
   }
 }
 

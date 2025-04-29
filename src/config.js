@@ -1,3 +1,41 @@
+import revShareEn from "@/assets/images/revShare_eng.svg";
+import cpaEng from "@/assets/images/cpa_eng.svg";
+import revShareRu from '@/assets/images/rev-share-desktop.svg';
+import cpaShareRu from '@/assets/images/cpa-desktop.svg';
+import revShareMobRu from '@/assets/images/revShareMob.svg';
+import cpaShareMobRu from '@/assets/images/cpaMob.svg';
+import revShareMobEn from '@/assets/images/revShareMobEn.svg';
+import cpaShareMobEn from '@/assets/images/cpaEnMob.svg';
+import referalRu from '@/assets/icons/referral-icon.svg';
+import referalEn from '@/assets/images/referal-en.svg';
+import streamsPerYearEn from '@/assets/images/stream-en.svg';
+import streamsPerYearRu from '@/assets/icons/streem.svg';
+import tablet from "@/assets/images/tablet-1-slider.png"
+import tablet2 from "@/assets/images/tablet-2-slider.png"
+import tablet3 from "@/assets/images/tablet-3-slider.png"
+import tablet1En from "@/assets/images/tablet-1-slider-en.png"
+import tablet2En from "@/assets/images/tablet-2-slider-en.png"
+import tablet3En from "@/assets/images/tablet-3-slider-en.png"
+import tablet1MobEn from "@/assets/images/tablet-1-slider-mobile-en.png"
+import tablet2MobEn from "@/assets/images/tablet-2-slider-mobile-en.png"
+import tablet3MobEn from "@/assets/images/tablet-3-slider-mobile-en.png"
+import tablet1MobRu from "@/assets/images/tablet-1-slider-mobile-ru.png"
+import tablet2MobRu from "@/assets/images/tablet-2-slider-mobile-ru.png"
+import tablet3MobRu from "@/assets/images/tablet-3-slider-mobile-ru.png"
+import k7en from "@/assets/images/7k-en.svg"
+import k7ru from "@/assets/images/slider1-text.svg"
+import k50gamesRu from "@/assets/images/slider3Text.svg"
+import k50gamesEn from "@/assets/images/50k-en.svg"
+import inhouse11gamesEn from "@/assets/images/11inhouse-games-en.svg"
+import inhouse11games from "@/assets/images/slider3Text.svg"
+import slide1BenefitsTextEn from "@/assets/images/slider-1-benefits-en.svg"
+import slide1BenefitsTextRu from "@/assets/images/slider1-benefits.svg"
+import slide2BenefitsTextEn from "@/assets/images/slider-2-benefits-en.svg"
+import slide2BenefitsTextRu from "@/assets/images/slider3Benefits.svg"
+import slide3BenefitsTextEn from "@/assets/images/slider-3-benefits-en.svg"
+
+
+
 const texts = {
     EN: {
         Header: {
@@ -41,6 +79,7 @@ const texts = {
             repeatPasswordPlaceholder: "Repeat Password",
             agreementServices: "I agree",
             rulesAgreement: "services and policies",
+            registerTitle: "Register",
         },
         ForStreamers: {
             description: "The LVLX affiliate program offers individual cooperation terms for streamers, including various payment models: RevShare, CPA, Hybrid, FIX to achieve a great win-win result.",
@@ -67,6 +106,73 @@ const texts = {
             productCardTitleThird: "In-house Development",
             productCardDescriptionThird: "Allows us to continuously develop products tailored to the needs of a rapidly changing market and demonstrate stable growth",
         },
+        Images:{
+            revShare: revShareEn,
+            cpa: cpaEng,
+            revShareMob: revShareMobEn,
+            cpaMob: cpaShareMobEn,
+            referral: referalEn,
+            streamsPerYear: streamsPerYearEn,
+            tablet: tablet1En,
+            tablet2: tablet2En,
+            tablet3: tablet3En,
+            tabletMob1: tablet1MobEn,
+            tabletMob2: tablet2MobEn,
+            tabletMob3: tablet3MobEn,
+            k7: k7en,
+            k50games: k50gamesEn,
+            inhouse11games: inhouse11gamesEn,
+            slide1BenefitsText: slide1BenefitsTextEn,
+            slide2BenefitsText: slide2BenefitsTextEn,
+            slide3BenefitsText: slide3BenefitsTextEn,
+        },
+        Comments: [
+            {
+                nickname: 'GETX',
+                message: '350% up to $1000 on first deposits',
+                pinned: true,
+            },
+            {
+                nickname: 'FillTop',
+                message: 'Hello, beak-nosed one',
+                pinned: false,
+            },
+            {
+                nickname: 'Gibson',
+                message: 'Go joint stream with Mel! 🏛️',
+                pinned: false,
+            },
+            {
+                nickname: 'BobrKurva',
+                message: 'I won’t play slots until I finish my homework',
+                pinned: false,
+            },
+            {
+                nickname: 'Tolik-0921',
+                message: 'Today GETX is on fire 🚀',
+                pinned: false,
+            },
+            {
+                nickname: 'Zubarev',
+                message: 'More info about my streams in TG channel t.me/zubaking 150 FS for every subscriber',
+                pinned: false,
+            },
+            {
+                nickname: 'Donta',
+                message: 'Better if Luxury girl gave',
+                pinned: false,
+            },
+            {
+                nickname: 'Oleg_453',
+                message: 'I caught a bonus in Bonanza, but lost 10k before that',
+                pinned: false,
+            },
+            {
+                nickname: 'Papa_troll',
+                message: 'Evening in the hut, wanderers. Mother luck, a hundred aces as change))',
+                pinned: false,
+            }
+        ],
         Faq: {
             title: "FAQ",
             faqItems: [
@@ -106,6 +212,53 @@ const texts = {
         },
     },
     RU: {
+        Comments: [
+            {
+                nickname: 'GETX',
+                message: '350% до $1000 на первые депозиты',
+                pinned: true,
+            },
+            {
+                nickname: 'FillTop',
+                message: 'Здорова клювoносый',
+                pinned: false,
+            },
+            {
+                nickname: 'Gibson',
+                message: 'go общий стрим с Мелом! 🏛️',
+                pinned: false,
+            },
+            {
+                nickname: 'BobrKurva',
+                message: 'пока домашку не сделаю, за слоты не сяду',
+                pinned: false,
+            },
+            {
+                nickname: 'Tolik-0921',
+                message: 'Сегодня GETX дает 🚀',
+                pinned: false,
+            },
+            {
+                nickname: 'Zubarev',
+                message: 'Больше информации о моих стримах в TG-канале t.me/zubaking 150 FS каждому подписавшемуся',
+                pinned: false,
+            },
+            {
+                nickname: 'Donta',
+                message: 'Лучше бы Luxury girl дала',
+                pinned: false,
+            },
+            {
+                nickname: 'Oleg_453',
+                message: 'я словил бонуску в бонанзе, но до этого слил 10k',
+                pinned: false,
+            },
+            {
+                nickname: 'Papa_troll',
+                message: 'Вечер в хату, бродяги. матушку удачу, сто тузов по сдаче))',
+                pinned: false,
+            }
+        ],
         Header: {
             text: "Связаться",
         },
@@ -137,6 +290,7 @@ const texts = {
             repeatPasswordPlaceholder: "Ещё раз",
             agreementServices: "Я принимаю",
             rulesAgreement: "правила и условия",
+            registerTitle: "Зарегистрироваться",
         },
         Benefits: {
             title: "Наши преимущества",
@@ -177,6 +331,26 @@ const texts = {
             deposits: "депозитов",
             visits: "посещений",
             becomeStreamer: "Стать стримером",
+        },
+        Images:{
+            revShare: revShareRu,
+            cpa: cpaShareRu,
+            revShareMob: revShareMobRu,
+            cpaMob: cpaShareMobRu,
+            referral: referalRu,
+            streamsPerYear: streamsPerYearRu,
+            tablet: tablet,
+            tablet2: tablet2,
+            tablet3: tablet3,
+            tabletMob1: tablet1MobRu,
+            tabletMob2: tablet2MobRu,
+            tabletMob3: tablet3MobRu,
+            k7: k7ru,
+            k50games: k50gamesRu,
+            inhouse11games: inhouse11games,
+            slide1BenefitsText: slide1BenefitsTextRu,
+            slide2BenefitsText: slide2BenefitsTextRu,
+            slide3BenefitsText: slide3BenefitsTextEn,
         },
         Faq: {
             title: "FAQ",
@@ -222,3 +396,4 @@ export const getTextByLanguage = () => {
     const selectedLanguage = localStorage.getItem("selectedLanguageLVLX") || "RU";
     return texts[selectedLanguage];
 };
+

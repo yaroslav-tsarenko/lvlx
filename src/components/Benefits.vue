@@ -4,12 +4,11 @@ import { gsap } from 'gsap';
 import rocket from '../assets/gifs/rocket.gif';
 import eggs from '../assets/gifs/eggs.gif';
 import chart from '../assets/gifs/graph.gif';
-import referralIcon from "../assets/icons/referral-icon.svg";
 
 import { getTextByLanguage } from "@/config";
 
 const texts = getTextByLanguage();
-
+const referralIcon = texts.Images.referral;
 onMounted(() => {
   gsap.from('.benefits-wrapper', {
     opacity: 0,
@@ -105,11 +104,30 @@ onMounted(() => {
   var(--_g) 0 calc(-1 * var(--_d) - var(--y));
   mask-repeat: no-repeat;
 
+  @media screen and (max-width: 1440px) {
+    background-size: cover;
+    padding: 2% 0 10% 0;
+    width: 98%;
+    margin: 0 auto;
+    border-radius: 30px;
+    gap: 10px;
+  }
+
   @media screen and (max-width: 1028px) {
     padding: 15% 0;
     background-size: cover;
     gap: 10px;
     border-radius: 0;
+    --r: 20px;
+  }
+
+  @media screen and (max-width: 476px) {
+    display: flex;
+    align-items: center;
+    padding: 5% 0 12% 0;
+    width: 100%;
+    justify-content: center;
+    text-align: center;
   }
 
   h2 {
@@ -120,6 +138,11 @@ onMounted(() => {
     @media screen and (max-width: 1028px) {
       font-size: 40px;
     }
+
+    @media screen and (max-width: 476px) {
+      font-size: 40px;
+      line-height: 120%;
+    }
   }
 }
 
@@ -129,6 +152,14 @@ onMounted(() => {
   bottom: 0;
   left: 0;
   z-index: 999;
+
+  @media screen and (max-width: 476px) {
+    width: 100%;
+    max-width: 270px;
+    height: auto;
+    left: 3%;
+    bottom: 0;
+  }
 }
 
 .unions {
@@ -141,7 +172,22 @@ onMounted(() => {
   width: 100%;
 
   @media screen and (max-width: 1028px) {
-    flex-direction: column;
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    align-items: center;
+    justify-items: center;
+    width: fit-content;
+    justify-content: center;
+    gap: 20px;
+  }
+
+  @media screen and (max-width: 768px) {
+    display: grid;
+    grid-template-columns: repeat(1, 1fr);
+    align-items: center;
+    justify-items: center;
+    width: fit-content;
+    justify-content: center;
     gap: 20px;
   }
 }
@@ -157,6 +203,11 @@ onMounted(() => {
   background: url("../assets/icons/orange-union.svg") no-repeat center;
   background-size: contain;
 
+  @media screen and (max-width: 1440px) {
+    width: 320px;
+    height: 60px;
+  }
+
   @media screen and (max-width: 1028px) {
     width: 350px;
     height: 60px;
@@ -166,6 +217,12 @@ onMounted(() => {
 .products {
   display: flex;
   gap: 20px;
+
+  @media screen and (max-width: 1028px) {
+    width: 100%;
+    overflow: auto;
+    height: 100%;
+  }
 
   @media screen and (max-width: 768px) {
     width: 100%;
@@ -204,6 +261,11 @@ onMounted(() => {
         var(--_g) calc(-1*var(--_d) - var(--x)) 0,
         var(--_g) 0 calc(var(--_d) + var(--y));
     mask-repeat: no-repeat;
+
+  @media screen and (max-width: 1440px) {
+    height: 480px;
+    width: 370px;
+  }
 
   @media screen and (max-width: 768px) {
    scale: 0.8;

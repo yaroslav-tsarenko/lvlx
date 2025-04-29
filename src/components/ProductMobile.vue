@@ -21,16 +21,19 @@ const slides = [
     tablet: tablet,
     text: slide1Text,
     benefitsMobile: slide1Benefits,
+    benefitsDesc: texts.Images.slide1BenefitsText,
   },
   {
     tablet: tablet2,
     text: slide2Text,
     benefitsMobile: slide2Benefits,
+    benefitsDesc: texts.Images.slide2BenefitsText,
   },
   {
     tablet: tablet3,
     text: slide3Text,
     benefitsMobile: slide3Benefits,
+    benefitsDesc: texts.Images.slide3BenefitsText,
   },
 ];
 
@@ -52,8 +55,10 @@ watch(currentSlide, async () => {
   <div class="product-mobile-wrapper" >
     <div class="product-mobile">
       <div class="product-description-mobile">
-        <h3>{{texts.Product.title}}</h3>
-        <p>{{texts.Product.description}}</p>
+        <div class="product-mobile-titles">
+          <h3>{{texts.Product.title}}</h3>
+          <p>{{texts.Product.description}}</p>
+        </div>
         <div class="unions-block">
           <div class="union-item-plus">
             {{texts.Product.plusOne}}
@@ -101,6 +106,7 @@ watch(currentSlide, async () => {
         <img :src="slides[currentSlide].text" alt="image" width="304" height="116" class="slider-text">
         <img :src="slides[currentSlide].benefits" alt="image" width="728" height="147" class="slider-benefits-mob-first">
         <img :src="slides[currentSlide].benefitsMobile" alt="image" width="728" height="147" class="slider-benefits-mob-second">
+        <img :src="slides[currentSlide].benefitsDesc" alt="image" width="728" height="147" class="slider-benefits-desc-second">
       </div>
     </div>
   </div>
@@ -126,18 +132,6 @@ watch(currentSlide, async () => {
   }
 }
 
-.tablet-mobile {
-  position: absolute;
-  top: 10%;
-  left: 60%;
-  height: 822px;
-  width: auto;
-  transform: translateY(-50%);
-  transform-origin: center;
-  animation: sway 3s ease-in-out infinite;
-}
-
-
 .product-mobile-wrapper {
   display: none;
 
@@ -157,6 +151,17 @@ watch(currentSlide, async () => {
   }
 }
 
+.slider-benefits-desc-second{
+  width: 90%;
+  display: flex;
+  margin: 0 auto;
+  height: auto;
+
+  @media screen and (max-width: 1028px) {
+    display: none;
+  }
+}
+
 .slider-benefits-mob-second{
   display: none;
 
@@ -165,6 +170,12 @@ watch(currentSlide, async () => {
     width: 90%;
     margin: 0 auto;
     height: auto;
+  }
+}
+
+@media screen and (max-width: 1028px) {
+  .slider-benefits-mob-first{
+    display: none;
   }
 }
 
@@ -180,6 +191,12 @@ watch(currentSlide, async () => {
   margin: 0 auto;
   height: auto;
 
+  @media screen and (max-width: 1028px) {
+    width: 50%;
+    height: auto;
+    margin: 0 0 0 5%;
+  }
+
   @media screen and (max-width: 700px) {
     width: 50%;
     height: auto;
@@ -194,6 +211,10 @@ watch(currentSlide, async () => {
   margin: -14% 0 0 0;
   flex-direction: column;
 
+  @media screen and (max-width: 1028px) {
+    width: 100%;
+  }
+
   @media screen and (max-width: 476px) {
     margin: -35% 0 0 0;
   }
@@ -207,9 +228,12 @@ watch(currentSlide, async () => {
   margin: 0 auto;
 
   @media screen and (max-width: 1028px) {
-    flex-direction: column;
     align-content: center;
     justify-content: center;
+  }
+
+  @media screen and (max-width: 476px) {
+    flex-direction: column;
   }
 }
 
@@ -269,7 +293,11 @@ watch(currentSlide, async () => {
   linear-gradient(90deg, #000 calc(var(--p) - var(--_d)), #0000 0 calc(var(--p) + var(--_d)), #000 0);
 
   @media screen and (max-width: 768px) {
-    padding: 30% 0 0 0;
+    padding: 5% 0 1% 0;
+  }
+
+  @media screen and (max-width: 768px) {
+    padding: 21% 0 11% 0;
   }
 }
 
@@ -277,6 +305,12 @@ watch(currentSlide, async () => {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
   gap: 15px;
+
+  @media screen and (max-width: 476px) {
+    flex-direction: column;
+    margin: 0;
+    width: 100%;
+  }
 }
 
 .union-item-plus {
@@ -300,18 +334,35 @@ watch(currentSlide, async () => {
   }
 }
 
-.product-description-mobile {
+.product-mobile-titles{
   display: flex;
   flex-direction: column;
+  gap: 20px;
+  max-width: 250px;
+
+  @media screen and (max-width: 476px) {
+    width: 100%;
+    max-width: 100%;
+  }
+}
+
+.product-description-mobile {
+  display: flex;
   gap: 30px;
   max-width: 350px;
 
   @media screen and (max-width: 1028px) {
-    flex-direction: column;
     align-content: center;
     justify-content: center;
     align-items: center;
     margin: 0 auto;
+    max-width: 550px;
+  }
+
+  @media screen and (max-width: 476px) {
+    flex-direction: column;
+    margin: 0;
+    width: 100%;
   }
 
   h3 {

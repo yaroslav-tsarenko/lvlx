@@ -15,16 +15,18 @@ const texts = getTextByLanguage();
     <img :src="streams" alt="streams" width="180" height="50" class="streams-icon">
     <div class="for-streamers-mobile">
       <h2>{{ texts.ForStreamers.title }}</h2>
-      <p>{{ texts.ForStreamers.description }}</p>
-      <div class="unions-black-mobile">
-        <div class="union-black-mobile-item">
-          {{ texts.ForStreamers.plusOne }}
-        </div>
-        <div class="union-black-mobile-item">
-          {{ texts.ForStreamers.plusTwo }}
-        </div>
-        <div class="union-black-mobile-item">
-          {{ texts.ForStreamers.plusThree }}
+      <div class="for-streamers-mobile-titles">
+        <p>{{ texts.ForStreamers.description }}</p>
+        <div class="unions-black-mobile">
+          <div class="union-black-mobile-item">
+            {{ texts.ForStreamers.plusOne }}
+          </div>
+          <div class="union-black-mobile-item">
+            {{ texts.ForStreamers.plusTwo }}
+          </div>
+          <div class="union-black-mobile-item">
+            {{ texts.ForStreamers.plusThree }}
+          </div>
         </div>
       </div>
       <div class="streamers-mobile-duck">
@@ -42,7 +44,6 @@ const texts = getTextByLanguage();
         <ChartItem p="депозитов" h4="468" :chart="depositChart"/>
       </div>
     </div>
-
   </div>
 </template>
 
@@ -65,6 +66,22 @@ const texts = getTextByLanguage();
   }
 }
 
+.for-streamers-mobile-titles{
+  display: flex;
+  width: 95%;
+  margin: 0 auto;
+  gap: 10px;
+
+  @media screen and (max-width: 476px) {
+    flex-direction: column;
+    width: 100%;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    justify-items: center;
+  }
+}
+
 .for-streamers-mobile {
   color: white;
   align-content: center;
@@ -80,7 +97,6 @@ const texts = getTextByLanguage();
     --s: 30px; /* size of inner curve */
     --x: 150px; /* horizontal offset (no percentane) */
     --y: 10px; /* vertical offset (no percentage) */
-
     border-radius: var(--r);
     --_m:/calc(2*var(--r)) calc(2*var(--r)) radial-gradient(#000 70%,#0000 72%);
     --_g:conic-gradient(from 90deg at calc(100% - var(--r)) calc(100% - var(--r)),#0000 25%,#000 0);
@@ -94,8 +110,9 @@ const texts = getTextByLanguage();
         var(--_g) 0 calc(-1*var(--_d) - var(--y));
     mask-repeat: no-repeat;
 
-  @media screen and (max-width: 768px) {
+  @media screen and (max-width: 1024px) {
     display: flex;
+    border-radius: 0;
   }
 
   h2 {
@@ -110,6 +127,10 @@ const texts = getTextByLanguage();
     text-align: start;
     max-width: 400px;
     font-weight: 400;
+
+    @media screen and (max-width: 768px) {
+      font-size: 22px;
+    }
   }
 }
 
@@ -120,6 +141,14 @@ const texts = getTextByLanguage();
   position: relative;
   align-content: flex-end;
   justify-content: flex-end;
+
+  @media screen and (max-width: 768px) {
+    height: 130dvh;
+  }
+
+  @media screen and (max-width: 476px) {
+    height: 80dvh;
+  }
 
   button{
     display: flex;
@@ -133,6 +162,14 @@ const texts = getTextByLanguage();
     color: var(--white);
     z-index: 999;
     background: var(--orange);
+
+    @media screen and (max-width: 768px) {
+      margin: auto auto 20% auto;
+    }
+
+    @media screen and (max-width: 476px) {
+      margin: auto auto 20% auto;
+    }
   }
 }
 
@@ -145,24 +182,63 @@ const texts = getTextByLanguage();
   left: 0;
   right: 0;
   margin: auto;
+
+  @media screen and (max-width: 768px) {
+    width: 100%;
+    max-width: 100%;
+    top: 2%;
+  }
+
+  @media screen and (max-width: 476px) {
+    max-width: 100%;
+    top: 2%;
+  }
 }
 
 .unions-black-mobile {
   display: flex;
   flex-direction: column;
   gap: 10px;
+
+  @media screen and (max-width: 768px) {
+    width: 90%;
+    margin: 0 auto;
+  }
 }
 
 .charts-mobile {
   display: flex;
   bottom: 2%;
-  height: 30dvh;
+  height: 50dvh;
   scale: 0.8;
+
+  @media screen and (max-width: 768px) {
+    scale: 1;
+    align-items: center;
+    justify-content: center;
+    width: 90%;
+    margin: 0 auto;
+  }
+
+  @media screen and (max-width: 476px) {
+    width: 100%;
+    scale: 0.8;
+  }
 }
 
 .charts-column{
   display: flex;
   flex-direction: column;
+
+  @media screen and (max-width: 768px) {
+    width: 80%;
+    height: 100%;
+    margin: 0 auto;
+  }
+
+  @media screen and (max-width: 476px) {
+    width: 95%;
+  }
 }
 
 .union-black-mobile-item {

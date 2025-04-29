@@ -1,6 +1,5 @@
 <script setup>
 import {ref, computed} from 'vue';
-import streamerIcon from '../assets/icons/streem.svg';
 import subtract from '../assets/images/subtract.svg';
 import elipseBlur from '../assets/images/ellipse-blur.png';
 import egg from '../assets/images/egg-for-bg.svg';
@@ -10,60 +9,13 @@ import registerChart from '../assets/images/registrations-graph.svg';
 import earningsChart from '../assets/images/earnings-graph.svg';
 import depositChart from '../assets/images/deposit-graph.svg';
 import ChartItem from "@/components/ChartItem.vue";
-import usersPlate from "../assets/images/users-plate.svg";
-import likesPlate from "../assets/images/likes-plate.svg";
-import visitorsPlate from "../assets/images/visitors-plate.svg";
 import { getTextByLanguage } from '@/config';
 const texts = getTextByLanguage();
 
-const chatItems = ref([
-  {
-    nickname: 'GETX',
-    message: '350% до $1000 на первые депозиты',
-    pinned: true,
-  },
-  {
-    nickname: 'FillTop',
-    message: 'Здорова клювoносый',
-    pinned: false,
-  },
-  {
-    nickname: 'Gibson',
-    message: 'go общий стрим с Мелом! 🏛️',
-    pinned: false,
-  },
-  {
-    nickname: 'BobrKurva',
-    message: 'пока домашку не сделаю, за слоты не сяду',
-    pinned: false,
-  },
-  {
-    nickname: 'Tolik-0921',
-    message: 'Сегодня GETX дает 🚀',
-    pinned: false,
-  },
-  {
-    nickname: 'Zubarev',
-    message: 'Больше информации о моих стримах в TG-канале t.me/zubaking 150 FS каждому подписавшемуся',
-    pinned: false,
-  },
-  {
-    nickname: 'Donta',
-    message: 'Лучше бы Luxury girl дала',
-    pinned: false,
-  },
-  {
-    nickname: 'Oleg_453',
-    message: 'я словил бонуску в бонанзе, но до этого слил 10k',
-    pinned: false,
-  },
-  {
-    nickname: 'Papa_troll',
-    message: 'Вечер в хату, бродяги. матушку удачу, сто тузов по сдаче))',
-    pinned: false,
-  }
-]);
-
+const comments = ref(texts.Comments);
+const pinnedMessages = computed(() => comments.value.filter(item => item.pinned));
+const unpinnedMessages = computed(() => comments.value.filter(item => !item.pinned));
+const streamsPerYear = texts.Images.streamsPerYear;
 
 const getRandomColor = () => {
   const r = Math.floor(Math.random() * 256);
@@ -71,17 +23,11 @@ const getRandomColor = () => {
   const b = Math.floor(Math.random() * 256);
   return `rgb(${r}, ${g}, ${b})`;
 };
-
-const pinnedMessages = computed(() => chatItems.value.filter(item => item.pinned));
-const unpinnedMessages = computed(() => chatItems.value.filter(item => !item.pinned));
-
-
 </script>
-
 
 <template>
   <div class="streamers-wrapper" id="streamers-section">
-    <img :src="streamerIcon" alt="icon" width="350" height="80" class="streamer-icon">
+    <img :src="streamsPerYear" alt="icon" width="350" height="80" class="streamer-icon">
     <div class="streamers-container">
       <img :src="subtract" alt="Subtract Icon" class="subtract">
       <img :src="elipseBlur" alt="Elipse Blur" class="ellipseBlur">
@@ -143,8 +89,7 @@ const unpinnedMessages = computed(() => chatItems.value.filter(item => !item.pin
   flex-direction: column;
   position: relative;
 
-
-  @media screen and (max-width: 768px) {
+  @media screen and (max-width: 1024px) {
     display: none;
   }
 }
@@ -214,6 +159,10 @@ const unpinnedMessages = computed(() => chatItems.value.filter(item => !item.pin
   flex-direction: column;
   align-content: center;
   gap: 10px;
+
+  @media screen and (max-width: 1028px) {
+    max-width: 250px;
+  }
 }
 
 .union-item-black {
@@ -227,6 +176,11 @@ const unpinnedMessages = computed(() => chatItems.value.filter(item => !item.pin
   background: url("../assets/icons/black-union.svg") no-repeat center;
   background-size: contain;
   font-size: 18px;
+
+  @media screen and (max-width: 1028px) {
+    width: 290px;
+    height: 50px;
+  }
 }
 
 .duck {
@@ -262,6 +216,11 @@ const unpinnedMessages = computed(() => chatItems.value.filter(item => !item.pin
   position: absolute;
   bottom: 40%;
   left: 0;
+  width: 100%;
+
+  @media screen and (max-width: 1440px) {
+    width: 100%;
+  }
 }
 
 .streamers-container {
@@ -301,6 +260,11 @@ const unpinnedMessages = computed(() => chatItems.value.filter(item => !item.pin
   h2 {
     font-size: 70px;
     font-weight: 500;
+
+    @media screen and (max-width: 1028px) {
+      font-size: 40px;
+      font-weight: 500;
+    }
   }
 
   button {
@@ -340,6 +304,11 @@ const unpinnedMessages = computed(() => chatItems.value.filter(item => !item.pin
     max-width: 400px;
     font-size: 24px;
     font-weight: 400;
+
+    @media screen and (max-width: 1028px) {
+      font-size: 20px;
+      font-weight: 500;
+    }
   }
 }
 
@@ -354,6 +323,10 @@ const unpinnedMessages = computed(() => chatItems.value.filter(item => !item.pin
   backdrop-filter: blur(20px);
   border-radius: 25px;
   border: 1px solid var(--grey-transparent);
+
+  @media screen and (max-width: 1028px) {
+    display: none;
+  }
 
   h4 {
     font-size: 20px;

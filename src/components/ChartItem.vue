@@ -1,5 +1,5 @@
 <script setup>
-import { defineProps } from 'vue';
+import {defineProps} from 'vue';
 
 defineProps({
   chart: {
@@ -64,6 +64,11 @@ defineProps({
 
   @media screen and (max-width: 768px) {
     padding: 9px;
+    width: 100%;
+  }
+
+  @media screen and (max-width: 476px) {
+    width: 100%;
   }
 }
 

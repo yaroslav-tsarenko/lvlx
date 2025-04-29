@@ -53,7 +53,7 @@ const onSubmit = async () => {
           v-model="formData.companyName"
           type="text"
           class="input-field"
-          placeholder="Enter company name"
+          :placeholder="texts.Form.companyNamePlaceholder"
           required
       />
     </div>
@@ -63,7 +63,7 @@ const onSubmit = async () => {
           v-model="formData.email"
           type="email"
           class="input-field"
-          placeholder="Enter email"
+          :placeholder="texts.Form.emailPlaceholder"
           required
       />
     </div>
@@ -93,7 +93,7 @@ const onSubmit = async () => {
             v-model="formData.password"
             type="password"
             class="input-field"
-            placeholder="Пароль"
+            :placeholder="texts.Form.passwordPlaceholder"
             required
         />
       </div>
@@ -103,7 +103,7 @@ const onSubmit = async () => {
             v-model="formData.repeatPassword"
             type="password"
             class="input-field"
-            placeholder="Ещё раз"
+            :placeholder="texts.Form.repeatPasswordPlaceholder"
             required
         />
       </div>
@@ -116,7 +116,7 @@ const onSubmit = async () => {
       </p>
     </div>
 
-    <button type="submit">Зарегистрироваться</button>
+    <button type="submit">{{ texts.Form.registerTitle}}</button>
   </form>
 </template>
 

@@ -4,16 +4,15 @@ import {gsap} from 'gsap';
 import bgVideo from '../assets/videos/girl.mp4';
 import bgVideoMobile from '../assets/videos/girl mobile.mp4';
 import revShare from '../assets/images/rev-share-desktop.svg';
-import cpaShare from '../assets/images/cpa-desktop.svg';
 import revShareMob from '../assets/images/revShareMob.svg';
-import cpaShareMob from '../assets/images/cpaMob.svg';
 import Header from "@/components/Header.vue";
 import {defineRule, Field, ErrorMessage, configure} from "vee-validate";
 import {required, email, min, confirmed, regex} from "@vee-validate/rules";
-import {getTextByLanguage} from "@/config.js";
 import axios from "axios";
 import Form from "@/components/Form.vue";
 import Popup from "@/components/Popup.vue";
+import {getTextByLanguage} from "@/config.js";
+
 const texts = getTextByLanguage();
 
 const formData = ref({
@@ -43,6 +42,11 @@ defineRule("email", email);
 defineRule("min", min);
 defineRule("confirmed", confirmed);
 defineRule("phone", regex);
+
+const revShareDesc = texts.Images.revShare;
+const cpaDesc = texts.Images.cpa;
+const revShareMobDesc = texts.Images.revShareMob;
+const cpaMobDesc = texts.Images.cpaMob;
 
 const videoSrc = ref(bgVideo);
 
@@ -102,26 +106,26 @@ onMounted(() => {
   // Animate each character
   gsap.fromTo(
       h1Element.querySelectorAll('span'),
-      { opacity: 0, y: 50 },
-      { opacity: 1, y: 0, stagger: 0.05, duration: 1, ease: 'power2.out' }
+      {opacity: 0, y: 50},
+      {opacity: 1, y: 0, stagger: 0.05, duration: 1, ease: 'power2.out'}
   );
 });
 
 
 onMounted(() => {
-    gsap.from(leftSideRef.value, {
-      x: '-100%',
-      opacity: 0,
-      duration: 2,
-      ease: 'power2.out',
-    });
+  gsap.from(leftSideRef.value, {
+    x: '-100%',
+    opacity: 0,
+    duration: 2,
+    ease: 'power2.out',
+  });
 
-    gsap.from(rightSideRef.value, {
-      x: '100%',
-      opacity: 0,
-      duration: 2,
-      ease: 'power2.out',
-    });
+  gsap.from(rightSideRef.value, {
+    x: '100%',
+    opacity: 0,
+    duration: 2,
+    ease: 'power2.out',
+  });
 });
 
 const isPopupVisible = ref(false);
@@ -137,7 +141,7 @@ const closePopup = () => {
 </script>
 
 <template>
-  <Popup :visible="isPopupVisible" @update:visible="closePopup" />
+  <Popup :visible="isPopupVisible" @update:visible="closePopup"/>
 
   <div class="hero" id="home-section">
     <Header/>
@@ -148,26 +152,27 @@ const closePopup = () => {
         autoplay
         loop
         muted
-        playsinline>
+        playsinline
+    >
     </video>
     <div class="hero-content">
       <div class="left-side" ref="leftSideRef">
         <div class="main-title">
           <h1 ref="h1Ref">{{ texts.Hero.title }}</h1>
           <h2>{{ texts.Hero.title }}</h2>
-          <p>{{texts.Hero.subtitle}}</p>
+          <p>{{ texts.Hero.subtitle }}</p>
         </div>
         <div class="left-side-images">
-          <img :src="revShare" alt="rev share" width="320" height="160"/>
-          <img :src="cpaShare" alt="cpa share" width="320" height="160"/>
+          <img :src="revShareDesc" alt="rev share" width="320" height="160"/>
+          <img :src="cpaDesc" alt="cpa share" width="320" height="160"/>
         </div>
         <div class="left-side-images-mob">
-          <img :src="revShareMob" alt="rev share" width="150" height="60"/>
-          <img :src="cpaShareMob" alt="cpa share" width="150" height="60"/>
+          <img :src="revShareMobDesc" alt="rev share" width="150" height="60"/>
+          <img :src="cpaMobDesc" alt="cpa share" width="150" height="60"/>
         </div>
       </div>
       <div class="right-side" ref="rightSideRef">
-        <Form @formSubmitted="handleFormSubmitted" />
+        <Form @formSubmitted="handleFormSubmitted"/>
       </div>
     </div>
   </div>
@@ -182,10 +187,19 @@ const closePopup = () => {
   max-height: 1080px;
   max-width: 1840px;
   margin: 0 auto;
+  display: flex;
+  flex-direction: column;
   overflow: hidden;
+
+  @media screen and (max-width: 1440px) {
+    padding: 20px;
+    gap: 50px;
+    height: fit-content;
+  }
 
   @media screen and (max-width: 768px) {
     padding: 20px;
+    gap: 10px;
   }
 }
 
@@ -198,6 +212,10 @@ const closePopup = () => {
   object-fit: cover;
   z-index: -1;
   transform: scale(1.5);
+
+  @media screen and (max-width: 768px) {
+    transform: scale(0.7);
+  }
 }
 
 .hero-content {
@@ -224,8 +242,14 @@ const closePopup = () => {
   justify-content: space-between;
   flex-direction: column;
 
+  @media screen and (max-width: 1440px) {
+    gap: 50px;
+    height: 100%;
+    justify-content: space-between;
+  }
+
   @media screen and (max-width: 768px) {
-    padding: 50px 0 0 0;
+    padding: 5px 0 0 0;
   }
 }
 
@@ -238,7 +262,11 @@ const closePopup = () => {
   text-align: left;
   max-width: 350px;
 
-  h2{
+  @media screen and (max-width: 768px) {
+    padding: 0 0 120% 0;
+  }
+
+  h2 {
     display: none;
 
     @media screen and (max-width: 476px) {
@@ -260,6 +288,11 @@ const closePopup = () => {
     color: var(--black);
     line-height: 94%;
 
+    @media screen and (max-width: 1440px) {
+      font-size: 80px;
+      font-weight: 500;
+      text-align: center;
+    }
 
     @media screen and (max-width: 476px) {
       font-size: 40px;
@@ -284,7 +317,7 @@ const closePopup = () => {
   }
 }
 
-.left-side-images-mob{
+.left-side-images-mob {
   display: none;
 
   @media screen and (max-width: 768px) {
@@ -294,7 +327,7 @@ const closePopup = () => {
     width: 100%;
   }
 
-  img{
+  img {
     width: 100%;
     height: auto;
   }
@@ -304,6 +337,15 @@ const closePopup = () => {
   display: flex;
   flex-direction: column;
   gap: 10px;
+
+  img {
+    @media screen and (max-width: 1440px) {
+      gap: 10px;
+      width: 100%;
+      max-width: 250px;
+      height: auto;
+    }
+  }
 
   @media screen and (max-width: 768px) {
     display: none;
@@ -329,7 +371,6 @@ const closePopup = () => {
     margin-bottom: 20px;
   }
 }
-
 
 
 .right-side {

@@ -69,7 +69,7 @@ const toggleItem = (index) => {
     text-align: center;
     position: absolute;
 
-    @media screen and (max-width: 768px) {
+    @media screen and (max-width: 1028px) {
       display: none;
     }
   }
@@ -85,13 +85,13 @@ const toggleItem = (index) => {
   h3{
     display: none;
 
-    @media screen and (max-width: 768px) {
+    @media screen and (max-width: 1028px) {
       display: flex;
       font-size: 35px;
       align-content: center;
       justify-content: center;
       align-items: center;
-      font-weight: boxld;
+      font-weight: bold;
     }
   }
 }
