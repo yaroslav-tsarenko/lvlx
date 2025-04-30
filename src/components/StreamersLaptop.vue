@@ -59,6 +59,10 @@ const texts = getTextByLanguage();
   @media screen and (max-width: 1280px) {
     display: flex;
   }
+
+  @media screen and (max-width: 1028px) {
+    display: none;
+  }
 }
 
 .streams-icon-laptop{

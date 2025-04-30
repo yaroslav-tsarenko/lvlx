@@ -70,12 +70,23 @@ onMounted(async () => {
   observeFaqSize();
 });
 
+function getResponsiveHeight() {
+  const windowWidth = window.innerWidth;
+
+  if (windowWidth < 768) return 600;       // мобілки
+  if (windowWidth < 1024) return 800;      // планшети
+  if (windowWidth < 1280) return 900;      // планшети
+  return fallingContainer.value.offsetHeight; // десктоп — повна висота
+}
+
+
 function setupMatter() {
   const container = fallingContainer.value;
   const canvas = canvasRef.value;
 
   const width = container.offsetWidth;
-  const height = container.offsetHeight;
+  const height = getResponsiveHeight();
+
 
   engine = Matter.Engine.create();
   const world = engine.world;
@@ -118,7 +129,7 @@ function setupMatter() {
 
   // Падаючі об'єкти (яйця)
   const fallingBodies = Array.from({ length: 30 }, () => {
-    const radius = 60 + Math.random() * 2;
+    const radius = 10 + Math.random() * 1;
     return Matter.Bodies.circle(
         Math.random() * width,
         Math.random() * -1000,
@@ -127,12 +138,12 @@ function setupMatter() {
           density: 0.002,
           friction: 0.001,
           frictionAir: 0.003,
-          restitution: 0.8,
+          restitution: 0.1,
           render: {
             sprite: {
               texture: images[Math.floor(Math.random() * images.length)],
-              xScale: 1,
-              yScale: 1,
+              xScale: 0.1,
+              yScale: 0.1,
             },
           },
         }
@@ -228,12 +239,21 @@ onBeforeUnmount(() => {
 <style scoped>
 
 .faq-wrapper {
-  max-width: 1920px;
-  width: 100%;
-  height: auto;
   position: relative;
-  overflow: hidden;
+  width: 100%;
+  height: 90dvh;
+  max-width: 1920px;
   margin: 0 auto;
+  overflow: hidden;
+}
+
+.matter-canvas {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 0;
 }
 
 .physics-canvas {

@@ -10,6 +10,7 @@ import ProductMobile from "@/components/ProductMobile.vue";
 import StreamersMobile from "@/components/StreamersMobile.vue";
 import FadeInOnScroll from "@/components/FadeInOnScroll.vue";
 import StreamersLaptop from "@/components/StreamersLaptop.vue";
+import MatterSprites from "@/components/MatterSprites.vue";
 
 </script>
 <template>
@@ -36,7 +37,7 @@ import StreamersLaptop from "@/components/StreamersLaptop.vue";
     <StreamersMobile/>
   </FadeInOnScroll>
   <FadeInOnScroll>
-    <FAQ/>
+    <MatterSprites/>
   </FadeInOnScroll>
   <FadeInOnScroll>
     <Footer/>

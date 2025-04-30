@@ -1,131 +1,356 @@
-<!-- src/components/MatterSprites.vue -->
 <template>
-  <div ref="matterContainer" class="matter-container">
-
-    <div class="square">
-      square
+  <div ref="containerRef" class="matter-container">
+    <canvas ref="canvasRef" class="matter-canvas" />
+    <h2 class="faq-title">{{ texts.Faq.title }}</h2>
+    <div ref="faqBoxRef" class="faq-box">
+      <div
+          class="faq-item"
+          :class="{ expanded: expandedIndex === index }"
+          v-for="(item, index) in faqItems"
+          :key="index"
+          @click="toggle(index)"
+      >
+        <div class="faq-question" :class="{ expanded: expandedIndex === index }">
+          <img
+              class="arrow"
+              :class="{ rotated: expandedIndex === index }"
+              :src="getArrowSrc(index)"
+              alt="Arrow"
+          />
+          {{ item.question }}
+        </div>
+        <div
+            class="faq-answer"
+            :style="expandedIndex === index ? 'height: auto; opacity: 1;' : ''"
+            ref="answerRefs[index]"
+        >
+          <div class="faq-answer-inner">
+            {{ item.answer }}
+          </div>
+        </div>
+      </div>
     </div>
   </div>
 </template>
 
+
 <script setup>
-import { onMounted, ref, onBeforeUnmount } from 'vue';
+import { ref, onMounted, onBeforeUnmount, nextTick } from 'vue';
 import Matter from 'matter-js';
-import object1 from "@/assets/images/egg-type-1.svg"
-import object2 from "@/assets/images/egg-type-2.svg"
-import object3 from "@/assets/images/egg-type-3.svg"
-const matterContainer = ref(null);
-let engine, runner, render;
+import { getTextByLanguage } from '@/config';
+import egg1 from '@/assets/images/egg-type-1.svg';
+import egg2 from '@/assets/images/egg-type-2.svg';
+import egg3 from '@/assets/images/egg-type-3.svg';
+import arrowOrange from '@/assets/icons/arrow-orange.svg';
+import arrowBlack from '@/assets/icons/arrow-black.svg';
 
-onMounted(() => {
-  const {
-    Engine,
-    Render,
-    Runner,
-    Composites,
-    Common,
-    MouseConstraint,
-    Mouse,
-    Composite,
-    Bodies,
-  } = Matter;
+const texts = getTextByLanguage();
+const faqItems = texts.Faq.faqItems;
 
-  engine = Engine.create();
-  const world = engine.world;
+const expandedIndex = ref(null);
+const toggle = (index) => {
+  expandedIndex.value = expandedIndex.value === index ? null : index;
+  setTimeout(() => updateFaqPhysics(), 300);
+};
+const getArrowSrc = (index) => {
+  return expandedIndex.value === index ? arrowOrange : arrowBlack;
+};
 
-  render = Render.create({
-    element: matterContainer.value,
-    engine: engine,
-    options: {
-      width: 800,
-      height: 600,
-      showAngleIndicator: false,
-      wireframes: false,
-      background: '#fafafa'
-    }
-  });
+const containerRef = ref(null);
+const canvasRef = ref(null);
+const faqBoxRef = ref(null);
 
-  Render.run(render);
-  runner = Runner.create();
-  Runner.run(runner, engine);
+let engine, render, runner, mouseConstraint;
+let observer;
+let faqBody = null;
 
-  // Walls
-  const offset = 10;
-  const options = { isStatic: true };
-  Composite.add(world, [
-    Bodies.rectangle(400, -offset, 800.5 + 2 * offset, 50.5, options),
-    Bodies.rectangle(400, 600 + offset, 800.5 + 2 * offset, 50.5, options),
-    Bodies.rectangle(800 + offset, 300, 50.5, 600.5 + 2 * offset, options),
-    Bodies.rectangle(-offset, 300, 50.5, 600.5 + 2 * offset, options)
-  ]);
+const images = [egg1, egg2, egg3];
 
-  // Stack
-  const stack = Composites.stack(20, 20, 10, 4, 0, 0, function (x, y) {
-    if (Common.random() > 0.35) {
-      return Bodies.rectangle(x, y, 64, 64, {
-        render: {
-          strokeStyle: '#ffffff',
-          sprite: {
-            texture: object1 // Make sure the image exists in public/img/
-          }
-        }
-      });
-    } else {
-      return Bodies.circle(x, y, 46, {
-        density: 0.0005,
-        frictionAir: 0.06,
-        restitution: 0.3,
-        friction: 0.01,
-        render: {
-          sprite: {
-            texture: object2
-          }
-        }
-      });
-    }
-  });
-
-  Composite.add(world, stack);
-
-  // Mouse
-  const mouse = Mouse.create(render.canvas);
-  const mouseConstraint = MouseConstraint.create(engine, {
-    mouse: mouse,
-    constraint: {
-      stiffness: 0.2,
-      render: { visible: false }
-    }
-  });
-
-  Composite.add(world, mouseConstraint);
-  render.mouse = mouse;
-
-  Render.lookAt(render, {
-    min: { x: 0, y: 0 },
-    max: { x: 800, y: 600 }
-  });
+onMounted(async () => {
+  await nextTick();
+  setupMatter();
+  observeContainerResize();
 });
 
+function setupMatter() {
+  const container = containerRef.value;
+  const canvas = canvasRef.value;
+  const width = container.offsetWidth;
+  const height = container.offsetHeight;
+
+  engine = Matter.Engine.create();
+  render = Matter.Render.create({
+    canvas,
+    engine,
+    options: {
+      width,
+      height,
+      wireframes: false,
+      background: 'transparent',
+    },
+  });
+
+  runner = Matter.Runner.create();
+  Matter.Render.run(render);
+  Matter.Runner.run(runner, engine);
+
+  const world = engine.world;
+
+  const ground = Matter.Bodies.rectangle(width / 2, height + 60, width, 100, {
+    isStatic: true,
+    render: { visible: false },
+  });
+
+  const leftWall = Matter.Bodies.rectangle(-50, height / 2, 100, height, {
+    isStatic: true,
+    render: { visible: false },
+  });
+
+  const rightWall = Matter.Bodies.rectangle(width + 50, height / 2, 100, height, {
+    isStatic: true,
+    render: { visible: false },
+  });
+
+  createFaqPhysicsBody();
+
+  const isMobile = window.innerWidth < 768;
+
+  const fallingEggs = Array.from({ length: isMobile ? 65 : 25 }, () => {
+    const radius = isMobile ? 23 + Math.random() * 2 : 60 + Math.random() * 10;
+    const x = Math.random() * width;
+    const y = isMobile ? height + Math.random() * 200 : Math.random() * -800;
+
+    const egg = Matter.Bodies.circle(x, y, radius, {
+      restitution: isMobile ? 0.002 : 0.1,
+      frictionAir: 0.002,
+      density: 0.002,
+      render: {
+        sprite: {
+          texture: images[Math.floor(Math.random() * images.length)],
+          xScale: isMobile ? 0.6 : 1,
+          yScale: isMobile ? 0.6 : 1,
+        },
+      },
+    });
+
+    if (isMobile) {
+      Matter.Body.setVelocity(egg, {
+        x: 0,
+        y: -3 - Math.random() * 2,
+      });
+    }
+
+    return egg;
+  });
+
+
+
+  const mouse = Matter.Mouse.create(canvas);
+  mouseConstraint = Matter.MouseConstraint.create(engine, {
+    mouse,
+    constraint: {
+      stiffness: 0.2,
+      render: { visible: false },
+    },
+  });
+
+  Matter.World.add(world, [
+    ground,
+    leftWall,
+    rightWall,
+    faqBody,
+    ...fallingEggs,
+    mouseConstraint,
+  ]);
+
+  render.mouse = mouse;
+}
+
+function createFaqPhysicsBody() {
+  const containerRect = containerRef.value.getBoundingClientRect();
+  const faqRect = faqBoxRef.value.getBoundingClientRect();
+
+  faqBody = Matter.Bodies.rectangle(
+      faqRect.left - containerRect.left + faqRect.width / 2,
+      faqRect.top - containerRect.top + faqRect.height / 2,
+      faqRect.width,
+      faqRect.height,
+      {
+        isStatic: true,
+        restitution: 0.4,
+        render: {
+          fillStyle: 'transparent',
+          strokeStyle: '#999',
+        },
+      }
+  );
+}
+
+function updateFaqPhysics() {
+  if (!engine || !faqBody) return;
+  Matter.World.remove(engine.world, faqBody);
+  createFaqPhysicsBody();
+  Matter.World.add(engine.world, faqBody);
+}
+
+function observeContainerResize() {
+  observer = new ResizeObserver(() => {
+    const width = containerRef.value.offsetWidth;
+    const height = containerRef.value.offsetHeight;
+    render.canvas.width = width;
+    render.canvas.height = height;
+    render.options.width = width;
+    render.options.height = height;
+    updateFaqPhysics();
+  });
+  observer.observe(containerRef.value);
+}
+
 onBeforeUnmount(() => {
+  observer?.disconnect();
   Matter.Render.stop(render);
   Matter.Runner.stop(runner);
+  Matter.World.clear(engine.world);
+  Matter.Engine.clear(engine);
+  render.canvas.remove();
+  render.textures = {};
 });
 </script>
 
 <style scoped>
 .matter-container {
-  width: 800px;
-  height: 600px;
+  position: relative;
+  width: 100%;
+  height: 150dvh;
+  max-width: 1920px;
   margin: 0 auto;
-  align-content: center;
-  justify-content: center;
-  display: flex;
+  overflow: hidden;
+
+  @media screen and (max-width: 1280px) {
+    height: 190dvh;
+  }
+
+  @media screen and (max-width: 768px) {
+    height: 270dvh;
+  }
+
+  @media screen and (max-width: 430px) {
+    height: 180dvh;
+  }
+
+  @media screen and (max-width: 375px) {
+    height: 240dvh;
+  }
 }
 
-.square{
-  display: flex;
-  height: 250px;
-  width: 250px;
-  background: red;
+.matter-canvas {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 0;
 }
+
+.faq-box {
+  position: absolute;
+  max-width: 950px;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  border: none;
+  z-index: 2;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  padding: 20px;
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.05);
+  overflow-y: auto;
+}
+
+.faq-title {
+  font-size: 26px;
+  font-weight: bold;
+  text-align: center;
+  margin-bottom: 20px;
+
+  @media screen and (min-width: 1281px) {
+    position: absolute;
+    left: 5%;
+    top: 15%;
+    font-weight: normal;
+    font-size: 70px;
+  }
+
+  @media screen and (max-width: 1280px) {
+    position: absolute;
+    left: 50%;
+    top: 5%;
+    transform: translateX(-50%);
+    font-weight: normal;
+    font-size: 70px;
+  }
+}
+
+.faq-item {
+  border: 1px solid var(--line-color);
+  border-radius: 25px;
+  padding: 35px;
+  background-color: white;
+  transition: all 0.3s ease;
+  cursor: pointer;
+  overflow: hidden;
+}
+
+.faq-item:hover {
+  border-color: var(--orange);
+  box-shadow: 0 5px 18px rgba(0, 0, 0, 0.1);
+}
+
+.faq-item.expanded {
+  border-color: var(--orange);
+}
+
+.faq-question {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  font-weight: 500;
+  font-size: 25px;
+  transition: color 0.3s ease;
+}
+
+.faq-question.expanded {
+  color: var(--orange);
+}
+
+.arrow {
+  width: 20px;
+  height: 20px;
+  transition: transform 0.3s ease;
+}
+
+.arrow.rotated {
+  transform: rotate(180deg);
+}
+
+.faq-answer {
+  height: 0;
+  opacity: 0;
+  transition: all 0.35s ease;
+  overflow: hidden;
+  font-size: 18px;
+  padding-left: 32px;
+}
+
+.faq-item.expanded .faq-answer {
+  height: auto;
+  opacity: 1;
+}
+
+.faq-answer-inner {
+  padding-top: 15px;
+}
+
 </style>
