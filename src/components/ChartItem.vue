@@ -18,11 +18,15 @@ defineProps({
     type: Boolean,
     default: false,
   },
+  maxHeight: {
+    type: String,
+    default: null,
+  },
 });
 </script>
 
 <template>
-  <div class="chart-item" :class="{ highlighted }">
+  <div class="chart-item" :class="{ highlighted }" :style="{ maxHeight: maxHeight || 'none' }">
     <div class="chart-item-header">
       <h4>{{ h4 }}</h4>
       <p>{{ p }}</p>
@@ -61,6 +65,11 @@ defineProps({
   background: transparent;
   transition: background 0.3s ease;
   animation: fade-in 0.5s ease-in-out;
+
+  @media screen and (max-width: 1280px) {
+    padding: 9px;
+    width: 100%;
+  }
 
   @media screen and (max-width: 768px) {
     padding: 9px;
@@ -107,5 +116,13 @@ defineProps({
   max-width: 160px;
   width: 100%;
   height: auto;
+
+  @media screen and (max-width: 1280px) {
+
+    max-width: 320px;
+    width: 100%;
+    height: auto;
+    margin: 0 auto;
+  }
 }
 </style>

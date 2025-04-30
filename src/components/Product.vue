@@ -140,8 +140,8 @@ watch(currentSlide, async () => {
     left: 50%;
   }
 
-  @media screen and (max-width: 1260px) {
-    left: 30%;
+  @media screen and (max-width: 1280px) {
+    left: 45%;
   }
 }
 

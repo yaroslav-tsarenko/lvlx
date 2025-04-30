@@ -9,6 +9,7 @@ import BottomNav from "@/components/BottomNav.vue";
 import ProductMobile from "@/components/ProductMobile.vue";
 import StreamersMobile from "@/components/StreamersMobile.vue";
 import FadeInOnScroll from "@/components/FadeInOnScroll.vue";
+import StreamersLaptop from "@/components/StreamersLaptop.vue";
 
 </script>
 <template>
@@ -27,6 +28,9 @@ import FadeInOnScroll from "@/components/FadeInOnScroll.vue";
   </FadeInOnScroll>
   <FadeInOnScroll>
     <Streamers/>
+  </FadeInOnScroll>
+  <FadeInOnScroll>
+    <StreamersLaptop/>
   </FadeInOnScroll>
   <FadeInOnScroll>
     <StreamersMobile/>

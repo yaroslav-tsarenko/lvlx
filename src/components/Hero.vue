@@ -3,8 +3,6 @@ import {onMounted, ref} from 'vue';
 import {gsap} from 'gsap';
 import bgVideo from '../assets/videos/girl.mp4';
 import bgVideoMobile from '../assets/videos/girl mobile.mp4';
-import revShare from '../assets/images/rev-share-desktop.svg';
-import revShareMob from '../assets/images/revShareMob.svg';
 import Header from "@/components/Header.vue";
 import {defineRule, Field, ErrorMessage, configure} from "vee-validate";
 import {required, email, min, confirmed, regex} from "@vee-validate/rules";

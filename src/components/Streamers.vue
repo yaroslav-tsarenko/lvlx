@@ -89,6 +89,10 @@ const getRandomColor = () => {
   flex-direction: column;
   position: relative;
 
+  @media screen and (max-width: 1280px) {
+    display: none;
+  }
+
   @media screen and (max-width: 1024px) {
     display: none;
   }
@@ -101,27 +105,6 @@ const getRandomColor = () => {
   max-height: 400px;
   overflow: hidden;
   width: 100%;
-}
-
-.visitors-plate{
-  position: absolute;
-  z-index: 1;
-  right: -50%;
-  top: 37%;
-}
-
-.likes-plate{
-  position: absolute;
-  z-index: 1;
-  left: -50%;
-  top: 37%;
-}
-
-.users-plate{
-  position: absolute;
-  z-index: 1;
-  left: -50%;
-  top: 37%;
 }
 
 .chat-item {
@@ -140,11 +123,6 @@ const getRandomColor = () => {
   gap: 10px;
   padding: 12px;
   border-radius: 10px;
-}
-
-.pinned-icon {
-  width: 20px;
-  height: 20px;
 }
 
 .ellipseBlur {
@@ -192,6 +170,10 @@ const getRandomColor = () => {
   bottom: 0;
   left: 50%;
   transform: translateX(-50%);
+
+  @media screen and (max-width: 1280px){
+    height: 650px;
+  }
 }
 
 .egg {
@@ -244,6 +226,10 @@ const getRandomColor = () => {
   var(--_g) calc(-1 * var(--_d) - var(--x)) 0,
   var(--_g) 0 calc(-1 * var(--_d) - var(--y));
   mask-repeat: no-repeat;
+
+  @media screen and (max-width: 1280px) {
+    padding: 60px 20px;
+  }
 }
 
 .for-streamers {
@@ -305,6 +291,11 @@ const getRandomColor = () => {
     font-size: 24px;
     font-weight: 400;
 
+    @media screen and (max-width: 1280px) {
+      font-size: 20px;
+      font-weight: 500;
+    }
+
     @media screen and (max-width: 1028px) {
       font-size: 20px;
       font-weight: 500;
@@ -322,7 +313,12 @@ const getRandomColor = () => {
   gap: 20px;
   backdrop-filter: blur(20px);
   border-radius: 25px;
+  z-index: 999;
   border: 1px solid var(--grey-transparent);
+
+  @media screen and (max-width: 1280px) {
+    max-width: 350px;
+  }
 
   @media screen and (max-width: 1028px) {
     display: none;
@@ -340,6 +336,11 @@ const getRandomColor = () => {
   display: flex;
   gap: 40px;
   flex-direction: column;
+
+  @media screen and (max-width: 1280px) {
+    align-items: flex-end;
+    align-content: flex-end;
+  }
 }
 
 .charts-column{
@@ -353,5 +354,11 @@ const getRandomColor = () => {
   position: absolute;
   max-height: 410px;
   height: 100%;
+
+  @media screen and (max-width: 1280px) {
+    scale: 0.8;
+    bottom: -2%;
+    left: -4%;
+  }
 }
 </style>

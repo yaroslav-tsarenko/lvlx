@@ -22,6 +22,7 @@ const scrollToSection = (sectionId) => {
     section.scrollIntoView({behavior: 'smooth'});
   }
 };
+
 </script>
 
 <template>
@@ -106,7 +107,7 @@ const scrollToSection = (sectionId) => {
 }
 
 .bottom-nav {
-  display: none;
+  display: flex;
   width: fit-content;
   gap: 10px;
   justify-content: center;
@@ -155,7 +156,7 @@ const scrollToSection = (sectionId) => {
 }
 
 .bottom-nav-mobile {
-  display: flex;
+  display: none;
   width: fit-content;
   gap: 10px;
   justify-content: center;
@@ -201,9 +202,14 @@ const scrollToSection = (sectionId) => {
   background: var(--orange);
   outline: none;
   border: none;
-  padding: 13px 14px;
   cursor: pointer;
+  width: 50px;
+  height: 50px;
   border-radius: 50px;
+  align-content: center;
+  justify-content: center;
+  align-items: center;
+  justify-items: center;
   transition: all 0.3s ease;
 }
 

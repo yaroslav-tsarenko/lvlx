@@ -172,6 +172,16 @@ onMounted(() => {
   align-items: center;
   width: 100%;
 
+  @media screen and (max-width: 1280px) {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    align-items: center;
+    justify-items: center;
+    width: fit-content;
+    justify-content: center;
+    gap: 20px;
+  }
+
   @media screen and (max-width: 1028px) {
     display: grid;
     grid-template-columns: repeat(2, 1fr);
