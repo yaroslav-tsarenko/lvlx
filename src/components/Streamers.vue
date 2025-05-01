@@ -220,6 +220,10 @@ onMounted(async () => {
   left: 50%;
   transform: translateX(-50%);
 
+  @media screen and (max-width: 1440px){
+    height: 620px;
+  }
+
   @media screen and (max-width: 1280px){
     height: 650px;
   }
