@@ -4,7 +4,7 @@ import {gsap} from 'gsap';
 import bgVideo from '../assets/videos/girl.mp4';
 import bgVideoMobile from '../assets/videos/girl mobile.mp4';
 import Header from "@/components/Header.vue";
-import {defineRule, Field, ErrorMessage, configure} from "vee-validate";
+import {defineRule, configure} from "vee-validate";
 import {required, email, min, confirmed, regex} from "@vee-validate/rules";
 import axios from "axios";
 import Form from "@/components/Form.vue";
@@ -83,33 +83,6 @@ onMounted(() => {
   );
 });
 
-const h1Ref = ref(null);
-onMounted(() => {
-  const h1Element = h1Ref.value;
-  const text = h1Element.textContent;
-
-  const lines = text.match(/.{1,12}/g) || [];
-
-  // Wrap each line in a block and each character in a span
-  h1Element.innerHTML = lines
-      .map(
-          (line) =>
-              `<div style="display: block;">${line
-                  .split('')
-                  .map((char) => `<span>${char === ' ' ? '&nbsp;' : char}</span>`)
-                  .join('')}</div>`
-      )
-      .join('');
-
-  // Animate each character
-  gsap.fromTo(
-      h1Element.querySelectorAll('span'),
-      {opacity: 0, y: 50},
-      {opacity: 1, y: 0, stagger: 0.05, duration: 1, ease: 'power2.out'}
-  );
-});
-
-
 onMounted(() => {
   gsap.from(leftSideRef.value, {
     x: '-100%',
@@ -156,7 +129,7 @@ const closePopup = () => {
     <div class="hero-content">
       <div class="left-side" ref="leftSideRef">
         <div class="main-title">
-          <h1 ref="h1Ref">{{ texts.Hero.title }}</h1>
+          <h1>{{ texts.Hero.title }}</h1>
           <h2>{{ texts.Hero.title }}</h2>
           <p>{{ texts.Hero.subtitle }}</p>
         </div>
@@ -288,8 +261,9 @@ const closePopup = () => {
 
     @media screen and (max-width: 1440px) {
       font-size: 80px;
+      display: flex;
       font-weight: 500;
-      text-align: center;
+      text-align: left;
     }
 
     @media screen and (max-width: 476px) {

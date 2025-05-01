@@ -27,7 +27,7 @@ import k7ru from "@/assets/images/slider1-text.svg"
 import k50gamesRu from "@/assets/images/slider3Text.svg"
 import k50gamesEn from "@/assets/images/50k-en.svg"
 import inhouse11gamesEn from "@/assets/images/11inhouse-games-en.svg"
-import inhouse11games from "@/assets/images/slider3Text.svg"
+import inhouse11games from "@/assets/images/slider2Text.svg"
 import slide1BenefitsTextEn from "@/assets/images/slider-1-benefits-en.svg"
 import slide1BenefitsTextRu from "@/assets/images/slider1-benefits.svg"
 import slide2BenefitsTextEn from "@/assets/images/slider-2-benefits-en.svg"
@@ -283,7 +283,7 @@ const texts = {
         Form: {
             title: "Присоединяйся",
             companyNamePlaceholder: "Название компании",
-            emailPlaceholder: "Емейл",
+            emailPlaceholder: "Email",
             searchBarPlaceholder: "Поиск",
             phonePlaceholder: "Номер телефона",
             passwordPlaceholder: "Пароль",

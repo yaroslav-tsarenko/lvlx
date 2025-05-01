@@ -14,13 +14,13 @@ const slides = [
   },
   {
     tablet: texts.Images.tablet2,
-    text: texts.Images.k50games,
-    benefits: texts.Images.slide2BenefitsText,
+    text: texts.Images.inhouse11games,
+    benefits: texts.Images.slide3BenefitsText,
   },
   {
     tablet: texts.Images.tablet3,
-    text: texts.Images.inhouse11games,
-    benefits: texts.Images.slide3BenefitsText,
+    text: texts.Images.k50games,
+    benefits: texts.Images.slide2BenefitsText,
   },
 ];
 

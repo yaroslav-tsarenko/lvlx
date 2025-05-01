@@ -1,5 +1,5 @@
 <script setup>
-import {ref, computed} from 'vue';
+import { ref, computed, onMounted, nextTick } from 'vue';
 import subtract from '../assets/images/subtract.svg';
 import elipseBlur from '../assets/images/ellipse-blur.png';
 import egg from '../assets/images/egg-for-bg.svg';
@@ -11,11 +11,13 @@ import depositChart from '../assets/images/deposit-graph.svg';
 import ChartItem from "@/components/ChartItem.vue";
 import { getTextByLanguage } from '@/config';
 const texts = getTextByLanguage();
+import gsap from 'gsap';
 
 const comments = ref(texts.Comments);
 const pinnedMessages = computed(() => comments.value.filter(item => item.pinned));
 const unpinnedMessages = computed(() => comments.value.filter(item => !item.pinned));
-const streamsPerYear = texts.Images.streamsPerYear;
+
+const chatContentRef = ref(null);
 
 const getRandomColor = () => {
   const r = Math.floor(Math.random() * 256);
@@ -23,6 +25,42 @@ const getRandomColor = () => {
   const b = Math.floor(Math.random() * 256);
   return `rgb(${r}, ${g}, ${b})`;
 };
+
+onMounted(async () => {
+  await nextTick();
+
+  const chatEl = chatContentRef.value;
+
+  if (!chatEl) return;
+
+  const unpinnedEls = chatEl.querySelectorAll('.chat-item:not(.pinned)');
+
+  // Клонируем элементы для плавного цикла
+  unpinnedEls.forEach(el => {
+    const clone = el.cloneNode(true);
+    chatEl.appendChild(clone);
+  });
+
+  const scrollHeight = chatEl.scrollHeight / 2;
+
+  // Бесконечный скролл с помощью gsap
+  gsap.to(chatEl, {
+    scrollTop: scrollHeight,
+    duration: 30,
+    ease: 'none',
+    repeat: -1,
+    modifiers: {
+      scrollTop(value) {
+        if (value >= scrollHeight) {
+          chatEl.scrollTop = 0;
+          return 0;
+        }
+        return value;
+      }
+    }
+  });
+});
+
 </script>
 
 <template>
@@ -58,19 +96,22 @@ const getRandomColor = () => {
         </div>
         <div class="streamer-chat">
           <h4>Чат стрима</h4>
-          <div class="streamer-chat-content">
+          <div class="streamer-chat-content" ref="chatContentRef">
             <p
                 v-for="(item, index) in pinnedMessages"
                 :key="'pinned-' + index"
-                class="chat-item pinned">
+                class="chat-item pinned"
+            >
               <span class="nickname" :style="{ color: getRandomColor() }">📌{{ item.nickname }}: </span>
               {{ item.message }}
             </p>
             <div
                 v-for="(item, index) in unpinnedMessages"
                 :key="'unpinned-' + index"
-                class="chat-item">
-              <span class="nickname" :style="{ color: getRandomColor() }">{{ item.nickname }}:</span> {{ item.message }}
+                class="chat-item"
+            >
+              <span class="nickname" :style="{ color: getRandomColor() }">{{ item.nickname }}:</span>
+              {{ item.message }}
             </div>
           </div>
         </div>
@@ -103,9 +144,17 @@ const getRandomColor = () => {
   flex-direction: column;
   gap: 10px;
   max-height: 400px;
-  overflow: hidden;
+  overflow-y: scroll;
+  overflow-x: hidden;
   width: 100%;
+
+  /* скрыть скроллбар */
+  scrollbar-width: none; /* Firefox */
 }
+.streamer-chat-content::-webkit-scrollbar {
+  display: none; /* Chrome, Safari */
+}
+
 
 .chat-item {
   gap: 10px;

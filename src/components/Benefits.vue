@@ -154,6 +154,14 @@ onMounted(() => {
   left: 0;
   z-index: 999;
 
+  @media screen and (max-width: 768px) {
+    width: 100%;
+    max-width: 270px;
+    height: auto;
+    left: 3%;
+    bottom: 0;
+  }
+
   @media screen and (max-width: 476px) {
     width: 100%;
     max-width: 270px;
@@ -239,6 +247,7 @@ onMounted(() => {
     width: 100%;
     overflow: auto;
     height: 100%;
+    padding: 0 40px;
   }
 }
 
@@ -279,7 +288,8 @@ onMounted(() => {
   }
 
   @media screen and (max-width: 768px) {
-   scale: 0.8;
+    padding: 40px 20px;
+    width: 340px;
   }
 }
 
@@ -310,6 +320,10 @@ onMounted(() => {
   bottom: 0;
   width: 100%;
   height: auto;
+
+  @media screen and (max-width: 1280px) {
+    width: 75%;
+  }
 }
 
 </style>

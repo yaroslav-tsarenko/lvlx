@@ -114,6 +114,10 @@ const texts = getTextByLanguage();
   display: flex;
   z-index: 99;
   margin-top: -10%;
+
+  @media screen and (max-width: 1280px) {
+    margin-top: -5%;
+  }
 }
 
 .ellipse-blur{

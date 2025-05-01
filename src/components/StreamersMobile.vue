@@ -221,7 +221,6 @@ const texts = getTextByLanguage();
   @media screen and (max-width: 476px) {
     padding: 0;
     scale: 0.8;
-
   }
 }
 

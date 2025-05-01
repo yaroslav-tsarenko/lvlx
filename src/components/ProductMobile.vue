@@ -1,13 +1,13 @@
 <script setup>
-import tablet from "../assets/images/slider-1-tablet-mobile.svg"
-import tablet2 from "@/assets/images/slider-2-tablet-mobile.svg";
-import tablet3 from "@/assets/images/slider-3-tablet-mobile.svg";
+import tablet from "../assets/images/slider-1-tablet-mobile.png"
+import tablet2 from "@/assets/images/slider-2-tablet-mobile.png";
+import tablet3 from "@/assets/images/slider-3-tablet-mobile.png";
 
 import unionIcon from "@/assets/icons/union-plus.svg";
 import slide1Text from "@/assets/images/slider1-text.svg";
 import slide1Benefits from "@/assets/images/slider1BenefitsMobile.svg";
-import slide2Benefits from "@/assets/images/slider-2-benefits-mobile.svg";
-import slide3Benefits from "@/assets/images/slider-3-benefits-mobile.svg";
+import slide2Benefits from "@/assets/images/slider-3-benefits-mobile.svg";
+import slide3Benefits from "@/assets/images/slider-2-benefits-mobile.svg";
 import slide2Text from "@/assets/images/slider2Text.svg";
 import slide3Text from "@/assets/images/slider3Text.svg";
 import {nextTick, ref, watch} from "vue";
@@ -87,7 +87,7 @@ watch(currentSlide, async () => {
         </div>
       </div>
       <div class="tablet-content">
-        <img :src="slides[currentSlide].tablet" alt="tablet" width="322" height="450" class="tablet">
+        <img :src="slides[currentSlide].tablet" alt="tablet" width="322" height="auto" class="tablet">
       </div>
     </div>
     <div class="product-mobile-slide-info-wrapper">
@@ -361,7 +361,7 @@ watch(currentSlide, async () => {
 
   @media screen and (max-width: 476px) {
     flex-direction: column;
-    margin: 0;
+    margin: 0 0 15px 0;
     width: 100%;
   }
 
