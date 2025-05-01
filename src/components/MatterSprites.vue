@@ -1,6 +1,6 @@
 <template>
   <div ref="containerRef" class="matter-container">
-    <canvas ref="canvasRef" class="matter-canvas" />
+    <canvas ref="canvasRef" class="matter-canvas"/>
     <h2 class="faq-title">{{ texts.Faq.title }}</h2>
     <div ref="faqBoxRef" class="faq-box">
       <div
@@ -35,9 +35,9 @@
 
 
 <script setup>
-import { ref, onMounted, onBeforeUnmount, nextTick } from 'vue';
+import {ref, onMounted, onBeforeUnmount, nextTick} from 'vue';
 import Matter from 'matter-js';
-import { getTextByLanguage } from '@/config';
+import {getTextByLanguage} from '@/config';
 import egg1 from '@/assets/images/egg-type-1.svg';
 import egg2 from '@/assets/images/egg-type-2.svg';
 import egg3 from '@/assets/images/egg-type-3.svg';
@@ -98,24 +98,24 @@ function setupMatter() {
 
   const ground = Matter.Bodies.rectangle(width / 2, height + 60, width, 100, {
     isStatic: true,
-    render: { visible: false },
+    render: {visible: false},
   });
 
   const leftWall = Matter.Bodies.rectangle(-50, height / 2, 100, height, {
     isStatic: true,
-    render: { visible: false },
+    render: {visible: false},
   });
 
   const rightWall = Matter.Bodies.rectangle(width + 50, height / 2, 100, height, {
     isStatic: true,
-    render: { visible: false },
+    render: {visible: false},
   });
 
   createFaqPhysicsBody();
 
   const isMobile = window.innerWidth < 768;
 
-  const fallingEggs = Array.from({ length: isMobile ? 65 : 25 }, () => {
+  const fallingEggs = Array.from({length: isMobile ? 65 : 25}, () => {
     const radius = isMobile ? 23 + Math.random() * 2 : 60 + Math.random() * 10;
     const x = Math.random() * width;
     const y = isMobile ? height + Math.random() * 200 : Math.random() * -800;
@@ -144,13 +144,12 @@ function setupMatter() {
   });
 
 
-
   const mouse = Matter.Mouse.create(canvas);
   mouseConstraint = Matter.MouseConstraint.create(engine, {
     mouse,
     constraint: {
       stiffness: 0.2,
-      render: { visible: false },
+      render: {visible: false},
     },
   });
 
@@ -221,27 +220,21 @@ onBeforeUnmount(() => {
 .matter-container {
   position: relative;
   width: 100%;
-  height: 150dvh;
+  height: auto;
   max-width: 1920px;
   margin: 0 auto;
   overflow: hidden;
-
-  @media screen and (max-width: 1280px) {
-    height: 190dvh;
-  }
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding-block: 10%;
 
   @media screen and (max-width: 768px) {
-    height: 270dvh;
-  }
-
-  @media screen and (max-width: 430px) {
-    height: 180dvh;
-  }
-
-  @media screen and (max-width: 375px) {
-    height: 240dvh;
+    padding-block: 15%;
   }
 }
+
 
 .matter-canvas {
   position: absolute;
@@ -253,17 +246,14 @@ onBeforeUnmount(() => {
 }
 
 .faq-box {
-  position: absolute;
   max-width: 950px;
   width: 100%;
   display: flex;
   flex-direction: column;
   gap: 12px;
   border: none;
+  margin: 0 auto;
   z-index: 2;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
   padding: 20px;
   box-shadow: 0 0 20px rgba(0, 0, 0, 0.05);
   overflow-y: auto;
@@ -284,12 +274,10 @@ onBeforeUnmount(() => {
   }
 
   @media screen and (max-width: 1280px) {
-    position: absolute;
-    left: 50%;
-    top: 5%;
-    transform: translateX(-50%);
+    position: relative;
+    display: flex;
     font-weight: normal;
-    font-size: 70px;
+    font-size: 40px;
   }
 }
 
@@ -301,6 +289,10 @@ onBeforeUnmount(() => {
   transition: all 0.3s ease;
   cursor: pointer;
   overflow: hidden;
+
+  @media screen and (max-width: 768px) {
+    padding: 19px;
+  }
 }
 
 .faq-item:hover {

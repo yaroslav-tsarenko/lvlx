@@ -303,6 +303,10 @@ h2 {
   cursor: pointer;
   transition: all 0.3s ease;
   background-color: white;
+
+  @media screen and (max-width: 768px) {
+    padding: 15px;
+  }
 }
 
 .faq-item.expanded {

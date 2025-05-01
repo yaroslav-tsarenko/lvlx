@@ -37,9 +37,15 @@ const scrollToSection = (sectionId) => {
             <a href="mailto:partners@lvlx.top">partners@lvlx.top</a>
           </h1>
           <div class="footer-socials">
-            <img :src="tg" alt="icon" width="60" height="60">
-            <img :src="inst" alt="icon" width="60" height="60">
-            <img :src="yt" alt="icon" width="60" height="60">
+            <a href="https://t.me/afflvlx" target="_blank" rel="noopener noreferrer">
+              <img :src="tg" alt="Telegram icon" width="60" height="60">
+            </a>
+            <a href="https://www.instagram.com" target="_blank" rel="noopener noreferrer">
+              <img :src="inst" alt="Instagram icon" width="60" height="60">
+            </a>
+            <a href="https://www.youtube.com" target="_blank" rel="noopener noreferrer">
+              <img :src="yt" alt="YouTube icon" width="60" height="60">
+            </a>
           </div>
         </div>
       </div>
@@ -179,6 +185,19 @@ const scrollToSection = (sectionId) => {
 .footer-socials {
   display: flex;
   gap: 10px;
+  align-content: flex-end;
+  justify-content: flex-end;
+  align-items: flex-end;
+  justify-items: flex-end;
+
+  img{
+    cursor: pointer;
+    transition: 0.3s all ease-in-out;
+
+    &:hover{
+      transform: scale(1.1);
+    }
+  }
 }
 
 .footer-bottom {
