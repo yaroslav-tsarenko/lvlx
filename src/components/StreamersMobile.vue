@@ -208,21 +208,20 @@ const texts = getTextByLanguage();
 
 .charts-mobile {
   display: flex;
-  bottom: 2%;
   height: 50dvh;
-  scale: 0.8;
 
   @media screen and (max-width: 768px) {
     scale: 1;
     align-items: center;
     justify-content: center;
-    width: 90%;
     margin: 0 auto;
+    padding: 0;
   }
 
   @media screen and (max-width: 476px) {
-    width: 100%;
+    padding: 0;
     scale: 0.8;
+
   }
 }
 
@@ -237,7 +236,7 @@ const texts = getTextByLanguage();
   }
 
   @media screen and (max-width: 476px) {
-    width: 95%;
+    width: 99%;
   }
 }
 

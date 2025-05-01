@@ -99,6 +99,10 @@ defineProps({
     font-weight: 600;
     animation: fade-in 0.5s ease-in-out;
     color: inherit;
+
+    @media screen and (max-width: 768px) {
+      font-size: 25px;
+    }
   }
 
   p {

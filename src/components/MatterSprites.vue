@@ -8,8 +8,7 @@
           :class="{ expanded: expandedIndex === index }"
           v-for="(item, index) in faqItems"
           :key="index"
-          @click="toggle(index)"
-      >
+          @click="toggle(index)">
         <div class="faq-question" :class="{ expanded: expandedIndex === index }">
           <img
               class="arrow"
@@ -22,8 +21,7 @@
         <div
             class="faq-answer"
             :style="expandedIndex === index ? 'height: auto; opacity: 1;' : ''"
-            ref="answerRefs[index]"
-        >
+            ref="answerRefs[index]">
           <div class="faq-answer-inner">
             {{ item.answer }}
           </div>
@@ -179,7 +177,7 @@ function createFaqPhysicsBody() {
         restitution: 0.4,
         render: {
           fillStyle: 'transparent',
-          strokeStyle: '#999',
+          strokeStyle: 'rgba(255,255,255,0)',
         },
       }
   );
@@ -231,10 +229,9 @@ onBeforeUnmount(() => {
   padding-block: 10%;
 
   @media screen and (max-width: 768px) {
-    padding-block: 15%;
+    padding-block: 20%;
   }
 }
-
 
 .matter-canvas {
   position: absolute;
