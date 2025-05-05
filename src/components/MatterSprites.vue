@@ -111,10 +111,23 @@ function setupMatter() {
 
   createFaqPhysicsBody();
 
-  const isMobile = window.innerWidth < 768;
+  const screenWidth = window.innerWidth;
+  const isMobile = screenWidth < 768;
+  const isLaptop = screenWidth >= 1280 && screenWidth < 1440;
 
-  const fallingEggs = Array.from({length: isMobile ? 65 : 25}, () => {
-    const radius = isMobile ? 23 + Math.random() * 2 : 60 + Math.random() * 10;
+  const fallingEggs = Array.from({ length: isMobile ? 65 : 25 }, () => {
+    const radius = isMobile
+        ? 23 + Math.random() * 2
+        : isLaptop
+            ? 35 + Math.random() * 5  // трохи менше за стандарт
+            : 60 + Math.random() * 10;
+
+    const xScale = isMobile
+        ? 0.6
+        : isLaptop
+            ? 0.75
+            : 1;
+
     const x = Math.random() * width;
     const y = isMobile ? height + Math.random() * 200 : Math.random() * -800;
 
@@ -125,8 +138,8 @@ function setupMatter() {
       render: {
         sprite: {
           texture: images[Math.floor(Math.random() * images.length)],
-          xScale: isMobile ? 0.6 : 1,
-          yScale: isMobile ? 0.6 : 1,
+          xScale: xScale,
+          yScale: xScale,
         },
       },
     });
@@ -140,6 +153,7 @@ function setupMatter() {
 
     return egg;
   });
+
 
 
   const mouse = Matter.Mouse.create(canvas);
