@@ -6,7 +6,7 @@ import timesIcon from '../assets/icons/times-icon.svg';
 import vLine from '../assets/images/v-line.svg';
 import hLine from '../assets/images/line-image.svg';
 import {getTextByLanguage} from '@/config';
-
+import Form from './Form.vue';
 const texts = getTextByLanguage();
 const isMenuOpen = ref(false);
 const currentIcon = ref(burgerButton);
@@ -21,6 +21,12 @@ const scrollToSection = (sectionId) => {
   if (section) {
     section.scrollIntoView({behavior: 'smooth'});
   }
+};
+
+const isPopupVisible = ref(false);
+
+const togglePopup = () => {
+  isPopupVisible.value = !isPopupVisible.value;
 };
 
 </script>
@@ -55,12 +61,40 @@ const scrollToSection = (sectionId) => {
       </button>
       <button class="nav-button">{{ texts.BottomNav.menu }}</button>
       <img :src="vLine" alt="home icon" width="1" height="52"/>
-      <button class="nav-button-register">{{ texts.BottomNav.register }}</button>
+      <button class="nav-button-register" @click="togglePopup">
+        {{ texts.BottomNav.register }}
+      </button>
+    </div>
+  </div>
+  <div v-if="isPopupVisible" class="popup-overlay" @click.self="togglePopup">
+    <div class="popup-content">
+      <Form />
     </div>
   </div>
 </template>
 
 <style scoped>
+
+.popup-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+}
+
+.popup-content {
+  background: white;
+  padding: 20px;
+  border-radius: 10px;
+  max-width: 500px;
+  width: 90%;
+}
 
 .bottom-nav-menu {
   display: flex;
