@@ -168,7 +168,12 @@ const texts = getTextByLanguage();
     }
 
     @media screen and (max-width: 476px) {
-      margin: auto auto 20% auto;
+      position: fixed;
+      top: 50%;
+      left: 50%;
+      font-size: 20px;
+      padding: 20px;
+      transform: translate(-50%, -50%);
     }
   }
 }

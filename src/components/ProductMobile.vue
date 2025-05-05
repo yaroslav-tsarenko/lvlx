@@ -297,7 +297,7 @@ watch(currentSlide, async () => {
   }
 
   @media screen and (max-width: 768px) {
-    padding: 21% 0 11% 0;
+    padding: 21% 0 22% 0;
   }
 }
 

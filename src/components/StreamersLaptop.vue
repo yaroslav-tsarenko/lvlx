@@ -56,7 +56,7 @@ const texts = getTextByLanguage();
   margin: 0 auto;
   position: relative;
 
-  @media screen and (max-width: 1280px) {
+  @media screen and (max-width: 1440px) {
     display: flex;
   }
 

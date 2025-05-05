@@ -130,7 +130,7 @@ onMounted(async () => {
   flex-direction: column;
   position: relative;
 
-  @media screen and (max-width: 1280px) {
+  @media screen and (max-width: 1440px) {
     display: none;
   }
 

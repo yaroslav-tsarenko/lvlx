@@ -76,6 +76,15 @@ const rightSideRef = ref(null);
 const videoRef = ref(null);
 
 onMounted(() => {
+  const video = videoRef.value;
+  if (video) {
+    video.play().catch((error) => {
+      console.error('Auto-play failed:', error);
+    });
+  }
+});
+
+onMounted(() => {
   gsap.fromTo(
       videoRef.value,
       {scale: 1.5, filter: "blur(20px)"},
@@ -123,8 +132,7 @@ const closePopup = () => {
         autoplay
         loop
         muted
-        playsinline
-    >
+        playsinline>
     </video>
     <div class="hero-content">
       <div class="left-side" ref="leftSideRef">

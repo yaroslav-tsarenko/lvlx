@@ -75,7 +75,7 @@ function getResponsiveHeight() {
 
   if (windowWidth < 768) return 600;       // мобілки
   if (windowWidth < 1024) return 800;      // планшети
-  if (windowWidth < 1280) return 900;      // планшети
+  if (windowWidth < 1280) return 400;      // планшети
   return fallingContainer.value.offsetHeight; // десктоп — повна висота
 }
 
@@ -86,7 +86,6 @@ function setupMatter() {
 
   const width = container.offsetWidth;
   const height = getResponsiveHeight();
-
 
   engine = Matter.Engine.create();
   const world = engine.world;
@@ -107,7 +106,6 @@ function setupMatter() {
   Matter.Render.run(render);
   Matter.Runner.run(runner, engine);
 
-  // Статичні межі світу
   const ground = Matter.Bodies.rectangle(width / 2, height + 60, width, 120, {
     isStatic: true,
     render: { visible: false },
@@ -126,10 +124,19 @@ function setupMatter() {
   // Тіла для кожного FAQ item
   faqBodies = createFaqBodies();
   faqBodies.forEach((body) => Matter.World.add(world, body));
+  function getFallingScale() {
+    const width = window.innerWidth;
+    if (width < 768) return 0.18;         // мобільні
+    if (width < 1024) return 0.14;        // планшети
+    if (width < 1440) return 0.18;        // ноутбуки (трохи більше, ніж для великих екранів)
+    return 0.06;                          // великі десктопи (менші об'єкти)
+  }
 
   // Падаючі об'єкти (яйця)
-  const fallingBodies = Array.from({ length: 30 }, () => {
-    const radius = 10 + Math.random() * 1;
+  const fallingScale = getFallingScale();
+
+  const fallingBodies = Array.from({ length: 15 }, () => {
+    const radius = 4 + Math.random() * 1.5;
     return Matter.Bodies.circle(
         Math.random() * width,
         Math.random() * -1000,
@@ -137,18 +144,19 @@ function setupMatter() {
         {
           density: 0.002,
           friction: 0.001,
-          frictionAir: 0.003,
+          frictionAir: 0.001,
           restitution: 0.1,
           render: {
             sprite: {
               texture: images[Math.floor(Math.random() * images.length)],
-              xScale: 0.1,
-              yScale: 0.1,
+              xScale: fallingScale,
+              yScale: fallingScale,
             },
           },
         }
     );
   });
+
 
   // Мишка (drag & throw)
   const mouse = Matter.Mouse.create(canvas);
@@ -186,7 +194,7 @@ function createFaqBodies() {
         rect.height,
         {
           isStatic: true,
-          restitution: 0.2,
+          restitution: 0.1,
           render: {
             fillStyle: 'transparent',
           },
