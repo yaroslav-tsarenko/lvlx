@@ -147,7 +147,7 @@ const texts = getTextByLanguage();
   }
 
   @media screen and (max-width: 476px) {
-    height: 80dvh;
+    height: 500px;
   }
 
   button{
@@ -169,9 +169,9 @@ const texts = getTextByLanguage();
 
     @media screen and (max-width: 476px) {
       position: fixed;
-      top: 50%;
+      top: 62%;
       left: 50%;
-      font-size: 20px;
+      font-size: 15px;
       padding: 20px;
       transform: translate(-50%, -50%);
     }
