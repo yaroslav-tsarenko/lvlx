@@ -119,7 +119,7 @@ function setupMatter() {
     const radius = isMobile
         ? 23 + Math.random() * 2
         : isLaptop
-            ? 35 + Math.random() * 5  // трохи менше за стандарт
+            ? 35 + Math.random() * 5
             : 60 + Math.random() * 10;
 
     const xScale = isMobile

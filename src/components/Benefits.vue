@@ -120,10 +120,10 @@ onMounted(() => {
     --r: 20px;
   }
 
-  @media screen and (max-width: 476px) {
+  @media screen and (max-width: 490px) {
     display: flex;
     align-items: center;
-    padding: 5% 0 12% 0;
+    padding: 5% 0 19% 0;
     width: 100%;
     justify-content: center;
     text-align: center;
@@ -258,6 +258,13 @@ onMounted(() => {
     overflow: auto;
     height: 100%;
     padding: 0 40px;
+  }
+
+  @media screen and (max-width: 490px) {
+    width: 100%;
+    overflow: auto;
+    height: 100%;
+    padding: 0 20px;
   }
 
   @media screen and (max-width: 390px) {
