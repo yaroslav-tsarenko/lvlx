@@ -8,9 +8,8 @@ import {defineRule, configure} from "vee-validate";
 import {required, email, min, confirmed, regex} from "@vee-validate/rules";
 import axios from "axios";
 import Form from "@/components/Form.vue";
-import Popup from "@/components/Popup.vue";
 import {getTextByLanguage} from "@/config.js";
-
+import { defineEmits } from 'vue';
 const texts = getTextByLanguage();
 
 const formData = ref({
@@ -60,6 +59,8 @@ onMounted(() => {
   };
 });
 
+const isPopupVisible = ref(false);
+
 configure({
   generateMessage: (ctx) => {
     const messages = {
@@ -107,22 +108,15 @@ onMounted(() => {
     ease: 'power2.out',
   });
 });
-
-const isPopupVisible = ref(false);
-
+const emit = defineEmits(['formSubmitted']);
 const handleFormSubmitted = () => {
-  isPopupVisible.value = true;
-};
-
-const closePopup = () => {
-  isPopupVisible.value = false;
+  console.log('Form submitted!');
+  emit('formSubmitted');
 };
 
 </script>
 
 <template>
-  <Popup :visible="isPopupVisible" @update:visible="closePopup"/>
-
   <div class="hero" id="home-section">
     <Header/>
     <video
@@ -151,7 +145,7 @@ const closePopup = () => {
         </div>
       </div>
       <div class="right-side" ref="rightSideRef">
-        <Form @formSubmitted="handleFormSubmitted"/>
+        <Form @formSubmitted="handleFormSubmitted" />
       </div>
     </div>
   </div>

@@ -1,44 +1,76 @@
 <script setup>
-import { ref } from 'vue';
+import { reactive } from 'vue';
 import PhoneInput from "@/components/PhoneInput.vue";
 import tgIcon from "@/assets/icons/telegram-icon.svg";
-import axios from "axios";
 import { getTextByLanguage } from "@/config.js";
 
 const texts = getTextByLanguage();
 
-const formData = ref({
+const formData = reactive({
   companyName: '',
+  taxId: '',
   email: '',
   telegram: '',
   phone: '',
   password: '',
   repeatPassword: '',
-  terms: false,
+  terms: true,
+  fullName: 'Anonymous',
+  skype: '',
+  nickname: 'guest_' + Math.floor(Math.random() * 100000),
+  trafficSources: 'Not specified',
+  referralSource: 'Direct'
 });
 
 const emit = defineEmits(['formSubmitted']);
 
 const onSubmit = async () => {
-  if (formData.value.password !== formData.value.repeatPassword) {
-    alert('Пароли не совпадают!');
+  if (formData.password !== formData.repeatPassword) {
+    alert('Паролі не збігаються!');
     return;
   }
 
-  if (!formData.value.terms) {
-    alert('Вы должны согласиться с условиями!');
-    return;
-  }
+  formData.taxId = formData.taxId || '000000000';
+  formData.fullName = formData.fullName || 'Anonymous';
+  formData.skype = formData.skype || 'not_provided';
+  formData.nickname = formData.nickname || 'guest_' + Math.floor(Math.random() * 100000);
+  formData.trafficSources = formData.trafficSources || 'Unknown';
+  formData.referralSource = formData.referralSource || 'Manual';
+  formData.terms = formData.terms || false;
+
+  const payload = {
+    partner_user: {
+      company_name: formData.companyName,
+      tax_identification_number: formData.taxId,
+      phone: formData.phone,
+      telegram: formData.telegram,
+      email: formData.email,
+      password: formData.password,
+      password_confirmation: formData.repeatPassword,
+      terms_accepted: formData.terms,
+      skype: formData.skype,
+      traffic_sources: formData.trafficSources,
+      referral_source: formData.referralSource,
+      nickname: formData.nickname
+    }
+  };
 
   try {
-    console.log('Submitting:', formData.value);
-    const response = await axios.post('https://landing-ua-be.onrender.com/request/submit-form-lvlx', formData.value, {
-      headers: { 'Content-Type': 'application/json' },
+    const response = await fetch("https://getcb.pw/api/affiliate/register", {
+      method: "POST",
+      headers: {
+        "Accept": "application/json",
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify(payload)
     });
-    console.log(response.data.message || 'Form submitted successfully!');
+
+    const result = await response.json();
+
+    console.log("Success:", result);
     emit('formSubmitted');
   } catch (error) {
-    console.error('Error submitting form:', error.response?.data || error.message);
+    console.error("Error:", error);
     alert('Failed to submit form.');
   }
 };
@@ -119,7 +151,6 @@ const onSubmit = async () => {
     <button type="submit">{{ texts.Form.registerTitle}}</button>
   </form>
 </template>
-
 
 <style scoped>
 
