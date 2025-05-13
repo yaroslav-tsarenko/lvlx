@@ -115,23 +115,24 @@ function setupMatter() {
   const isMobile = screenWidth < 768;
   const isLaptop = screenWidth >= 1280 && screenWidth < 1600;
 
-  const fallingEggs = Array.from({ length: isMobile ? 65 : 20 }, () => {
+  const fallingEggs = Array.from({ length: isMobile ? 35 : 20 }, () => {
     const radius = isMobile
-        ? 23 + Math.random() * 2
+        ? 43 + Math.random() * 2
         : isLaptop
-            ? 25 + Math.random() * 22
+            ? 27 + Math.random() * 22
             : 60 + Math.random() * 10;
 
     const xScale = isMobile
-        ? 0.2
+        ? 0.5
         : isLaptop
             ? 0.85
             : 1;
 
     const isLeft = Math.random() < 0.5;
+
     const x = isLeft
-        ? Math.random() * (width / 2 - 100)
-        : width / 2 + 100 + Math.random() * (width / 2 - 100);
+        ? Math.random() * (width * 0.25)
+        : width * 0.75 + Math.random() * (width * 0.25);
 
     const y = isMobile ? height + Math.random() * 200 : Math.random() * -800;
 
@@ -157,8 +158,6 @@ function setupMatter() {
 
     return egg;
   });
-
-
 
   const mouse = Matter.Mouse.create(canvas);
   mouseConstraint = Matter.MouseConstraint.create(engine, {

@@ -168,8 +168,17 @@ const texts = getTextByLanguage();
     }
 
     @media screen and (max-width: 476px) {
-      position: fixed;
-      top: 62%;
+      position: absolute;
+      top: 79%;
+      left: 50%;
+      font-size: 15px;
+      padding: 20px;
+      transform: translate(-50%, -50%);
+    }
+
+    @media screen and (max-width: 375px) {
+      position: absolute;
+      top: 70%;
       left: 50%;
       font-size: 15px;
       padding: 20px;

@@ -24,23 +24,31 @@ const closePopup = () => {
   isPopupVisible.value = false;
 };
 
+
 onMounted(async () => {
   await nextTick();
 
-  let timeoutReached = false;
+  const isMobile = window.innerWidth < 768;
+  const preloadKey = 'hasSeenPreloader';
+  const hasCached = localStorage.getItem(preloadKey) === 'true';
 
-  const timeout = setTimeout(() => {
-    timeoutReached = true;
-    isLoading.value = false;
-  }, 3000);
-
-  requestIdleCallback(() => {
-    if (!timeoutReached) {
-      clearTimeout(timeout);
+  if (isMobile) {
+    if (hasCached) {
       isLoading.value = false;
+    } else {
+      const timeout = setTimeout(() => {
+        isLoading.value = false;
+        localStorage.setItem(preloadKey, 'true');
+      }, 3000);
     }
-  });
+  } else {
+    requestIdleCallback(() => {
+      isLoading.value = false;
+      localStorage.setItem(preloadKey, 'true');
+    });
+  }
 });
+
 
 </script>
 
