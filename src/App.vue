@@ -2,6 +2,7 @@
 import Hero from "@/components/Hero.vue";
 import Footer from "@/components/Footer.vue";
 import { ref, onMounted } from 'vue';
+import { nextTick } from 'vue';
 import Benefits from "@/components/Benefits.vue";
 import Product from "@/components/Product.vue";
 import Streamers from "@/components/Streamers.vue";
@@ -23,12 +24,14 @@ const closePopup = () => {
   isPopupVisible.value = false;
 };
 
-const wait = (ms) => new Promise(resolve => setTimeout(resolve, ms));
-
 onMounted(async () => {
-  await wait(3000 + Math.random() * 2000);
-  isLoading.value = false;
+  await nextTick();
+  requestIdleCallback(() => {
+    isLoading.value = false;
+  });
 });
+
+
 </script>
 
 
