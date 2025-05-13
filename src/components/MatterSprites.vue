@@ -288,10 +288,10 @@ onBeforeUnmount(() => {
   gap: 12px;
   border: none;
   margin: 0 auto;
-  z-index: 2;
   padding: 20px;
   box-shadow: 0 0 20px rgba(0, 0, 0, 0.05);
   overflow-y: auto;
+  z-index: 0;
 }
 
 .faq-title {

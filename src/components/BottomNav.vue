@@ -7,6 +7,7 @@ import vLine from '../assets/images/v-line.svg';
 import hLine from '../assets/images/line-image.svg';
 import {getTextByLanguage} from '@/config';
 import Form from './Form.vue';
+
 const texts = getTextByLanguage();
 const isMenuOpen = ref(false);
 const currentIcon = ref(burgerButton);
@@ -68,7 +69,7 @@ const togglePopup = () => {
   </div>
   <div v-if="isPopupVisible" class="popup-overlay" @click.self="togglePopup">
     <div class="popup-content">
-      <Form />
+      <Form/>
     </div>
   </div>
 </template>
