@@ -66,7 +66,7 @@ defineProps({
   transition: background 0.3s ease;
   animation: fade-in 0.5s ease-in-out;
 
-  @media screen and (max-width: 1440px) {
+  @media screen and (max-width: 1460px) {
     padding: 9px;
     width: 100%;
   }
@@ -121,8 +121,7 @@ defineProps({
   width: 100%;
   height: auto;
 
-  @media screen and (max-width: 1280px) {
-
+  @media screen and (max-width: 1440px) {
     max-width: 320px;
     width: 100%;
     height: auto;
