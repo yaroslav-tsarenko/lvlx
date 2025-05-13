@@ -3,6 +3,7 @@ import { onMounted } from 'vue';
 import { gsap } from 'gsap';
 import rocket from '../assets/gifs/rocket.gif';
 import eggs from '../assets/gifs/eggs.gif';
+import lines from '../assets/gifs/lines.gif';
 import chart from '../assets/gifs/graph.gif';
 
 import { getTextByLanguage } from "@/config";
@@ -23,6 +24,7 @@ onMounted(() => {
   <div class="benefits" id="benefits-section">
     <img :src="referralIcon" alt="referral-icon" width="350" height="80" class="referral-icon">
     <div class="benefits-wrapper">
+      <img :src="lines" alt="rocket" width="1920" height="600" class="lines-gif"/>
       <h2>{{ texts.Benefits.title }}</h2>
       <div class="unions">
         <div class="union-item">
@@ -74,6 +76,13 @@ onMounted(() => {
   position: relative;
 }
 
+.lines-gif{
+  display: flex;
+  position: absolute;
+  width: 100%;
+  height: auto;
+}
+
 .benefits-wrapper {
   display: flex;
   flex-direction: column;
@@ -86,13 +95,12 @@ onMounted(() => {
   border-radius: 30px;
   height: fit-content;
   padding: 140px 0;
+  background: var(--orange);
   overflow: hidden;
   --r: 50px; /* the radius */
   --s: 40px; /* size of inner curve */
   --x: 270px; /* horizontal offset (no percentage) */
   --y: 10px; /* vertical offset (no percentage) */
-  background: url("../assets/images/orange-bg-lines.svg") no-repeat center;
-  background-size: contain;
   --_m: / calc(2 * var(--r)) calc(2 * var(--r)) radial-gradient(#000 70%, #0000 72%);
   --_g: conic-gradient(from 180deg at var(--r) calc(100% - var(--r)), #0000 25%, #000 0);
   --_d:(var(--s) + var(--r));

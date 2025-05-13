@@ -24,7 +24,6 @@ const closePopup = () => {
   isPopupVisible.value = false;
 };
 
-
 onMounted(async () => {
   await nextTick();
 
