@@ -153,7 +153,7 @@ const togglePopup = () => {
   background-color: var(--black);
   border-radius: 50px;
   padding: 7px;
-  z-index: 99999;
+  z-index: 999;
 
   @media screen and (max-width: 1028px) {
     display: none;
