@@ -113,22 +113,26 @@ function setupMatter() {
 
   const screenWidth = window.innerWidth;
   const isMobile = screenWidth < 768;
-  const isLaptop = screenWidth >= 1280 && screenWidth < 1440;
+  const isLaptop = screenWidth >= 1280 && screenWidth < 1600;
 
-  const fallingEggs = Array.from({ length: isMobile ? 65 : 25 }, () => {
+  const fallingEggs = Array.from({ length: isMobile ? 65 : 20 }, () => {
     const radius = isMobile
         ? 23 + Math.random() * 2
         : isLaptop
-            ? 35 + Math.random() * 5
+            ? 25 + Math.random() * 22
             : 60 + Math.random() * 10;
 
     const xScale = isMobile
-        ? 0.6
+        ? 0.2
         : isLaptop
-            ? 0.75
+            ? 0.85
             : 1;
 
-    const x = Math.random() * width;
+    const isLeft = Math.random() < 0.5;
+    const x = isLeft
+        ? Math.random() * (width / 2 - 100)
+        : width / 2 + 100 + Math.random() * (width / 2 - 100);
+
     const y = isMobile ? height + Math.random() * 200 : Math.random() * -800;
 
     const egg = Matter.Bodies.circle(x, y, radius, {
