@@ -32,7 +32,7 @@ onMounted(async () => {
   const timeout = setTimeout(() => {
     timeoutReached = true;
     isLoading.value = false;
-  }, 5000);
+  }, 3000);
 
   requestIdleCallback(() => {
     if (!timeoutReached) {
@@ -41,8 +41,6 @@ onMounted(async () => {
     }
   });
 });
-
-
 
 </script>
 
