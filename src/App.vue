@@ -26,10 +26,22 @@ const closePopup = () => {
 
 onMounted(async () => {
   await nextTick();
-  requestIdleCallback(() => {
+
+  let timeoutReached = false;
+
+  const timeout = setTimeout(() => {
+    timeoutReached = true;
     isLoading.value = false;
+  }, 5000);
+
+  requestIdleCallback(() => {
+    if (!timeoutReached) {
+      clearTimeout(timeout);
+      isLoading.value = false;
+    }
   });
 });
+
 
 
 </script>
