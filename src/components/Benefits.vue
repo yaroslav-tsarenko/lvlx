@@ -81,6 +81,12 @@ onMounted(() => {
   position: absolute;
   width: 100%;
   height: auto;
+  z-index: -1;
+
+  @media screen and (max-width: 1028px) {
+    height: 50%;
+    width: auto;
+  }
 }
 
 .benefits-wrapper {
