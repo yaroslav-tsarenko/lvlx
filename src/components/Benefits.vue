@@ -123,7 +123,7 @@ onMounted(() => {
     width: 98%;
     margin: 0 auto;
     border-radius: 30px;
-    gap: 10px;
+    gap: 30px;
   }
 
   @media screen and (max-width: 1028px) {
@@ -374,7 +374,7 @@ onMounted(() => {
   width: 100%;
   height: auto;
 
-  @media screen and (max-width: 1300px) {
+  @media screen and (max-width: 1440px) {
     width: 75%;
   }
 }

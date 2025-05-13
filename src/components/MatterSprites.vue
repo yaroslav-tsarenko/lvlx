@@ -66,9 +66,30 @@ const images = [egg1, egg2, egg3];
 
 onMounted(async () => {
   await nextTick();
-  setupMatter();
+  observeSectionVisibility();
   observeContainerResize();
 });
+
+function observeSectionVisibility() {
+  const observer = new IntersectionObserver(
+      (entries, observerInstance) => {
+        const [entry] = entries;
+        if (entry.isIntersecting) {
+          setupMatter();
+          observerInstance.disconnect();
+        }
+      },
+      {
+        root: null,
+        rootMargin: '0px',
+        threshold: 0.4,
+      }
+  );
+
+  if (containerRef.value) {
+    observer.observe(containerRef.value);
+  }
+}
 
 function setupMatter() {
   const container = containerRef.value;

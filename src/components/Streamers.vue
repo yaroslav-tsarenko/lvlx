@@ -6,6 +6,7 @@ import egg from '../assets/images/egg-for-bg.svg';
 import duck from '../assets/images/duck.svg';
 import visitorsChart from '../assets/images/visitors-graph.svg';
 import registerChart from '../assets/images/registrations-graph.svg';
+import streamsPerYear from '../assets/images/stream-en.svg';
 import earningsChart from '../assets/images/earnings-graph.svg';
 import depositChart from '../assets/images/deposit-graph.svg';
 import ChartItem from "@/components/ChartItem.vue";
@@ -18,7 +19,7 @@ const pinnedMessages = computed(() => comments.value.filter(item => item.pinned)
 const unpinnedMessages = computed(() => comments.value.filter(item => !item.pinned));
 
 const chatContentRef = ref(null);
-
+const streamsPerYearDesk = texts.Images.streamsPerYear;
 const getRandomColor = () => {
   const r = Math.floor(Math.random() * 256);
   const g = Math.floor(Math.random() * 256);
@@ -43,7 +44,6 @@ onMounted(async () => {
 
   const scrollHeight = chatEl.scrollHeight / 2;
 
-  // Бесконечный скролл с помощью gsap
   gsap.to(chatEl, {
     scrollTop: scrollHeight,
     duration: 30,
@@ -65,7 +65,7 @@ onMounted(async () => {
 
 <template>
   <div class="streamers-wrapper" id="streamers-section">
-    <img :src="streamsPerYear" alt="icon" width="350" height="80" class="streamer-icon">
+    <img :src="streamsPerYearDesk" alt="icon" width="350" height="80" class="streamer-icon">
     <div class="streamers-container">
       <img :src="subtract" alt="Subtract Icon" class="subtract">
       <img :src="elipseBlur" alt="Elipse Blur" class="ellipseBlur">
