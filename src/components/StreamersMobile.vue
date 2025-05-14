@@ -1,6 +1,6 @@
 <script setup>
 import {getTextByLanguage} from "@/config";
-import mobileDuck from "../assets/images/duck-mobile.svg"
+import mobileDuck from "../assets/images/duck-mobile 1.png"
 import visitorsChart from "@/assets/images/visitors-graph.svg";
 import registerChart from "@/assets/images/registrations-graph.svg";
 import earningsChart from "@/assets/images/earnings-graph.svg";

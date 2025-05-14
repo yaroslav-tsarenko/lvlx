@@ -343,6 +343,11 @@ watch(currentSlide, async () => {
   @media screen and (max-width: 476px) {
     width: 100%;
     max-width: 100%;
+
+    h3{
+      text-align: center;
+      justify-content: center;
+    }
   }
 }
 

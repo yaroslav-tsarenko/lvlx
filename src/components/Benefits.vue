@@ -254,6 +254,11 @@ onMounted(() => {
   @media screen and (max-width: 1028px) {
     width: 350px;
     height: 60px;
+    align-content: flex-start;
+    text-align: left;
+    justify-content: flex-start;
+    padding: 0 0 0 28%;
+    align-items: center;
   }
 }
 
