@@ -1,11 +1,13 @@
 <script setup>
 import { onMounted } from 'vue';
 import { gsap } from 'gsap';
-import rocket from '../assets/gifs/rocket.gif';
-import eggs from '../assets/gifs/eggs.gif';
-import lines from '../assets/gifs/lines.gif';
-import chart from '../assets/gifs/graph.gif';
-
+import { ref } from 'vue';
+import eggsGif from '../assets/gifs/eggs.gif';
+import chartGif from '../assets/gifs/graph.gif';
+import rocketGif from '../assets/gifs/rocket.gif';
+import eggsStatic from '../assets/images/eggs-static.svg';
+import chartStatic from '../assets/images/charts-static.svg';
+import rocketStatic from '../assets/images/rocket-static.svg';
 import { getTextByLanguage } from "@/config";
 
 const texts = getTextByLanguage();
@@ -18,6 +20,38 @@ onMounted(() => {
     ease: 'power3.out',
   });
 });
+
+const products = ref([
+  {
+    title: 'productCardTitleFirst',
+    description: 'productCardDescriptionFirst',
+    static: eggsStatic,
+    gif: eggsGif,
+    current: eggsStatic,
+  },
+  {
+    title: 'productCardTitleSecond',
+    description: 'productCardDescriptionSecond',
+    static: chartStatic,
+    gif: chartGif,
+    current: chartStatic,
+  },
+  {
+    title: 'productCardTitleThird',
+    description: 'productCardDescriptionThird',
+    static: rocketStatic,
+    gif: rocketGif,
+    current: rocketStatic,
+  },
+]);
+
+const playGif = (index) => {
+  products.value[index].current = products.value[index].gif;
+};
+
+const stopGif = (index) => {
+  products.value[index].current = products.value[index].static;
+};
 </script>
 
 <template>
@@ -41,26 +75,24 @@ onMounted(() => {
         </div>
       </div>
       <div class="products">
-        <div class="product-item">
+        <div
+            class="product-item"
+            v-for="(product, index) in products"
+            :key="index"
+        >
           <div class="product-item-description">
-            <h3>{{ texts.Benefits.productCardTitleFirst }}</h3>
-            <p>{{ texts.Benefits.productCardDescriptionFirst }}</p>
+            <h3>{{ texts.Benefits[product.title] }}</h3>
+            <p>{{ texts.Benefits[product.description] }}</p>
           </div>
-          <img :src="eggs" alt="rocket" width="200" height="200" class="gif"/>
-        </div>
-        <div class="product-item">
-          <div class="product-item-description">
-            <h3>{{ texts.Benefits.productCardTitleSecond }}</h3>
-            <p>{{ texts.Benefits.productCardDescriptionSecond }}</p>
-          </div>
-          <img :src="chart" alt="rocket" width="200" height="200" class="gif"/>
-        </div>
-        <div class="product-item">
-          <div class="product-item-description">
-            <h3>{{ texts.Benefits.productCardTitleThird }}</h3>
-            <p>{{ texts.Benefits.productCardDescriptionThird }}</p>
-          </div>
-          <img :src="rocket" alt="rocket" width="200" height="200" class="gif"/>
+          <img
+              :src="product.current"
+              alt="product"
+              width="200"
+              height="200"
+              class="gif"
+              @mouseover="playGif(index)"
+              @mouseleave="stopGif(index)"
+          />
         </div>
       </div>
     </div>
