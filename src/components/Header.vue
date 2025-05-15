@@ -81,6 +81,7 @@ const redirectToTelegram = () => {
 </template>
 
 <style scoped>
+
 .header {
   padding: 1rem;
   position: sticky;

@@ -1,14 +1,16 @@
 <script setup>
-import { onMounted } from 'vue';
-import { gsap } from 'gsap';
-import { ref } from 'vue';
+import {onMounted} from 'vue';
+import {gsap} from 'gsap';
+import {ref} from 'vue';
 import eggsGif from '../assets/gifs/eggs.gif';
 import chartGif from '../assets/gifs/graph.gif';
 import rocketGif from '../assets/gifs/rocket.gif';
 import eggsStatic from '../assets/images/eggs-static.svg';
 import chartStatic from '../assets/images/charts-static.svg';
 import rocketStatic from '../assets/images/rocket-static.svg';
-import { getTextByLanguage } from "@/config";
+import lines from '../assets/images/lines.gif';
+import arrows from '../assets/images/three-arrows.svg';
+import {getTextByLanguage} from "@/config";
 
 const texts = getTextByLanguage();
 const referralIcon = texts.Images.referral;
@@ -59,6 +61,7 @@ const stopGif = (index) => {
     <img :src="referralIcon" alt="referral-icon" width="350" height="80" class="referral-icon">
     <div class="benefits-wrapper">
       <img :src="lines" alt="rocket" width="1920" height="600" class="lines-gif"/>
+      <img :src="arrows" alt="arrows" width="80" height="232" class="three-arrows"/>
       <h2>{{ texts.Benefits.title }}</h2>
       <div class="unions">
         <div class="union-item">
@@ -108,7 +111,32 @@ const stopGif = (index) => {
   position: relative;
 }
 
-.lines-gif{
+.three-arrows {
+  display: flex;
+  position: absolute;
+  bottom: 22%;
+  left: 7px;
+  width: 50px;
+  height: auto;
+
+  @media screen and (max-width: 1920px) {
+    bottom: 22%;
+    left: 2%;
+    width: 80px;
+  }
+
+  @media screen and (max-width: 1300px) {
+    bottom: 22%;
+    left: 7px;
+    width: 50px;
+  }
+
+  @media screen and (max-width: 1028px) {
+    display: none;
+  }
+}
+
+.lines-gif {
   display: flex;
   position: absolute;
   width: 100%;
@@ -235,13 +263,24 @@ const stopGif = (index) => {
   justify-content: center;
   align-items: center;
   width: 100%;
+  max-width: 1330px;
 
-  @media screen and (max-width: 1280px) {
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
+  @media screen and (max-width: 1440px) {
+    display: flex;
+    max-width: 1200px;
+    width: 81%;
     align-items: center;
     justify-items: center;
-    width: fit-content;
+    justify-content: center;
+    gap: 5px;
+  }
+
+  @media screen and (max-width: 1300px) {
+    display: flex;
+    max-width: 1200px;
+    width: 90%;
+    align-items: center;
+    justify-items: center;
     justify-content: center;
     gap: 20px;
   }
@@ -280,7 +319,11 @@ const stopGif = (index) => {
 
   @media screen and (max-width: 1440px) {
     width: 320px;
+    padding: 0 0 0 6%;
     height: 60px;
+    align-content: flex-start;
+    text-align: left;
+    justify-content: flex-start;
   }
 
   @media screen and (max-width: 1028px) {
@@ -339,23 +382,21 @@ const stopGif = (index) => {
   background: rgba(255, 255, 255, 0.13);
   border: 1px solid rgba(255, 255, 255, 0.4);
   backdrop-filter: blur(10px);
-    --r: 20px; /* the radius */
-    --s: 30px; /* size of inner curve */
-    --x: 20px; /* horizontal offset (no percentage) */
-    --y: 10px; /* vertical offset (no percentage) */
-    aspect-ratio: 1;
-    border-radius: var(--r);
-    --_m:/calc(2*var(--r)) calc(2*var(--r)) radial-gradient(#000 70%,#0000 72%);
-    --_g:conic-gradient(at calc(100% - var(--r)) var(--r),#0000 25%,#000 0);
-    --_d:(var(--s) + var(--r));
-    mask:
-        calc(100% - var(--_d) - var(--x)) 0 var(--_m),
-        100% calc(var(--_d) + var(--y)) var(--_m),
-        radial-gradient(var(--s) at 100% 0,#0000 99%,#000 calc(100% + 1px))
-        calc(-1*var(--r) - var(--x)) calc(var(--r) + var(--y)),
-        var(--_g) calc(-1*var(--_d) - var(--x)) 0,
-        var(--_g) 0 calc(var(--_d) + var(--y));
-    mask-repeat: no-repeat;
+  --r: 20px; /* the radius */
+  --s: 30px; /* size of inner curve */
+  --x: 20px; /* horizontal offset (no percentage) */
+  --y: 10px; /* vertical offset (no percentage) */
+  aspect-ratio: 1;
+  border-radius: var(--r);
+  --_m: / calc(2 * var(--r)) calc(2 * var(--r)) radial-gradient(#000 70%, #0000 72%);
+  --_g: conic-gradient(at calc(100% - var(--r)) var(--r), #0000 25%, #000 0);
+  --_d:(var(--s) + var(--r));
+  mask: calc(100% - var(--_d) - var(--x)) 0 var(--_m),
+  100% calc(var(--_d) + var(--y)) var(--_m),
+  radial-gradient(var(--s) at 100% 0, #0000 99%, #000 calc(100% + 1px)) calc(-1 * var(--r) - var(--x)) calc(var(--r) + var(--y)),
+  var(--_g) calc(-1 * var(--_d) - var(--x)) 0,
+  var(--_g) 0 calc(var(--_d) + var(--y));
+  mask-repeat: no-repeat;
 
   @media screen and (max-width: 1440px) {
     height: 480px;
