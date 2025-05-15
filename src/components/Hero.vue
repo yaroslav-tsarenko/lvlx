@@ -1,5 +1,5 @@
 <script setup>
-import {onMounted, ref} from 'vue';
+import { onMounted, onUnmounted, ref } from 'vue';
 import {gsap} from 'gsap';
 import bgVideo from '../assets/videos/girl.mp4';
 import bgVideoMobile from '../assets/videos/girl mobile.mp4';
@@ -114,11 +114,38 @@ const handleFormSubmitted = () => {
   emit('formSubmitted');
 };
 
+const showFixedHeader = ref(false);
+
+const handleScroll = () => {
+  if (window.scrollY > 50 && !showFixedHeader.value) {
+    showFixedHeader.value = true;
+    gsap.fromTo(".fixed-header-container",
+        { opacity: 0, y: -20 },
+        { opacity: 1, y: 0, duration: 0.8, ease: "power2.out" }
+    );
+  } else if (window.scrollY <= 50 && showFixedHeader.value) {
+    showFixedHeader.value = false;
+  }
+};
+
+onMounted(() => {
+  window.addEventListener("scroll", handleScroll);
+});
+
+onUnmounted(() => {
+  window.removeEventListener("scroll", handleScroll);
+});
+
 </script>
 
 <template>
   <div class="hero" id="home-section">
     <Header/>
+    <transition name="fade">
+      <div v-if="showFixedHeader" class="fixed-header-container">
+        <Header />
+      </div>
+    </transition>
     <video
         ref="videoRef"
         class="bg-video"
@@ -175,6 +202,30 @@ const handleFormSubmitted = () => {
     gap: 10px;
   }
 }
+
+.fixed-header-container {
+  position: fixed;
+  top: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 97%;
+  z-index: 1000;
+
+  @media screen and (max-width: 1028px) {
+    width: 90%;
+    padding: 10px;
+    border-radius: 20px;
+  }
+}
+
+.fade-enter-active, .fade-leave-active {
+  transition: opacity 0.5s ease;
+}
+
+.fade-enter-from, .fade-leave-to {
+  opacity: 0;
+}
+
 
 .bg-video {
   position: absolute;
