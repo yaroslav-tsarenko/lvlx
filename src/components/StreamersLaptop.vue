@@ -9,41 +9,44 @@ import duckFrame from "@/assets/images/duck-frame.svg"
 import ellipseBlur from "@/assets/images/ellipse-blur.png"
 import egg from "@/assets/images/egg-for-bg.svg";
 import streams from "@/assets/icons/streem.svg";
+import FadeInFromBottom from "@/components/FadeInFromBottom.vue";
 
 const texts = getTextByLanguage();
 </script>
 
 <template>
-  <div class="streamers-laptop-wrapper">
-    <img :src="streams" alt="streams" width="180" height="50" class="streams-icon-laptop">
-    <div class="streamers-laptop-top">
-      <div class="streamers-laptop-upper-section">
-        <p>{{ texts.ForStreamers.description }}</p>
-        <h2>{{ texts.ForStreamers.title }}</h2>
-        <div class="unions-black-laptop-container">
-          <div class="union-item-black">{{ texts.ForStreamers.plusOne }}</div>
-          <div class="union-item-black">{{ texts.ForStreamers.plusTwo }}</div>
-          <div class="union-item-black">{{ texts.ForStreamers.plusThree }}</div>
+  <FadeInFromBottom>
+    <div class="streamers-laptop-wrapper">
+      <img :src="streams" alt="streams" width="180" height="50" class="streams-icon-laptop">
+      <div class="streamers-laptop-top">
+        <div class="streamers-laptop-upper-section">
+          <p>{{ texts.ForStreamers.description }}</p>
+          <h2>{{ texts.ForStreamers.title }}</h2>
+          <div class="unions-black-laptop-container">
+            <div class="union-item-black">{{ texts.ForStreamers.plusOne }}</div>
+            <div class="union-item-black">{{ texts.ForStreamers.plusTwo }}</div>
+            <div class="union-item-black">{{ texts.ForStreamers.plusThree }}</div>
+          </div>
+        </div>
+        <button class="custom-button-laptop">
+          {{ texts.ForStreamers.becomeStreamer }}
+        </button>
+        <img :src="duckFrame" alt="Duck Frame" width="630" height="680" class="duck-frame">
+        <img :src="ellipseBlur" alt="img" width="630" height="250" class="ellipse-blur">
+      </div>
+      <div class="streamers-laptop-bottom">
+        <img :src="egg" alt="Egg" width="380" height="380" class="egg-laptop">
+        <div class="charts-laptop">
+          <ChartItem :p="texts.ForStreamers.visits" h4="11236" :chart="visitorsChart"/>
+          <div class="charts-column-laptop">
+            <ChartItem :p="texts.ForStreamers.registrations" h4="1404" :chart="registerChart"/>
+            <ChartItem :p="texts.ForStreamers.earnings" h4="$32760" :chart="earningsChart" highlighted/>
+          </div>
+          <ChartItem :p="texts.ForStreamers.deposits" h4="468" :chart="depositChart" max-height="80%"/>
         </div>
       </div>
-      <button class="custom-button-laptop">
-        {{ texts.ForStreamers.becomeStreamer }}
-      </button>
-      <img :src="duckFrame" alt="Duck Frame" width="630" height="680" class="duck-frame">
-      <img :src="ellipseBlur" alt="img" width="630" height="250" class="ellipse-blur">
     </div>
-    <div class="streamers-laptop-bottom">
-      <img :src="egg" alt="Egg" width="380" height="380" class="egg-laptop">
-      <div class="charts-laptop">
-        <ChartItem :p="texts.ForStreamers.visits" h4="11236" :chart="visitorsChart"/>
-        <div class="charts-column-laptop">
-          <ChartItem :p="texts.ForStreamers.registrations" h4="1404" :chart="registerChart"/>
-          <ChartItem :p="texts.ForStreamers.earnings" h4="$32760" :chart="earningsChart" highlighted/>
-        </div>
-        <ChartItem :p="texts.ForStreamers.deposits" h4="468" :chart="depositChart" max-height="80%"/>
-      </div>
-    </div>
-  </div>
+  </FadeInFromBottom>
 </template>
 
 <style scoped>

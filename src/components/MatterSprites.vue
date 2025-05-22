@@ -1,34 +1,36 @@
 <template>
-  <div ref="containerRef" class="matter-container">
-    <canvas ref="canvasRef" class="matter-canvas"/>
-    <h2 class="faq-title">{{ texts.Faq.title }}</h2>
-    <div ref="faqBoxRef" class="faq-box">
-      <div
-          class="faq-item"
-          :class="{ expanded: expandedIndex === index }"
-          v-for="(item, index) in faqItems"
-          :key="index"
-          @click="toggle(index)">
-        <div class="faq-question" :class="{ expanded: expandedIndex === index }">
-          <img
-              class="arrow"
-              :class="{ rotated: expandedIndex === index }"
-              :src="getArrowSrc(index)"
-              alt="Arrow"
-          />
-          {{ item.question }}
-        </div>
+  <FadeInFromBottom>
+    <div ref="containerRef" class="matter-container">
+      <canvas ref="canvasRef" class="matter-canvas"/>
+      <h2 class="faq-title">{{ texts.Faq.title }}</h2>
+      <div ref="faqBoxRef" class="faq-box">
         <div
-            class="faq-answer"
-            :style="expandedIndex === index ? 'height: auto; opacity: 1;' : ''"
-            ref="answerRefs[index]">
-          <div class="faq-answer-inner">
-            {{ item.answer }}
+            class="faq-item"
+            :class="{ expanded: expandedIndex === index }"
+            v-for="(item, index) in faqItems"
+            :key="index"
+            @click="toggle(index)">
+          <div class="faq-question" :class="{ expanded: expandedIndex === index }">
+            <img
+                class="arrow"
+                :class="{ rotated: expandedIndex === index }"
+                :src="getArrowSrc(index)"
+                alt="Arrow"
+            />
+            {{ item.question }}
+          </div>
+          <div
+              class="faq-answer"
+              :style="expandedIndex === index ? 'height: auto; opacity: 1;' : ''"
+              ref="answerRefs[index]">
+            <div class="faq-answer-inner">
+              {{ item.answer }}
+            </div>
           </div>
         </div>
       </div>
     </div>
-  </div>
+  </FadeInFromBottom>
 </template>
 
 
@@ -41,6 +43,7 @@ import egg2 from '@/assets/images/egg-type-2.svg';
 import egg3 from '@/assets/images/egg-type-3.svg';
 import arrowOrange from '@/assets/icons/arrow-orange.svg';
 import arrowBlack from '@/assets/icons/arrow-black.svg';
+import FadeInFromBottom from "@/components/FadeInFromBottom.vue";
 
 const texts = getTextByLanguage();
 const faqItems = texts.Faq.faqItems;

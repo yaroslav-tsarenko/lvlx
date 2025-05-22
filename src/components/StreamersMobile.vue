@@ -7,44 +7,47 @@ import earningsChart from "@/assets/images/earnings-graph.svg";
 import depositChart from "@/assets/images/deposit-graph.svg";
 import ChartItem from "@/components/ChartItem.vue";
 import streams from "../assets/icons/streem.svg";
+import FadeInFromBottom from "@/components/FadeInFromBottom.vue";
 const texts = getTextByLanguage();
 </script>
 
 <template>
-  <div class="for-streamers-mobile-wrapper" id="streamers-section">
-    <img :src="streams" alt="streams" width="180" height="50" class="streams-icon">
-    <div class="for-streamers-mobile">
-      <h2>{{ texts.ForStreamers.title }}</h2>
-      <div class="for-streamers-mobile-titles">
-        <p>{{ texts.ForStreamers.description }}</p>
-        <div class="unions-black-mobile">
-          <div class="union-black-mobile-item">
-            {{ texts.ForStreamers.plusOne }}
-          </div>
-          <div class="union-black-mobile-item">
-            {{ texts.ForStreamers.plusTwo }}
-          </div>
-          <div class="union-black-mobile-item">
-            {{ texts.ForStreamers.plusThree }}
+  <FadeInFromBottom>
+    <div class="for-streamers-mobile-wrapper" id="streamers-section">
+      <img :src="streams" alt="streams" width="180" height="50" class="streams-icon">
+      <div class="for-streamers-mobile">
+        <h2>{{ texts.ForStreamers.title }}</h2>
+        <div class="for-streamers-mobile-titles">
+          <p>{{ texts.ForStreamers.description }}</p>
+          <div class="unions-black-mobile">
+            <div class="union-black-mobile-item">
+              {{ texts.ForStreamers.plusOne }}
+            </div>
+            <div class="union-black-mobile-item">
+              {{ texts.ForStreamers.plusTwo }}
+            </div>
+            <div class="union-black-mobile-item">
+              {{ texts.ForStreamers.plusThree }}
+            </div>
           </div>
         </div>
-      </div>
-      <div class="streamers-mobile-duck">
-        <img :src="mobileDuck" alt="Mobile Duck" width="350" height="500" class="mobile-duck">
-        <button>
-          {{ texts.ForStreamers.becomeStreamer }}
-        </button>
-      </div>
-      <div class="charts-mobile">
-        <ChartItem p="посещений" h4="11236" :chart="visitorsChart"/>
-        <div class="charts-column">
-          <ChartItem p="регистраций" h4="1404" :chart="registerChart"/>
-          <ChartItem p="доход" h4="$32760" :chart="earningsChart" highlighted/>
+        <div class="streamers-mobile-duck">
+          <img :src="mobileDuck" alt="Mobile Duck" width="350" height="500" class="mobile-duck">
+          <button>
+            {{ texts.ForStreamers.becomeStreamer }}
+          </button>
         </div>
-        <ChartItem p="депозитов" h4="468" :chart="depositChart"/>
+        <div class="charts-mobile">
+          <ChartItem p="посещений" h4="11236" :chart="visitorsChart"/>
+          <div class="charts-column">
+            <ChartItem p="регистраций" h4="1404" :chart="registerChart"/>
+            <ChartItem p="доход" h4="$32760" :chart="earningsChart" highlighted/>
+          </div>
+          <ChartItem p="депозитов" h4="468" :chart="depositChart"/>
+        </div>
       </div>
     </div>
-  </div>
+  </FadeInFromBottom>
 </template>
 
 <style scoped>

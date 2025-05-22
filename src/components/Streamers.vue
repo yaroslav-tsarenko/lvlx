@@ -13,6 +13,7 @@ import ChartItem from "@/components/ChartItem.vue";
 import { getTextByLanguage } from '@/config';
 const texts = getTextByLanguage();
 import gsap from 'gsap';
+import FadeInFromBottom from "@/components/FadeInFromBottom.vue";
 
 const comments = ref(texts.Comments);
 const pinnedMessages = computed(() => comments.value.filter(item => item.pinned));
@@ -64,60 +65,62 @@ onMounted(async () => {
 </script>
 
 <template>
-  <div class="streamers-wrapper" id="streamers-section">
-    <img :src="streamsPerYearDesk" alt="icon" width="350" height="80" class="streamer-icon">
-    <div class="streamers-container">
-      <img :src="subtract" alt="Subtract Icon" class="subtract">
-      <img :src="elipseBlur" alt="Elipse Blur" class="ellipseBlur">
-      <img :src="egg" alt="Egg" width="380" height="380" class="egg">
-      <img :src="duck" alt="duck" width="700" height="800" class="duck">
-      <div class="charts-wrapper">
-        <p>{{texts.ForStreamers.description}}</p>
-        <div class="charts">
-          <ChartItem :p="texts.ForStreamers.visits" h4="11236" :chart="visitorsChart"/>
-          <div class="charts-column">
-            <ChartItem :p="texts.ForStreamers.registrations" h4="1404" :chart="registerChart"/>
-            <ChartItem :p="texts.ForStreamers.earnings" h4="$32760" :chart="earningsChart" highlighted/>
+  <FadeInFromBottom>
+    <div class="streamers-wrapper" id="streamers-section">
+      <img :src="streamsPerYearDesk" alt="icon" width="350" height="80" class="streamer-icon">
+      <div class="streamers-container">
+        <img :src="subtract" alt="Subtract Icon" class="subtract">
+        <img :src="elipseBlur" alt="Elipse Blur" class="ellipseBlur">
+        <img :src="egg" alt="Egg" width="380" height="380" class="egg">
+        <img :src="duck" alt="duck" width="700" height="800" class="duck">
+        <div class="charts-wrapper">
+          <p>{{texts.ForStreamers.description}}</p>
+          <div class="charts">
+            <ChartItem :p="texts.ForStreamers.visits" h4="11236" :chart="visitorsChart"/>
+            <div class="charts-column">
+              <ChartItem :p="texts.ForStreamers.registrations" h4="1404" :chart="registerChart"/>
+              <ChartItem :p="texts.ForStreamers.earnings" h4="$32760" :chart="earningsChart" highlighted/>
+            </div>
+            <ChartItem :p="texts.ForStreamers.deposits" h4="468" :chart="depositChart"/>
           </div>
-          <ChartItem :p="texts.ForStreamers.deposits" h4="468" :chart="depositChart"/>
         </div>
-      </div>
-      <div class="for-streamers">
-        <h2>{{texts.ForStreamers.title}}</h2>
-        <button>
-          {{texts.ForStreamers.becomeStreamer}}
-        </button>
-      </div>
-      <div class="chat-and-unions">
-        <div class="unions-black">
-          <div class="union-item-black">{{texts.ForStreamers.plusOne}}</div>
-          <div class="union-item-black">{{texts.ForStreamers.plusTwo}}</div>
-          <div class="union-item-black">{{texts.ForStreamers.plusThree}}</div>
+        <div class="for-streamers">
+          <h2>{{texts.ForStreamers.title}}</h2>
+          <button>
+            {{texts.ForStreamers.becomeStreamer}}
+          </button>
         </div>
-        <div class="streamer-chat">
-          <h4>Чат стрима</h4>
-          <div class="streamer-chat-content" ref="chatContentRef">
-            <p
-                v-for="(item, index) in pinnedMessages"
-                :key="'pinned-' + index"
-                class="chat-item pinned"
-            >
-              <span class="nickname" :style="{ color: getRandomColor() }">📌{{ item.nickname }}: </span>
-              {{ item.message }}
-            </p>
-            <div
-                v-for="(item, index) in unpinnedMessages"
-                :key="'unpinned-' + index"
-                class="chat-item"
-            >
-              <span class="nickname" :style="{ color: getRandomColor() }">{{ item.nickname }}:</span>
-              {{ item.message }}
+        <div class="chat-and-unions">
+          <div class="unions-black">
+            <div class="union-item-black">{{texts.ForStreamers.plusOne}}</div>
+            <div class="union-item-black">{{texts.ForStreamers.plusTwo}}</div>
+            <div class="union-item-black">{{texts.ForStreamers.plusThree}}</div>
+          </div>
+          <div class="streamer-chat">
+            <h4>Чат стрима</h4>
+            <div class="streamer-chat-content" ref="chatContentRef">
+              <p
+                  v-for="(item, index) in pinnedMessages"
+                  :key="'pinned-' + index"
+                  class="chat-item pinned"
+              >
+                <span class="nickname" :style="{ color: getRandomColor() }">📌{{ item.nickname }}: </span>
+                {{ item.message }}
+              </p>
+              <div
+                  v-for="(item, index) in unpinnedMessages"
+                  :key="'unpinned-' + index"
+                  class="chat-item"
+              >
+                <span class="nickname" :style="{ color: getRandomColor() }">{{ item.nickname }}:</span>
+                {{ item.message }}
+              </div>
             </div>
           </div>
         </div>
       </div>
     </div>
-  </div>
+  </FadeInFromBottom>
 </template>
 
 <style scoped>

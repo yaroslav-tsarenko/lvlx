@@ -11,6 +11,7 @@ import rocketStatic from '../assets/images/rocket-static.svg';
 import lines from '../assets/images/lines.gif';
 import arrows from '../assets/images/three-arrows.svg';
 import {getTextByLanguage} from "@/config";
+import FadeInFromBottom from "@/components/FadeInFromBottom.vue";
 
 const texts = getTextByLanguage();
 const referralIcon = texts.Images.referral;
@@ -57,49 +58,51 @@ const stopGif = (index) => {
 </script>
 
 <template>
-  <div class="benefits" id="benefits-section">
-    <img :src="referralIcon" alt="referral-icon" width="350" height="80" class="referral-icon">
-    <div class="benefits-wrapper">
-      <img :src="lines" alt="rocket" width="1920" height="600" class="lines-gif"/>
-      <img :src="arrows" alt="arrows" width="80" height="232" class="three-arrows"/>
-      <h2>{{ texts.Benefits.title }}</h2>
-      <div class="unions">
-        <div class="union-item">
-          {{ texts.Benefits.benefitFirst }}
-        </div>
-        <div class="union-item">
-          {{ texts.Benefits.benefitSecond }}
-        </div>
-        <div class="union-item">
-          {{ texts.Benefits.benefitThird }}
-        </div>
-        <div class="union-item">
-          {{ texts.Benefits.benefitFourth }}
-        </div>
-      </div>
-      <div class="products">
-        <div
-            class="product-item"
-            v-for="(product, index) in products"
-            :key="index"
-        >
-          <div class="product-item-description">
-            <h3>{{ texts.Benefits[product.title] }}</h3>
-            <p>{{ texts.Benefits[product.description] }}</p>
+  <FadeInFromBottom>
+    <div class="benefits" id="benefits-section">
+      <img :src="referralIcon" alt="referral-icon" width="350" height="80" class="referral-icon">
+      <div class="benefits-wrapper">
+        <img :src="lines" alt="rocket" width="1920" height="600" class="lines-gif"/>
+        <img :src="arrows" alt="arrows" width="80" height="232" class="three-arrows"/>
+        <h2>{{ texts.Benefits.title }}</h2>
+        <div class="unions">
+          <div class="union-item">
+            {{ texts.Benefits.benefitFirst }}
           </div>
-          <img
-              :src="product.current"
-              alt="product"
-              width="200"
-              height="200"
-              class="gif"
-              @mouseover="playGif(index)"
-              @mouseleave="stopGif(index)"
-          />
+          <div class="union-item">
+            {{ texts.Benefits.benefitSecond }}
+          </div>
+          <div class="union-item">
+            {{ texts.Benefits.benefitThird }}
+          </div>
+          <div class="union-item">
+            {{ texts.Benefits.benefitFourth }}
+          </div>
+        </div>
+        <div class="products">
+          <div
+              class="product-item"
+              v-for="(product, index) in products"
+              :key="index"
+          >
+            <div class="product-item-description">
+              <h3>{{ texts.Benefits[product.title] }}</h3>
+              <p>{{ texts.Benefits[product.description] }}</p>
+            </div>
+            <img
+                :src="product.current"
+                alt="product"
+                width="200"
+                height="200"
+                class="gif"
+                @mouseover="playGif(index)"
+                @mouseleave="stopGif(index)"
+            />
+          </div>
         </div>
       </div>
     </div>
-  </div>
+  </FadeInFromBottom>
 </template>
 
 <style scoped>

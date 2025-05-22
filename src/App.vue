@@ -1,88 +1,134 @@
 <script setup>
-import Hero from "@/components/Hero.vue";
-import Footer from "@/components/Footer.vue";
-import { ref, onMounted } from 'vue';
-import { nextTick } from 'vue';
-import Benefits from "@/components/Benefits.vue";
-import Product from "@/components/Product.vue";
-import Streamers from "@/components/Streamers.vue";
-import BottomNav from "@/components/BottomNav.vue";
-import ProductMobile from "@/components/ProductMobile.vue";
-import StreamersMobile from "@/components/StreamersMobile.vue";
-import StreamersLaptop from "@/components/StreamersLaptop.vue";
-import MatterSprites from "@/components/MatterSprites.vue";
-import Popup from "@/components/Popup.vue";
+import { ref, onMounted, nextTick, defineAsyncComponent } from 'vue'
+import gsap from 'gsap'
+import FadeInOnView from "@/components/FadeInOnView.vue";
+import logo from './assets/logo/lvlx-logo.svg';
+import LenisScriptLoader from "@/components/LenisScriptLoader.vue";
+const Hero = defineAsyncComponent(() => import('@/components/Hero.vue'))
+const Footer = defineAsyncComponent(() => import('@/components/Footer.vue'))
+const Benefits = defineAsyncComponent(() => import('@/components/Benefits.vue'))
+const Product = defineAsyncComponent(() => import('@/components/Product.vue'))
+const Streamers = defineAsyncComponent(() => import('@/components/Streamers.vue'))
+const BottomNav = defineAsyncComponent(() => import('@/components/BottomNav.vue'))
+const ProductMobile = defineAsyncComponent(() => import('@/components/ProductMobile.vue'))
+const StreamersMobile = defineAsyncComponent(() => import('@/components/StreamersMobile.vue'))
+const StreamersLaptop = defineAsyncComponent(() => import('@/components/StreamersLaptop.vue'))
+const MatterSprites = defineAsyncComponent(() => import('@/components/MatterSprites.vue'))
+const Popup = defineAsyncComponent(() => import('@/components/Popup.vue'))
 
-const isPopupVisible = ref(false);
-const isLoading = ref(true);
-const isVisible = ref(true);
+const isPopupVisible = ref(false)
+const isLoading = ref(true)
+const isVisible = ref(true)
+const animatedRefs = ref([])
 
 const handleFormSubmitted = () => {
-  isPopupVisible.value = true;
-};
-
+  isPopupVisible.value = true
+}
 const closePopup = () => {
-  isPopupVisible.value = false;
-};
+  isPopupVisible.value = false
+}
+
+const observeAndAnimate = () => {
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach((entry) => {
+      if (entry.isIntersecting) {
+        gsap.to(entry.target, {
+          opacity: 1,
+          y: 0,
+          duration: 0.8,
+          ease: 'power2.out',
+          stagger: 0.2,
+        })
+        observer.unobserve(entry.target)
+      }
+    })
+  }, {
+    threshold: 0.2,
+  })
+
+  nextTick(() => {
+    animatedRefs.value.forEach((el) => {
+      if (el) {
+        gsap.set(el, { opacity: 0, y: 50 })
+        observer.observe(el)
+      }
+    })
+  })
+}
 
 onMounted(async () => {
-  await nextTick();
+  await Promise.all([
+    import('@/components/Hero.vue'),
+    import('@/components/Footer.vue'),
+    import('@/components/Benefits.vue'),
+    import('@/components/Product.vue'),
+    import('@/components/Streamers.vue'),
+    import('@/components/BottomNav.vue'),
+    import('@/components/ProductMobile.vue'),
+    import('@/components/StreamersMobile.vue'),
+    import('@/components/StreamersLaptop.vue'),
+    import('@/components/MatterSprites.vue'),
+    import('@/components/Popup.vue'),
+  ])
 
-  const isMobile = window.innerWidth < 768;
-  const preloadKey = 'hasSeenPreloader';
-  const hasCached = localStorage.getItem(preloadKey) === 'true';
+  await nextTick()
+
+  const isMobile = window.innerWidth < 768
+  const preloadKey = 'hasSeenPreloader'
+  const hasCached = localStorage.getItem(preloadKey) === 'true'
+
+  const finishLoading = () => {
+    isVisible.value = false
+    setTimeout(() => {
+      isLoading.value = false
+      localStorage.setItem(preloadKey, 'true')
+      observeAndAnimate()
+    }, 500)
+  }
 
   if (isMobile) {
     if (hasCached) {
-      isLoading.value = false;
-      isVisible.value = false;
+      isLoading.value = false
+      isVisible.value = false
+      observeAndAnimate()
     } else {
-      setTimeout(() => {
-        isVisible.value = false;
-        setTimeout(() => {
-          isLoading.value = false;
-          localStorage.setItem(preloadKey, 'true');
-        }, 500);
-      }, 3000);
+      setTimeout(finishLoading, 3000)
     }
   } else {
     requestIdleCallback(() => {
-      setTimeout(() => {
-        isVisible.value = false;
-        setTimeout(() => {
-          isLoading.value = false;
-          localStorage.setItem(preloadKey, 'true');
-        }, 500);
-      }, 1000);
-    });
+      setTimeout(finishLoading, 1000)
+    })
   }
-});
-
-
-
+})
 </script>
-
 
 <template>
   <div v-if="isLoading" :class="['preloader', { hide: !isVisible }]">
-    <div class="spinner"></div>
+    <div class="logo-wrapper">
+      <img :src="logo" alt="Logo" class="logo-shine" width="150" height="30" />
+      <div class="shine"></div>
+    </div>
   </div>
 
   <div v-else>
-    <Popup :visible="isPopupVisible" @update:visible="closePopup" />
-    <BottomNav/>
-    <Hero @formSubmitted="handleFormSubmitted" />
-    <Benefits/>
-    <Product/>
-    <ProductMobile/>
-    <Streamers/>
-    <StreamersLaptop/>
-    <StreamersMobile/>
-    <MatterSprites/>
-    <Footer/>
+    <LenisScriptLoader/>
+    <Popup :visible="isPopupVisible" @update:visible="closePopup"/>
+    <BottomNav />
+
+    <FadeInOnView>
+      <Hero @formSubmitted="handleFormSubmitted"/>
+    </FadeInOnView>
+
+      <Benefits />
+      <Product />
+      <ProductMobile />
+      <Streamers />
+      <StreamersLaptop />
+      <StreamersMobile />
+      <MatterSprites />
+      <Footer />
   </div>
 </template>
-
 
 <style scoped>
 .preloader {
@@ -102,13 +148,44 @@ onMounted(async () => {
   pointer-events: none;
 }
 
-.spinner {
-  width: 60px;
-  height: 60px;
-  border: 6px solid rgba(159, 159, 159, 0.2);
-  border-top-color: #f84204;
-  border-radius: 50%;
-  animation: spin 1s ease-in-out infinite;
+.logo-wrapper {
+  position: relative;
+  display: inline-block;
+  animation: logoFadeIn 1.2s ease-out forwards;
+  transform: scale(0.8);
+  opacity: 0;
+}
+
+.shine {
+  position: absolute;
+  top: 0;
+  left: -75%;
+  width: 50%;
+  height: 100%;
+  background: linear-gradient(
+      120deg,
+      rgba(255, 255, 255, 0) 0%,
+      rgba(255, 255, 255, 0.4) 50%,
+      rgba(255, 255, 255, 0) 100%
+  );
+  transform: skewX(-20deg);
+  animation: shine 2.5s infinite;
+}
+
+@keyframes logoFadeIn {
+  to {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+
+@keyframes shine {
+  0% {
+    left: -75%;
+  }
+  100% {
+    left: 125%;
+  }
 }
 
 @keyframes spin {
@@ -116,5 +193,4 @@ onMounted(async () => {
     transform: rotate(360deg);
   }
 }
-
 </style>

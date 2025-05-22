@@ -33,7 +33,7 @@ const togglePopup = () => {
 </script>
 
 <template>
-  <div class="bottom-nav">
+  <div class="bottom-nav bottom-nav-animate">
     <button class="home-button" @click="scrollToSection('home-section')">
       <img :src="homeIcon" alt="home icon" width="24" height="24"/>
     </button>
@@ -75,6 +75,20 @@ const togglePopup = () => {
 </template>
 
 <style scoped>
+
+.bottom-nav-animate {
+  opacity: 0;
+  transform: translateY(-40px);
+  filter: blur(12px);
+  animation: bottomNavFadeIn 1.2s ease-out 1.6s forwards;
+}
+
+@keyframes bottomNavFadeIn {
+  to {
+    opacity: 1;
+    filter: blur(0);
+  }
+}
 
 .popup-overlay {
   position: fixed;

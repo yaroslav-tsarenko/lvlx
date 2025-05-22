@@ -5,6 +5,7 @@ import inst from '../assets/icons/instagram-icon.svg';
 import yt from '../assets/icons/youtube-icon.svg';
 
 import {getTextByLanguage} from '@/config';
+import FadeInFromBottom from "@/components/FadeInFromBottom.vue";
 const texts = getTextByLanguage();
 
 
@@ -17,45 +18,47 @@ const scrollToSection = (sectionId) => {
 </script>
 
 <template>
-  <footer class="footer" id="footer-section">
-    <div class="footer-upper">
-      <div class="footer-header">
-        <p>{{ texts.Footer.text }}</p>
-        <img :src="logo" alt="logo" width="150" height="30"/>
-        <button @click="scrollToSection('home-section')">{{ texts.Footer.register }}</button>
-      </div>
-      <div class="footer-middle">
-        <div class="footer-item">
-          <p>Telegram</p>
-          <h1>
-            <a href="https://t.me/afflvlx" target="_blank" rel="noopener noreferrer">@afflvlx</a>
-          </h1>
+  <FadeInFromBottom>
+    <footer class="footer" id="footer-section">
+      <div class="footer-upper">
+        <div class="footer-header">
+          <p>{{ texts.Footer.text }}</p>
+          <img :src="logo" alt="logo" width="150" height="30"/>
+          <button @click="scrollToSection('home-section')">{{ texts.Footer.register }}</button>
         </div>
-        <div class="footer-item">
-          <p>{{ texts.Footer.email }}</p>
-          <h1>
-            <a href="mailto:partners@lvlx.top">partners@lvlx.top</a>
-          </h1>
-          <div class="footer-socials">
-            <a href="https://t.me/afflvlx" target="_blank" rel="noopener noreferrer">
-              <img :src="tg" alt="Telegram icon" width="60" height="60">
-            </a>
-            <a href="https://www.instagram.com" target="_blank" rel="noopener noreferrer">
-              <img :src="inst" alt="Instagram icon" width="60" height="60">
-            </a>
-            <a href="https://www.youtube.com" target="_blank" rel="noopener noreferrer">
-              <img :src="yt" alt="YouTube icon" width="60" height="60">
-            </a>
+        <div class="footer-middle">
+          <div class="footer-item">
+            <p>Telegram</p>
+            <h1>
+              <a href="https://t.me/afflvlx" target="_blank" rel="noopener noreferrer">@afflvlx</a>
+            </h1>
+          </div>
+          <div class="footer-item">
+            <p>{{ texts.Footer.email }}</p>
+            <h1>
+              <a href="mailto:partners@lvlx.top">partners@lvlx.top</a>
+            </h1>
+            <div class="footer-socials">
+              <a href="https://t.me/afflvlx" target="_blank" rel="noopener noreferrer">
+                <img :src="tg" alt="Telegram icon" width="60" height="60">
+              </a>
+              <a href="https://www.instagram.com" target="_blank" rel="noopener noreferrer">
+                <img :src="inst" alt="Instagram icon" width="60" height="60">
+              </a>
+              <a href="https://www.youtube.com" target="_blank" rel="noopener noreferrer">
+                <img :src="yt" alt="YouTube icon" width="60" height="60">
+              </a>
+            </div>
           </div>
         </div>
       </div>
-    </div>
-    <div class="footer-bottom">
-      <p>
-        {{ texts.Footer.allRightsReserved }}
-      </p>
-    </div>
-  </footer>
+      <div class="footer-bottom">
+        <p>
+          {{ texts.Footer.allRightsReserved }}
+        </p>
+      </div>
+    </footer>
+  </FadeInFromBottom>
 </template>
 
 <style scoped>

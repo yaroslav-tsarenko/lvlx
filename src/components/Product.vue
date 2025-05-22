@@ -2,6 +2,7 @@
 import unionIcon from "../assets/icons/union-plus.svg"
 import {ref, watch, nextTick} from 'vue';
 import {getTextByLanguage} from '@/config';
+import FadeInFromBottom from "@/components/FadeInFromBottom.vue";
 
 const texts = getTextByLanguage();
 const currentSlide = ref(0);
@@ -40,70 +41,72 @@ watch(currentSlide, async () => {
 </script>
 
 <template>
-  <div class="slider-wrapper" id="product-section">
-    <div class="slider-info-wrapper">
-      <div class="pagination">
-        <div
-            v-for="(slide, index) in slides"
-            :key="'pagination-' + index"
-            class="pagination-item"
-            :class="{ active: currentSlide === index }"
-            @click="changeSlide(index)">
-          {{ index + 1 }}
-        </div>
-      </div>
-      <div class="slider-info">
-        <div class="slider-info-details">
-          <div class="slider-product-info">
-            <h2>{{ texts.Product.title }}</h2>
-            <p>
-              {{ texts.Product.description }}
-            </p>
-          </div>
-          <div class="unions-block">
-            <div class="union-item-plus">
-              {{ texts.Product.plusOne }}
-              <img :src="unionIcon" alt="icon" width="20" height="20">
-            </div>
-            <div class="union-item-plus">
-              {{ texts.Product.plusFour }}
-              <img :src="unionIcon" alt="icon" width="20" height="20">
-            </div>
-            <div class="union-item-plus">
-              {{ texts.Product.plusTwo }}
-              <img :src="unionIcon" alt="icon" width="20" height="20">
-            </div>
-            <div class="union-item-plus">
-              {{ texts.Product.plusFive }}
-              <img :src="unionIcon" alt="icon" width="20" height="20">
-            </div>
-            <div class="union-item-plus">
-              {{ texts.Product.plusThree }}
-              <img :src="unionIcon" alt="icon" width="20" height="20">
-            </div>
-            <div class="union-item-plus">
-              {{ texts.Product.plusSix }}
-              <img :src="unionIcon" alt="icon" width="20" height="20">
-            </div>
+  <FadeInFromBottom>
+    <div class="slider-wrapper" id="product-section">
+      <div class="slider-info-wrapper">
+        <div class="pagination">
+          <div
+              v-for="(slide, index) in slides"
+              :key="'pagination-' + index"
+              class="pagination-item"
+              :class="{ active: currentSlide === index }"
+              @click="changeSlide(index)">
+            {{ index + 1 }}
           </div>
         </div>
-        <div class="slide-description" :key="currentSlide">
-          <img :src="slides[currentSlide].text" alt="image" width="530" height="220">
-          <img :src="slides[currentSlide].benefits" alt="image" width="1080" height="220">
+        <div class="slider-info">
+          <div class="slider-info-details">
+            <div class="slider-product-info">
+              <h2>{{ texts.Product.title }}</h2>
+              <p>
+                {{ texts.Product.description }}
+              </p>
+            </div>
+            <div class="unions-block">
+              <div class="union-item-plus">
+                {{ texts.Product.plusOne }}
+                <img :src="unionIcon" alt="icon" width="20" height="20">
+              </div>
+              <div class="union-item-plus">
+                {{ texts.Product.plusFour }}
+                <img :src="unionIcon" alt="icon" width="20" height="20">
+              </div>
+              <div class="union-item-plus">
+                {{ texts.Product.plusTwo }}
+                <img :src="unionIcon" alt="icon" width="20" height="20">
+              </div>
+              <div class="union-item-plus">
+                {{ texts.Product.plusFive }}
+                <img :src="unionIcon" alt="icon" width="20" height="20">
+              </div>
+              <div class="union-item-plus">
+                {{ texts.Product.plusThree }}
+                <img :src="unionIcon" alt="icon" width="20" height="20">
+              </div>
+              <div class="union-item-plus">
+                {{ texts.Product.plusSix }}
+                <img :src="unionIcon" alt="icon" width="20" height="20">
+              </div>
+            </div>
+          </div>
+          <div class="slide-description" :key="currentSlide">
+            <img :src="slides[currentSlide].text" alt="image" width="530" height="220">
+            <img :src="slides[currentSlide].benefits" alt="image" width="1080" height="220">
+          </div>
         </div>
       </div>
+      <div class="slides">
+        <img
+            :src="slides[currentSlide].tablet"
+            alt="tablet"
+            width="630"
+            height="822"
+            class="tablet"
+            :key="currentSlide"
+        />
+      </div>
     </div>
-    <div class="slides">
-      <img
-          :src="slides[currentSlide].tablet"
-          alt="tablet"
-          width="630"
-          height="822"
-          class="tablet"
-          :key="currentSlide"
-      />
-    </div>
-  </div>
+  </FadeInFromBottom>
 </template>
 
 <style scoped>

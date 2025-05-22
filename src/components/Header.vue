@@ -1,9 +1,9 @@
 <script setup lang="ts">
-import { ref, onMounted, watch } from 'vue';
+import { ref, onMounted } from 'vue';
 import { gsap } from 'gsap';
 import logo from '../assets/logo/lvlx-logo.svg';
 import arrowTopRight from '../assets/icons/arrow-top-right.svg';
-const selectedLanguage = ref('RU'); // default
+const selectedLanguage = ref('RU');
 import { getTextByLanguage } from "@/config";
 
 const texts = getTextByLanguage();
@@ -25,8 +25,6 @@ onMounted(() => {
     delay: 1,
     ease: 'power2.out',
   });
-
-
 
   const buttonWrapper = document.querySelector('.custom-button-wrapper');
   const text = buttonWrapper?.querySelector('p');
@@ -58,8 +56,8 @@ const redirectToTelegram = () => {
 
 
 <template>
-  <header class="header">
-    <img :src="logo" alt="Logo" class="logo" width="150" height="30"/>
+  <header class="header header-animate">
+  <img :src="logo" alt="Logo" class="logo" width="150" height="30"/>
     <div class="nav">
       <select v-model="selectedLanguage" @change="changeLanguage($event.target.value)" class="language-selector">
         <option value="RU">RU</option>
@@ -97,6 +95,19 @@ const redirectToTelegram = () => {
 
   @media screen and (max-width: 768px) {
     padding: 0;
+  }
+}
+
+.header-animate {
+  opacity: 0;
+  transform: translateY(-100%);
+  animation: headerFadeIn 1.2s ease-out 1.6s forwards;
+}
+
+@keyframes headerFadeIn {
+  to {
+    opacity: 1;
+    transform: translateY(0);
   }
 }
 

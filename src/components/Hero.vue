@@ -6,33 +6,10 @@ import bgVideoMobile from '../assets/videos/girl mobile.mp4';
 import Header from "@/components/Header.vue";
 import {defineRule, configure} from "vee-validate";
 import {required, email, min, confirmed, regex} from "@vee-validate/rules";
-import axios from "axios";
 import Form from "@/components/Form.vue";
 import {getTextByLanguage} from "@/config.js";
 import { defineEmits } from 'vue';
 const texts = getTextByLanguage();
-
-const formData = ref({
-  companyName: '',
-  email: '',
-  telegram: '',
-});
-
-const onSubmit = async () => {
-  try {
-    console.log('Submitting form data:', formData.value);
-    const response = await axios.post('http://localhost:8080/request/submit-form-lvlx', formData.value, {
-      headers: {
-        'Content-Type': 'application/json',
-      },
-    });
-    alert(response.data.message || 'Form submitted successfully!');
-    console.log('Server Response:', response.data);
-  } catch (error) {
-    console.error('Error submitting form:', error.response?.data || error.message);
-    alert('Failed to submit the form. Please try again.');
-  }
-};
 
 defineRule("required", required);
 defineRule("email", email);
@@ -59,7 +36,6 @@ onMounted(() => {
   };
 });
 
-const isPopupVisible = ref(false);
 
 configure({
   generateMessage: (ctx) => {
@@ -76,22 +52,6 @@ const leftSideRef = ref(null);
 const rightSideRef = ref(null);
 const videoRef = ref(null);
 
-onMounted(() => {
-  const video = videoRef.value;
-  if (video) {
-    video.play().catch((error) => {
-      console.error('Auto-play failed:', error);
-    });
-  }
-});
-
-onMounted(() => {
-  gsap.fromTo(
-      videoRef.value,
-      {scale: 1.5, filter: "blur(20px)"},
-      {scale: 1, filter: "blur(0px)", duration: 2, ease: "power2.out"}
-  );
-});
 
 onMounted(() => {
   gsap.from(leftSideRef.value, {
@@ -148,14 +108,14 @@ onUnmounted(() => {
     </transition>
     <video
         ref="videoRef"
-        class="bg-video"
+        class="bg-video video-animate"
         :src="videoSrc"
         autoplay
         loop
         muted
         playsinline>
     </video>
-    <div class="hero-content">
+    <div class="hero-content hero-animate">
       <div class="left-side" ref="leftSideRef">
         <div class="main-title">
           <h1>{{ texts.Hero.title }}</h1>
@@ -218,15 +178,6 @@ onUnmounted(() => {
   }
 }
 
-.fade-enter-active, .fade-leave-active {
-  transition: opacity 0.5s ease;
-}
-
-.fade-enter-from, .fade-leave-to {
-  opacity: 0;
-}
-
-
 .bg-video {
   position: absolute;
   top: 0;
@@ -241,6 +192,37 @@ onUnmounted(() => {
     transform: scale(0.7);
   }
 }
+
+.video-animate {
+  opacity: 0;
+  filter: blur(20px);
+  transform: scale(1.1);
+  animation: fadeBlurIn 1.6s ease-out 0.6s forwards;
+}
+
+.hero-animate {
+  opacity: 0;
+  filter: blur(16px);
+  transform: translateY(30px);
+  animation: fadeBlurUp 1.6s ease-out 1.3s forwards;
+}
+
+@keyframes fadeBlurIn {
+  to {
+    opacity: 1;
+    filter: blur(0);
+    transform: scale(1);
+  }
+}
+
+@keyframes fadeBlurUp {
+  to {
+    opacity: 1;
+    filter: blur(0);
+    transform: translateY(0);
+  }
+}
+
 
 .hero-content {
   position: relative;
