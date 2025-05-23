@@ -39,8 +39,11 @@ import {ref, onMounted, onBeforeUnmount, nextTick} from 'vue';
 import Matter from 'matter-js';
 import {getTextByLanguage} from '@/config';
 import egg1 from '@/assets/images/black.png';
+import egg1svg from '@/assets/images/egg-type-1.svg';
 import egg2 from '@/assets/images/grey.png';
+import egg2svg from '@/assets/images/egg-type-2.svg';
 import egg3 from '@/assets/images/red.png';
+import egg3svg from '@/assets/images/egg-type-3.svg';
 import arrowOrange from '@/assets/icons/arrow-orange.svg';
 import arrowBlack from '@/assets/icons/arrow-black.svg';
 import FadeInFromBottom from "@/components/FadeInFromBottom.vue";
@@ -65,7 +68,12 @@ let engine, render, runner, mouseConstraint;
 let observer;
 let faqBody = null;
 
-const images = [egg1, egg2, egg3];
+const screenWidth = window.innerWidth;
+const isMobile = screenWidth <= 768;
+
+const images = isMobile
+    ? [egg1svg, egg2svg, egg3svg]
+    : [egg1, egg2, egg3];
 
 onMounted(async () => {
   await nextTick();
@@ -147,7 +155,7 @@ function setupMatter() {
             : 60 + Math.random() * 10;
 
     const xScale = isMobile
-        ? 0.2
+        ? 0.5
         : isLaptop
             ? 0.4
             : 0.5;
