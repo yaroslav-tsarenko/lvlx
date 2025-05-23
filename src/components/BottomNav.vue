@@ -72,6 +72,7 @@ const togglePopup = () => {
       <Form/>
     </div>
   </div>
+
 </template>
 
 <style scoped>
@@ -80,7 +81,7 @@ const togglePopup = () => {
   opacity: 0;
   transform: translateY(-40px);
   filter: blur(12px);
-  animation: bottomNavFadeIn 1.2s ease-out 1.6s forwards;
+  animation: bottomNavFadeIn 1.4s ease-out 1.7s forwards;
 }
 
 @keyframes bottomNavFadeIn {

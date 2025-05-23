@@ -1,7 +1,8 @@
 <script setup lang="ts">
 import { ref, onMounted } from 'vue';
 import { gsap } from 'gsap';
-import logo from '../assets/logo/lvlx-logo.svg';
+import logo from '@/assets/logo/lvlx-logo.svg';
+import logoWhite from '@/assets/logo/lvlx-logo-white.svg';
 import arrowTopRight from '../assets/icons/arrow-top-right.svg';
 const selectedLanguage = ref('RU');
 import { getTextByLanguage } from "@/config";
@@ -31,22 +32,39 @@ onMounted(() => {
   const arrow = buttonWrapper?.querySelector('.arrow-icon');
 
   if (buttonWrapper && text && arrow) {
+    const targets = [text, arrow];
+
     buttonWrapper.addEventListener('mouseenter', () => {
-      gsap.to([text, arrow], {
+      // Перша хвиля — зникнення з розмиттям вгору
+      gsap.to(targets, {
         y: -20,
         opacity: 0,
-        duration: 0.3,
+        filter: 'blur(6px)',
+        duration: 0.4,
+        ease: 'power2.out',
+        stagger: 0.1, // хвильова затримка між елементами
         onComplete: () => {
-          gsap.set([text, arrow], { y: 20, opacity: 0 });
-          gsap.to([text, arrow], {
+          // Підготовка до входу
+          gsap.set(targets, {
+            y: 20,
+            opacity: 0,
+            filter: 'blur(6px)',
+          });
+
+          // Друга хвиля — поява знизу з fade та розфокусування
+          gsap.to(targets, {
             y: 0,
             opacity: 1,
-            duration: 0.3,
+            filter: 'blur(0px)',
+            duration: 0.6,
+            ease: 'power3.out',
+            stagger: 0.1, // хвильова затримка знову
           });
         },
       });
     });
   }
+
 });
 
 const redirectToTelegram = () => {
@@ -100,16 +118,19 @@ const redirectToTelegram = () => {
 
 .header-animate {
   opacity: 0;
+  filter: blur(16px);
   transform: translateY(-100%);
-  animation: headerFadeIn 1.2s ease-out 1.6s forwards;
+  animation: headerFadeIn 1.8s ease-out 1.5s forwards;
 }
 
 @keyframes headerFadeIn {
   to {
     opacity: 1;
+    filter: blur(0);
     transform: translateY(0);
   }
 }
+
 
 .custom-button-wrapper {
   display: flex;

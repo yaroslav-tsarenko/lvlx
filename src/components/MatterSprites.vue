@@ -1,6 +1,6 @@
 <template>
   <FadeInFromBottom>
-    <div ref="containerRef" class="matter-container">
+    <div ref="containerRef" id="faq-section" class="matter-container">
       <canvas ref="canvasRef" class="matter-canvas"/>
       <h2 class="faq-title">{{ texts.Faq.title }}</h2>
       <div ref="faqBoxRef" class="faq-box">
@@ -38,9 +38,9 @@
 import {ref, onMounted, onBeforeUnmount, nextTick} from 'vue';
 import Matter from 'matter-js';
 import {getTextByLanguage} from '@/config';
-import egg1 from '@/assets/images/egg-type-1.svg';
-import egg2 from '@/assets/images/egg-type-2.svg';
-import egg3 from '@/assets/images/egg-type-3.svg';
+import egg1 from '@/assets/images/black.png';
+import egg2 from '@/assets/images/grey.png';
+import egg3 from '@/assets/images/red.png';
 import arrowOrange from '@/assets/icons/arrow-orange.svg';
 import arrowBlack from '@/assets/icons/arrow-black.svg';
 import FadeInFromBottom from "@/components/FadeInFromBottom.vue";
@@ -141,16 +141,16 @@ function setupMatter() {
 
   const fallingEggs = Array.from({ length: isMobile ? 35 : 20 }, () => {
     const radius = isMobile
-        ? 43 + Math.random() * 2
+        ? 25 + Math.random() * 2
         : isLaptop
-            ? 27 + Math.random() * 22
+            ? 43 + Math.random() * 22
             : 60 + Math.random() * 10;
 
     const xScale = isMobile
-        ? 0.5
+        ? 0.2
         : isLaptop
-            ? 0.85
-            : 1;
+            ? 0.4
+            : 0.5;
 
     const isLeft = Math.random() < 0.5;
 
@@ -279,7 +279,6 @@ onBeforeUnmount(() => {
   inset: 0;
   width: 100%;
   height: 100%;
-  pointer-events: none;
   z-index: 0;
 }
 

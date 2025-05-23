@@ -1,17 +1,48 @@
 <script setup>
 import {getTextByLanguage} from "@/config.js";
-import visitorsChart from "@/assets/images/visitors-graph.svg";
-import registerChart from "@/assets/images/registrations-graph.svg";
-import earningsChart from "@/assets/images/earnings-graph.svg";
-import depositChart from "@/assets/images/deposit-graph.svg";
+import visitorsChart from "@/assets/gifs/graph-1.webm";
+import registerChart from "@/assets/gifs/graph-2.webm";
+import earningsChart from "@/assets/gifs/graph-3.webm";
+import depositChart from "@/assets/gifs/graph-4.webm";
 import ChartItem from "@/components/ChartItem.vue";
 import duckFrame from "@/assets/images/duck-frame.svg"
 import ellipseBlur from "@/assets/images/ellipse-blur.png"
 import egg from "@/assets/images/egg-for-bg.svg";
 import streams from "@/assets/icons/streem.svg";
+import { ref, onMounted } from 'vue';
 import FadeInFromBottom from "@/components/FadeInFromBottom.vue";
+import FadeInBlurFromLeft from "@/components/FadeInBlurFromLeft.vue";
 
 const texts = getTextByLanguage();
+
+const descriptionRef = ref(null);
+const typedText = ref('');
+const fullText = texts.ForStreamers.description;
+
+const startTyping = (text, speed = 40) => {
+  typedText.value = '';
+  let i = 0;
+  const interval = setInterval(() => {
+    typedText.value += text[i];
+    i++;
+    if (i >= text.length) clearInterval(interval);
+  }, speed);
+};
+
+onMounted(() => {
+  const observer = new IntersectionObserver(([entry]) => {
+    if (entry.isIntersecting) {
+      startTyping(fullText);
+      observer.disconnect();
+    }
+  }, {
+    threshold: 0.4,
+  });
+
+  if (descriptionRef.value) {
+    observer.observe(descriptionRef.value);
+  }
+});
 </script>
 
 <template>
@@ -20,7 +51,7 @@ const texts = getTextByLanguage();
       <img :src="streams" alt="streams" width="180" height="50" class="streams-icon-laptop">
       <div class="streamers-laptop-top">
         <div class="streamers-laptop-upper-section">
-          <p>{{ texts.ForStreamers.description }}</p>
+          <p ref="descriptionRef">{{ typedText }}</p>
           <h2>{{ texts.ForStreamers.title }}</h2>
           <div class="unions-black-laptop-container">
             <div class="union-item-black">{{ texts.ForStreamers.plusOne }}</div>
@@ -40,7 +71,7 @@ const texts = getTextByLanguage();
           <ChartItem :p="texts.ForStreamers.visits" h4="11236" :chart="visitorsChart"/>
           <div class="charts-column-laptop">
             <ChartItem :p="texts.ForStreamers.registrations" h4="1404" :chart="registerChart"/>
-            <ChartItem :p="texts.ForStreamers.earnings" h4="$32760" :chart="earningsChart" highlighted/>
+            <ChartItem :p="texts.ForStreamers.earnings" h4="32760" :chart="earningsChart" highlighted/>
           </div>
           <ChartItem :p="texts.ForStreamers.deposits" h4="468" :chart="depositChart" max-height="80%"/>
         </div>

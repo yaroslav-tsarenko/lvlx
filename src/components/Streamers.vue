@@ -1,19 +1,21 @@
 <script setup>
-import { ref, computed, onMounted, nextTick } from 'vue';
+import {ref, computed, onMounted, nextTick} from 'vue';
 import subtract from '../assets/images/subtract.svg';
 import elipseBlur from '../assets/images/ellipse-blur.png';
 import egg from '../assets/images/egg-for-bg.svg';
 import duck from '../assets/images/duck.svg';
-import visitorsChart from '../assets/images/visitors-graph.svg';
-import registerChart from '../assets/images/registrations-graph.svg';
+import visitorsChart from '../assets/gifs/graph-1.webm';
+import registerChart from '../assets/gifs/graph-2.webm';
 import streamsPerYear from '../assets/images/stream-en.svg';
-import earningsChart from '../assets/images/earnings-graph.svg';
-import depositChart from '../assets/images/deposit-graph.svg';
+import earningsChart from '../assets/gifs/graph-3.webm';
+import depositChart from '../assets/gifs/graph-4.webm';
 import ChartItem from "@/components/ChartItem.vue";
-import { getTextByLanguage } from '@/config';
+import {getTextByLanguage} from '@/config';
+
 const texts = getTextByLanguage();
 import gsap from 'gsap';
 import FadeInFromBottom from "@/components/FadeInFromBottom.vue";
+import FadeInBlurFromLeft from "@/components/FadeInBlurFromLeft.vue";
 
 const comments = ref(texts.Comments);
 const pinnedMessages = computed(() => comments.value.filter(item => item.pinned));
@@ -62,6 +64,35 @@ onMounted(async () => {
   });
 });
 
+const descriptionRef = ref(null);
+const fullText = texts.ForStreamers.description;
+const typedText = ref('');
+
+const startTyping = (text, speed = 40) => {
+  let i = 0;
+  const interval = setInterval(() => {
+    typedText.value += text[i];
+    i++;
+    if (i >= text.length) clearInterval(interval);
+  }, speed);
+};
+
+const observer = new IntersectionObserver(([entry]) => {
+  if (entry.isIntersecting) {
+    startTyping(fullText);
+    observer.disconnect();
+  }
+}, {
+  threshold: 0.5,
+});
+
+onMounted(() => {
+  if (descriptionRef.value) {
+    observer.observe(descriptionRef.value);
+  }
+});
+
+
 </script>
 
 <template>
@@ -74,27 +105,29 @@ onMounted(async () => {
         <img :src="egg" alt="Egg" width="380" height="380" class="egg">
         <img :src="duck" alt="duck" width="700" height="800" class="duck">
         <div class="charts-wrapper">
-          <p>{{texts.ForStreamers.description}}</p>
+          <h3 ref="descriptionRef">{{ typedText }}</h3>
           <div class="charts">
             <ChartItem :p="texts.ForStreamers.visits" h4="11236" :chart="visitorsChart"/>
             <div class="charts-column">
               <ChartItem :p="texts.ForStreamers.registrations" h4="1404" :chart="registerChart"/>
-              <ChartItem :p="texts.ForStreamers.earnings" h4="$32760" :chart="earningsChart" highlighted/>
+              <ChartItem :p="texts.ForStreamers.earnings" h4="32760" :chart="earningsChart" highlighted/>
             </div>
             <ChartItem :p="texts.ForStreamers.deposits" h4="468" :chart="depositChart"/>
           </div>
         </div>
         <div class="for-streamers">
-          <h2>{{texts.ForStreamers.title}}</h2>
+          <FadeInBlurFromLeft>
+            <h2>{{ texts.ForStreamers.title }}</h2>
+          </FadeInBlurFromLeft>
           <button>
-            {{texts.ForStreamers.becomeStreamer}}
+            {{ texts.ForStreamers.becomeStreamer }}
           </button>
         </div>
         <div class="chat-and-unions">
           <div class="unions-black">
-            <div class="union-item-black">{{texts.ForStreamers.plusOne}}</div>
-            <div class="union-item-black">{{texts.ForStreamers.plusTwo}}</div>
-            <div class="union-item-black">{{texts.ForStreamers.plusThree}}</div>
+            <div class="union-item-black">{{ texts.ForStreamers.plusOne }}</div>
+            <div class="union-item-black">{{ texts.ForStreamers.plusTwo }}</div>
+            <div class="union-item-black">{{ texts.ForStreamers.plusThree }}</div>
           </div>
           <div class="streamer-chat">
             <h4>Чат стрима</h4>
@@ -102,16 +135,14 @@ onMounted(async () => {
               <p
                   v-for="(item, index) in pinnedMessages"
                   :key="'pinned-' + index"
-                  class="chat-item pinned"
-              >
+                  class="chat-item pinned">
                 <span class="nickname" :style="{ color: getRandomColor() }">📌{{ item.nickname }}: </span>
                 {{ item.message }}
               </p>
               <div
                   v-for="(item, index) in unpinnedMessages"
                   :key="'unpinned-' + index"
-                  class="chat-item"
-              >
+                  class="chat-item">
                 <span class="nickname" :style="{ color: getRandomColor() }">{{ item.nickname }}:</span>
                 {{ item.message }}
               </div>
@@ -154,6 +185,7 @@ onMounted(async () => {
   /* скрыть скроллбар */
   scrollbar-width: none; /* Firefox */
 }
+
 .streamer-chat-content::-webkit-scrollbar {
   display: none; /* Chrome, Safari */
 }
@@ -223,11 +255,11 @@ onMounted(async () => {
   left: 50%;
   transform: translateX(-50%);
 
-  @media screen and (max-width: 1440px){
+  @media screen and (max-width: 1440px) {
     height: 620px;
   }
 
-  @media screen and (max-width: 1280px){
+  @media screen and (max-width: 1280px) {
     height: 650px;
   }
 }
@@ -342,7 +374,7 @@ onMounted(async () => {
   flex-direction: column;
   color: var(--white);
 
-  p {
+  h3 {
     max-width: 400px;
     font-size: 24px;
     font-weight: 400;
@@ -399,7 +431,7 @@ onMounted(async () => {
   }
 }
 
-.charts-column{
+.charts-column {
   display: flex;
   flex-direction: column;
 }

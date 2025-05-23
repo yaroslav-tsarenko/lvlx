@@ -76,17 +76,39 @@ const handleFormSubmitted = () => {
 
 const showFixedHeader = ref(false);
 
+const typedText = ref('');
+const typedElement = ref(null);
+
+onMounted(() => {
+  const fullText = texts.Hero.subtitle;
+  let index = 0;
+
+  const typeNextChar = () => {
+    if (index < fullText.length) {
+      typedText.value += fullText[index];
+      index++;
+      setTimeout(typeNextChar, 75);
+    }
+  };
+
+  setTimeout(typeNextChar, 75);
+});
+
+const showHeader = ref(false);
+
 const handleScroll = () => {
-  if (window.scrollY > 50 && !showFixedHeader.value) {
-    showFixedHeader.value = true;
-    gsap.fromTo(".fixed-header-container",
-        { opacity: 0, y: -20 },
-        { opacity: 1, y: 0, duration: 0.8, ease: "power2.out" }
-    );
-  } else if (window.scrollY <= 50 && showFixedHeader.value) {
-    showFixedHeader.value = false;
-  }
+  showHeader.value = window.scrollY > 30;
 };
+
+onMounted(() => {
+  window.addEventListener('scroll', handleScroll);
+  handleScroll(); // run once on mount
+});
+
+onUnmounted(() => {
+  window.removeEventListener('scroll', handleScroll);
+});
+
 
 onMounted(() => {
   window.addEventListener("scroll", handleScroll);
@@ -101,11 +123,7 @@ onUnmounted(() => {
 <template>
   <div class="hero" id="home-section">
     <Header/>
-    <transition name="fade">
-      <div v-if="showFixedHeader" class="fixed-header-container">
-        <Header />
-      </div>
-    </transition>
+
     <video
         ref="videoRef"
         class="bg-video video-animate"
@@ -120,7 +138,7 @@ onUnmounted(() => {
         <div class="main-title">
           <h1>{{ texts.Hero.title }}</h1>
           <h2>{{ texts.Hero.title }}</h2>
-          <p>{{ texts.Hero.subtitle }}</p>
+          <p ref="typedElement">{{typedText}}</p>
         </div>
         <div class="left-side-images">
           <img :src="revShareDesc" alt="rev share" width="320" height="160"/>
@@ -152,7 +170,7 @@ onUnmounted(() => {
   overflow: hidden;
 
   @media screen and (max-width: 1440px) {
-    padding: 20px;
+    padding: 40px;
     gap: 50px;
     height: fit-content;
   }
@@ -197,14 +215,22 @@ onUnmounted(() => {
   opacity: 0;
   filter: blur(20px);
   transform: scale(1.1);
-  animation: fadeBlurIn 1.6s ease-out 0.6s forwards;
+  animation: fadeBlurIn 1.0s ease-out 0.5s forwards;
 }
 
 .hero-animate {
   opacity: 0;
   filter: blur(16px);
   transform: translateY(30px);
-  animation: fadeBlurUp 1.6s ease-out 1.3s forwards;
+  animation: fadeBlurUp 1.8s ease-out 1.5s forwards;
+}
+
+@keyframes fadeBlurUp {
+  to {
+    opacity: 1;
+    filter: blur(0);
+    transform: translateY(0);
+  }
 }
 
 @keyframes fadeBlurIn {
@@ -249,7 +275,7 @@ onUnmounted(() => {
   flex-direction: column;
 
   @media screen and (max-width: 1440px) {
-    gap: 50px;
+    gap: 150px;
     height: 100%;
     justify-content: space-between;
   }
@@ -295,7 +321,7 @@ onUnmounted(() => {
     line-height: 94%;
 
     @media screen and (max-width: 1440px) {
-      font-size: 80px;
+      font-size: 60px;
       display: flex;
       font-weight: 500;
       text-align: left;

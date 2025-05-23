@@ -1,9 +1,10 @@
 <script setup>
-import { ref, onMounted, nextTick, defineAsyncComponent } from 'vue'
+import {ref, onMounted, nextTick, defineAsyncComponent, onUnmounted} from 'vue'
 import gsap from 'gsap'
 import FadeInOnView from "@/components/FadeInOnView.vue";
 import logo from './assets/logo/lvlx-logo.svg';
 import LenisScriptLoader from "@/components/LenisScriptLoader.vue";
+import Header from "@/components/Header.vue";
 const Hero = defineAsyncComponent(() => import('@/components/Hero.vue'))
 const Footer = defineAsyncComponent(() => import('@/components/Footer.vue'))
 const Benefits = defineAsyncComponent(() => import('@/components/Benefits.vue'))
@@ -49,7 +50,7 @@ const observeAndAnimate = () => {
   nextTick(() => {
     animatedRefs.value.forEach((el) => {
       if (el) {
-        gsap.set(el, { opacity: 0, y: 50 })
+        gsap.set(el, {opacity: 0, y: 50})
         observer.observe(el)
       }
     })
@@ -83,7 +84,7 @@ onMounted(async () => {
       isLoading.value = false
       localStorage.setItem(preloadKey, 'true')
       observeAndAnimate()
-    }, 500)
+    }, 1500)
   }
 
   if (isMobile) {
@@ -96,16 +97,31 @@ onMounted(async () => {
     }
   } else {
     requestIdleCallback(() => {
-      setTimeout(finishLoading, 1000)
+      setTimeout(finishLoading, 2000)
     })
   }
 })
+
+const showHeader = ref(false);
+
+const handleScroll = () => {
+  showHeader.value = window.scrollY > 10;
+};
+
+onMounted(() => {
+  window.addEventListener('scroll', handleScroll);
+  handleScroll();
+});
+
+onUnmounted(() => {
+  window.removeEventListener('scroll', handleScroll);
+});
 </script>
 
 <template>
   <div v-if="isLoading" :class="['preloader', { hide: !isVisible }]">
     <div class="logo-wrapper">
-      <img :src="logo" alt="Logo" class="logo-shine" width="150" height="30" />
+      <img :src="logo" alt="Logo" class="logo-shine" width="150" height="30"/>
       <div class="shine"></div>
     </div>
   </div>
@@ -113,20 +129,24 @@ onMounted(async () => {
   <div v-else>
     <LenisScriptLoader/>
     <Popup :visible="isPopupVisible" @update:visible="closePopup"/>
-    <BottomNav />
-
+    <BottomNav/>
+    <transition name="fade-slide-down">
+      <div v-if="showHeader" class="fixed-header-wrapper">
+        <Header />
+      </div>
+    </transition>
     <FadeInOnView>
       <Hero @formSubmitted="handleFormSubmitted"/>
     </FadeInOnView>
 
-      <Benefits />
-      <Product />
-      <ProductMobile />
-      <Streamers />
-      <StreamersLaptop />
-      <StreamersMobile />
-      <MatterSprites />
-      <Footer />
+    <Benefits/>
+    <Product/>
+    <ProductMobile/>
+    <Streamers/>
+    <StreamersLaptop/>
+    <StreamersMobile/>
+    <MatterSprites/>
+    <Footer/>
   </div>
 </template>
 
@@ -141,6 +161,36 @@ onMounted(async () => {
   align-items: center;
   opacity: 1;
   transition: opacity 1s ease;
+}
+
+.fade-slide-down-enter-active,
+.fade-slide-down-leave-active {
+  transition: opacity 0.2s ease, transform 0.2s ease;
+}
+
+.fade-slide-down-enter-from,
+.fade-slide-down-leave-to {
+  opacity: 0;
+  transform: translateY(-10px);
+}
+
+.fade-slide-down-enter-to,
+.fade-slide-down-leave-from {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.fixed-header-wrapper {
+  position: fixed;
+  top: 5%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  margin: 0 auto;
+  align-content: center;
+  justify-content: center;
+  align-items: center;
+  width: 94%;
+  z-index: 1000;
 }
 
 .preloader.hide {

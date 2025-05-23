@@ -1,13 +1,30 @@
 <script setup>
-import {defineProps} from 'vue';
+import { defineProps, ref, watch, onMounted } from 'vue';
 
-defineProps({
+const animatedNumber = ref(0);
+
+onMounted(() => {
+  const duration = 6000; // ms
+  const start = performance.now();
+  const endValue = props.h4;
+
+  const animate = (time) => {
+    const progress = Math.min((time - start) / duration, 1);
+    animatedNumber.value = Math.floor(progress * endValue);
+    if (progress < 1) requestAnimationFrame(animate);
+    else animatedNumber.value = endValue;
+  };
+
+  requestAnimationFrame(animate);
+});
+
+const props = defineProps({
   chart: {
     type: String,
     required: true,
   },
   h4: {
-    type: String,
+    type: Number,
     required: true,
   },
   p: {
@@ -23,17 +40,54 @@ defineProps({
     default: null,
   },
 });
+
+const animatedValue = ref(0);
+
+const animateCount = (target, duration = 6000) => {
+  const start = 0;
+  const end = parseInt(target, 10);
+  const startTime = performance.now();
+
+  const step = (now) => {
+    const progress = Math.min((now - startTime) / duration, 1);
+    animatedValue.value = Math.floor(start + (end - start) * progress);
+    if (progress < 1) requestAnimationFrame(step);
+  };
+
+  requestAnimationFrame(step);
+};
+
+watch(() => props.h4, (newVal) => {
+  animateCount(newVal);
+});
+
+onMounted(() => {
+  animateCount(props.h4);
+});
 </script>
+
 
 <template>
   <div class="chart-item" :class="{ highlighted }" :style="{ maxHeight: maxHeight || 'none' }">
     <div class="chart-item-header">
-      <h4>{{ h4 }}</h4>
+      <h4>
+        {{ p === 'доход' ? '$' : '' }}{{ animatedValue }}
+      </h4>
       <p>{{ p }}</p>
     </div>
-    <img :src="chart" alt="chart" width="160" height="140" class="chart-image"/>
+    <video
+        :src="chart"
+        class="chart-image"
+        width="160"
+        height="140"
+        autoplay
+        loop
+        muted
+        playsinline
+    ></video>
   </div>
 </template>
+
 
 <style scoped>
 

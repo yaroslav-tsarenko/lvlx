@@ -6,6 +6,7 @@ import yt from '../assets/icons/youtube-icon.svg';
 
 import {getTextByLanguage} from '@/config';
 import FadeInFromBottom from "@/components/FadeInFromBottom.vue";
+
 const texts = getTextByLanguage();
 
 
@@ -18,9 +19,9 @@ const scrollToSection = (sectionId) => {
 </script>
 
 <template>
-  <FadeInFromBottom>
-    <footer class="footer" id="footer-section">
-      <div class="footer-upper">
+  <footer class="footer" id="footer-section">
+    <div class="footer-upper">
+      <FadeInFromBottom>
         <div class="footer-header">
           <p>{{ texts.Footer.text }}</p>
           <img :src="logo" alt="logo" width="150" height="30"/>
@@ -51,14 +52,15 @@ const scrollToSection = (sectionId) => {
             </div>
           </div>
         </div>
-      </div>
-      <div class="footer-bottom">
-        <p>
-          {{ texts.Footer.allRightsReserved }}
-        </p>
-      </div>
-    </footer>
-  </FadeInFromBottom>
+      </FadeInFromBottom>
+
+    </div>
+    <div class="footer-bottom">
+      <p>
+        {{ texts.Footer.allRightsReserved }}
+      </p>
+    </div>
+  </footer>
 </template>
 
 <style scoped>
@@ -72,7 +74,7 @@ const scrollToSection = (sectionId) => {
   border-radius: 32px 32px 0 0;
 }
 
-.footer-upper{
+.footer-upper {
   display: flex;
   flex-direction: column;
   background: var(--black);
@@ -152,7 +154,7 @@ const scrollToSection = (sectionId) => {
   gap: 20px;
 
   @media screen and (max-width: 768px) {
-   align-content: center;
+    align-content: center;
     justify-content: center;
     align-items: center;
     justify-items: center;
@@ -168,13 +170,13 @@ const scrollToSection = (sectionId) => {
     font-size: 70px;
     padding: 0;
 
-    a{
+    a {
       color: var(--white);
       text-decoration: none;
       transition: 0.3s all ease-in-out;
       cursor: pointer;
 
-      &:hover{
+      &:hover {
         color: var(--orange);
       }
     }
@@ -193,11 +195,11 @@ const scrollToSection = (sectionId) => {
   align-items: flex-end;
   justify-items: flex-end;
 
-  img{
+  img {
     cursor: pointer;
     transition: 0.3s all ease-in-out;
 
-    &:hover{
+    &:hover {
       transform: scale(1.1);
     }
   }

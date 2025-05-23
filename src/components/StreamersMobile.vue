@@ -1,10 +1,10 @@
 <script setup>
 import {getTextByLanguage} from "@/config";
 import mobileDuck from "../assets/images/duck-mobile 1.png"
-import visitorsChart from "@/assets/images/visitors-graph.svg";
-import registerChart from "@/assets/images/registrations-graph.svg";
-import earningsChart from "@/assets/images/earnings-graph.svg";
-import depositChart from "@/assets/images/deposit-graph.svg";
+import visitorsChart from "@/assets/gifs/graph-1.webm";
+import registerChart from "@/assets/gifs/graph-2.webm";
+import earningsChart from "@/assets/gifs/graph-3.webm";
+import depositChart from "@/assets/gifs/graph-4.webm";
 import ChartItem from "@/components/ChartItem.vue";
 import streams from "../assets/icons/streem.svg";
 import FadeInFromBottom from "@/components/FadeInFromBottom.vue";
@@ -41,7 +41,7 @@ const texts = getTextByLanguage();
           <ChartItem p="посещений" h4="11236" :chart="visitorsChart"/>
           <div class="charts-column">
             <ChartItem p="регистраций" h4="1404" :chart="registerChart"/>
-            <ChartItem p="доход" h4="$32760" :chart="earningsChart" highlighted/>
+            <ChartItem p="доход" h4="32760" :chart="earningsChart" highlighted/>
           </div>
           <ChartItem p="депозитов" h4="468" :chart="depositChart"/>
         </div>
@@ -73,7 +73,7 @@ const texts = getTextByLanguage();
   display: flex;
   width: 95%;
   margin: 0 auto;
-  gap: 10px;
+  gap: 40px;
 
   @media screen and (max-width: 476px) {
     flex-direction: column;

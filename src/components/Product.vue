@@ -89,7 +89,7 @@ watch(currentSlide, async () => {
               </div>
             </div>
           </div>
-          <div class="slide-description" :key="currentSlide">
+          <div class="slide-description fade-slide" :key="currentSlide">
             <img :src="slides[currentSlide].text" alt="image" width="530" height="220">
             <img :src="slides[currentSlide].benefits" alt="image" width="1080" height="220">
           </div>
@@ -97,12 +97,14 @@ watch(currentSlide, async () => {
       </div>
       <div class="slides">
         <img
-            :src="slides[currentSlide].tablet"
+            v-for="(slide, index) in slides"
+            :key="slide.tablet"
+            :src="slide.tablet"
             alt="tablet"
             width="630"
             height="822"
-            class="tablet"
-            :key="currentSlide"
+            class="tablet fade-img"
+            :class="{ active: index === currentSlide }"
         />
       </div>
     </div>
@@ -110,6 +112,53 @@ watch(currentSlide, async () => {
 </template>
 
 <style scoped>
+
+.fade-img {
+  position: absolute;
+  top: 10%;
+  left: 60%;
+  height: 822px;
+  width: auto;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.8s ease-in-out;
+  transform: translateY(-50%);
+  transform-origin: center;
+  animation: sway 3s ease-in-out infinite;
+
+  @media screen and (max-width: 1440px) {
+    left: 50%;
+  }
+
+  @media screen and (max-width: 1280px) {
+    left: 45%;
+  }
+}
+
+.fade-img.active {
+  opacity: 1;
+  pointer-events: auto;
+  z-index: 0;
+}
+
+.fade-slide {
+  opacity: 0;
+  filter: blur(16px);
+  animation: fadeSlideIn 0.9s ease-out forwards;
+}
+
+@keyframes fadeSlideIn {
+  0% {
+    opacity: 0;
+    filter: blur(16px);
+    transform: translateY(20px);
+  }
+  100% {
+    opacity: 1;
+    filter: blur(0);
+    transform: translateY(0);
+  }
+}
 
 @keyframes sway {
   0% {
@@ -166,11 +215,6 @@ watch(currentSlide, async () => {
   }
 }
 
-.pagination-item.active {
-  background: var(--orange);
-  color: var(--white);
-}
-
 .pagination {
   display: flex;
   flex-direction: column;
@@ -185,15 +229,15 @@ watch(currentSlide, async () => {
 .pagination-item {
   display: flex;
   width: 60px;
+  height: 60px;
   border-radius: 50px;
   align-content: center;
   justify-content: center;
   align-items: center;
   font-size: 20px;
   cursor: pointer;
-  height: 60px;
   background: var(--white);
-  transition: 0.3s all ease;
+  transition: background 0.4s ease, color 0.4s ease, transform 0.3s ease, box-shadow 0.3s ease;
   box-shadow: 0px 4px 20px var(--grey-transparent);
 
   &:hover {
@@ -201,6 +245,14 @@ watch(currentSlide, async () => {
     color: var(--white);
   }
 }
+
+.pagination-item.active {
+  background: var(--orange);
+  color: var(--white);
+  transform: scale(1.08);
+  box-shadow: 0px 8px 25px rgba(248, 66, 4, 0.4);
+}
+
 
 .slides {
   width: 40%;

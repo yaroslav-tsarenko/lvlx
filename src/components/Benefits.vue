@@ -2,9 +2,9 @@
 import {onMounted} from 'vue';
 import {gsap} from 'gsap';
 import {ref} from 'vue';
-import eggsGif from '../assets/gifs/eggs.gif';
-import chartGif from '../assets/gifs/graph.gif';
-import rocketGif from '../assets/gifs/rocket.gif';
+import eggsGif from '../assets/gifs/eggs.webm';
+import chartGif from '../assets/gifs/graph.webm';
+import rocketGif from '../assets/gifs/rocket.webm';
 import eggsStatic from '../assets/images/eggs-static.svg';
 import chartStatic from '../assets/images/charts-static.svg';
 import rocketStatic from '../assets/images/rocket-static.svg';
@@ -12,7 +12,9 @@ import lines from '../assets/images/lines.gif';
 import arrows from '../assets/images/three-arrows.svg';
 import {getTextByLanguage} from "@/config";
 import FadeInFromBottom from "@/components/FadeInFromBottom.vue";
+import { ScrollTrigger } from 'gsap/ScrollTrigger';
 
+gsap.registerPlugin(ScrollTrigger);
 const texts = getTextByLanguage();
 const referralIcon = texts.Images.referral;
 onMounted(() => {
@@ -30,31 +32,49 @@ const products = ref([
     description: 'productCardDescriptionFirst',
     static: eggsStatic,
     gif: eggsGif,
-    current: eggsStatic,
+    current: 'static',
   },
   {
     title: 'productCardTitleSecond',
     description: 'productCardDescriptionSecond',
     static: chartStatic,
     gif: chartGif,
-    current: chartStatic,
+    current: 'static',
   },
   {
     title: 'productCardTitleThird',
     description: 'productCardDescriptionThird',
     static: rocketStatic,
     gif: rocketGif,
-    current: rocketStatic,
+    current: 'static',
   },
 ]);
 
 const playGif = (index) => {
-  products.value[index].current = products.value[index].gif;
+  products.value[index].current = 'gif';
 };
 
 const stopGif = (index) => {
-  products.value[index].current = products.value[index].static;
+  products.value[index].current = 'static';
 };
+
+const benefitsTitleRef = ref(null);
+
+onMounted(() => {
+  gsap.from(benefitsTitleRef.value, {
+    x: -80,
+    opacity: 0,
+    filter: 'blur(12px)',
+    duration: 1.2,
+    ease: 'power3.out',
+    scrollTrigger: {
+      trigger: benefitsTitleRef.value,
+      start: 'top 80%',
+      toggleActions: 'play none none none',
+    },
+  });
+});
+
 </script>
 
 <template>
@@ -64,7 +84,7 @@ const stopGif = (index) => {
       <div class="benefits-wrapper">
         <img :src="lines" alt="rocket" width="1920" height="600" class="lines-gif"/>
         <img :src="arrows" alt="arrows" width="80" height="232" class="three-arrows"/>
-        <h2>{{ texts.Benefits.title }}</h2>
+        <h2 ref="benefitsTitleRef" class="benefits-title">{{ texts.Benefits.title }}</h2>
         <div class="unions">
           <div class="union-item">
             {{ texts.Benefits.benefitFirst }}
@@ -83,19 +103,30 @@ const stopGif = (index) => {
           <div
               class="product-item"
               v-for="(product, index) in products"
-              :key="index"
-          >
+              :key="index">
             <div class="product-item-description">
               <h3>{{ texts.Benefits[product.title] }}</h3>
               <p>{{ texts.Benefits[product.description] }}</p>
             </div>
             <img
-                :src="product.current"
+                v-if="product.current === 'static'"
+                :src="product.static"
                 alt="product"
                 width="200"
                 height="200"
-                class="gif"
+                class="gif fade"
                 @mouseover="playGif(index)"
+            />
+            <video
+                v-else
+                :src="product.gif"
+                autoplay
+                muted
+                loop
+                playsinline
+                class="gif fade"
+                width="200"
+                height="200"
                 @mouseleave="stopGif(index)"
             />
           </div>
@@ -106,6 +137,25 @@ const stopGif = (index) => {
 </template>
 
 <style scoped>
+
+.fade {
+  opacity: 0;
+  animation: fadeIn 0.8s cubic-bezier(0.25, 0.8, 0.25, 1) forwards;
+  transition: opacity 0.8s cubic-bezier(0.25, 0.8, 0.25, 1);
+}
+
+@keyframes fadeIn {
+  0% {
+    opacity: 0;
+    filter: blur(8px);
+    transform: scale(0.98);
+  }
+  100% {
+    opacity: 1;
+    filter: blur(0);
+    transform: scale(1);
+  }
+}
 
 .benefits {
   display: flex;
@@ -131,7 +181,7 @@ const stopGif = (index) => {
   @media screen and (max-width: 1300px) {
     bottom: 22%;
     left: 7px;
-    width: 50px;
+    width: 30px;
   }
 
   @media screen and (max-width: 1028px) {
@@ -161,10 +211,10 @@ const stopGif = (index) => {
   align-content: center;
   align-items: center;
   justify-items: center;
-  border-radius: 30px;
+  border-radius: 50px;
   height: fit-content;
-  padding: 140px 0;
-  background: var(--orange);
+  padding: 55px 0 120px 0;
+  background: #f84204;
   overflow: hidden;
   --r: 50px; /* the radius */
   --s: 40px; /* size of inner curve */
@@ -183,7 +233,7 @@ const stopGif = (index) => {
   @media screen and (max-width: 1440px) {
     background-size: cover;
     padding: 2% 0 10% 0;
-    width: 98%;
+    width: 96%;
     margin: 0 auto;
     border-radius: 30px;
     gap: 30px;
@@ -202,6 +252,7 @@ const stopGif = (index) => {
     align-items: center;
     padding: 5% 0 19% 0;
     width: 100%;
+    gap: 30px;
     justify-content: center;
     text-align: center;
   }
@@ -226,7 +277,7 @@ const stopGif = (index) => {
     }
 
     @media screen and (max-width: 476px) {
-      font-size: 50px;
+      font-size: 40px;
       flex-direction: column;
       line-height: 120%;
       margin: 15px 0;

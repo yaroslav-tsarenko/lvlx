@@ -87,7 +87,14 @@ watch(currentSlide, async () => {
         </div>
       </div>
       <div class="tablet-content">
-        <img :src="slides[currentSlide].tablet" alt="tablet" width="322" height="auto" class="tablet">
+        <img
+            :key="slides[currentSlide].tablet"
+            :src="slides[currentSlide].tablet"
+            alt="tablet"
+            width="322"
+            height="auto"
+            class="tablet tablet-animated"
+        >
       </div>
     </div>
     <div class="product-mobile-slide-info-wrapper">
@@ -103,16 +110,86 @@ watch(currentSlide, async () => {
         </div>
       </div>
       <div class="product-mobile-slide-info">
-        <img :src="slides[currentSlide].text" alt="image" width="304" height="116" class="slider-text">
-        <img :src="slides[currentSlide].benefits" alt="image" width="728" height="147" class="slider-benefits-mob-first">
-        <img :src="slides[currentSlide].benefitsMobile" alt="image" width="728" height="147" class="slider-benefits-mob-second">
-        <img :src="slides[currentSlide].benefitsDesc" alt="image" width="728" height="147" class="slider-benefits-desc-second">
+        <img
+            :key="slides[currentSlide].text"
+            :src="slides[currentSlide].text"
+            alt="image"
+            width="304"
+            height="116"
+            class="slider-text animated-slide"
+        >
+        <img
+            :key="slides[currentSlide].benefits"
+            :src="slides[currentSlide].benefits"
+            alt="image"
+            width="728"
+            height="147"
+            class="slider-benefits-mob-first animated-slide"
+        >
+        <img
+            :key="slides[currentSlide].benefitsMobile"
+            :src="slides[currentSlide].benefitsMobile"
+            alt="image"
+            width="728"
+            height="147"
+            class="slider-benefits-mob-second animated-slide"
+        >
+        <img
+            :key="slides[currentSlide].benefitsDesc"
+            :src="slides[currentSlide].benefitsDesc"
+            alt="image"
+            width="728"
+            height="147"
+            class="slider-benefits-desc-second animated-slide"
+        >
       </div>
     </div>
   </div>
 </template>
 
 <style scoped>
+.animated-slide {
+  opacity: 0;
+  transform: translateY(10px) scale(0.98);
+  filter: blur(6px);
+  animation: fadeInSlide 0.4s ease forwards;
+}
+
+.tablet-animated {
+  opacity: 0;
+  transform: translateY(20px) scale(0.97);
+  filter: blur(6px);
+  animation: tabletFadeIn 0.5s ease-out forwards;
+}
+
+@keyframes tabletFadeIn {
+  0% {
+    opacity: 0;
+    transform: translateY(20px) scale(0.97);
+    filter: blur(6px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+    filter: blur(0);
+  }
+}
+
+
+@keyframes fadeInSlide {
+  0% {
+    opacity: 0;
+    transform: translateY(10px) scale(0.98);
+    filter: blur(6px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+    filter: blur(0);
+  }
+}
+
+
 
 @keyframes sway {
   0% {
@@ -300,6 +377,27 @@ watch(currentSlide, async () => {
     padding: 21% 0 22% 0;
   }
 }
+
+.product-mobile-slide-info img {
+  opacity: 0;
+  transform: translateY(10px) scale(0.98);
+  filter: blur(4px);
+  animation: fadeInSlide 0.5s ease forwards;
+}
+
+@keyframes fadeInSlide {
+  0% {
+    opacity: 0;
+    transform: translateY(10px) scale(0.98);
+    filter: blur(4px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+    filter: blur(0);
+  }
+}
+
 
 .unions-block {
   display: grid;
