@@ -97,8 +97,8 @@ onMounted(() => {
 
 <template>
   <FadeInFromBottom>
-    <div class="streamers-wrapper" id="streamers-section">
-      <img :src="streamsPerYearDesk" alt="icon" width="350" height="80" class="streamer-icon">
+    <div class="streamers-wrapper streamers-section" id="streamers-section">
+    <img :src="streamsPerYearDesk" alt="icon" width="350" height="80" class="streamer-icon">
       <div class="streamers-container">
         <img :src="subtract" alt="Subtract Icon" class="subtract">
         <img :src="elipseBlur" alt="Elipse Blur" class="ellipseBlur">

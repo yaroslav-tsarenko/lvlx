@@ -9,24 +9,23 @@
             v-for="(item, index) in faqItems"
             :key="'faq-item|' + index"
             class="faq-item"
-            :class="{ expanded: expandedIndex === index }"
-        >
+            :class="{ expanded: expandedIndex === index }">
           <div
               class="faq-question"
               @click="toggleItem(index)"
-              :class="{ expanded: expandedIndex === index }"
-          >
+              :class="{ expanded: expandedIndex === index }">
             <img
                 :src="expandedIndex === index ? arrowOrange : arrowBlack"
                 alt="icon"
                 width="30"
                 height="30"
                 class="arrow"
-                :class="{ rotated: expandedIndex === index }"
-            />
+                :class="{ rotated: expandedIndex === index }"/>
             {{ item.question }}
           </div>
-          <div class="faq-answer" :class="{ expanded: expandedIndex === index }">
+          <div
+              class="faq-answer"
+              :ref="(el) => setFaqAnswerRef(el, index)">
             <p>{{ item.answer }}</p>
           </div>
         </div>
@@ -53,6 +52,36 @@ const toggleItem = (index) => {
   expandedIndex.value = expandedIndex.value === index ? null : index;
   setTimeout(() => updateFaqBodies(), 300); // Почекати, поки faq-item розкриється
 };
+
+const answerRefs = ref([]);
+
+const setFaqAnswerRef = (el, index) => {
+  if (el) answerRefs.value[index] = el;
+};
+
+watch(expandedIndex, async (newIndex, oldIndex) => {
+  await nextTick();
+
+  if (oldIndex !== null && answerRefs.value[oldIndex]) {
+    const el = answerRefs.value[oldIndex];
+    el.style.height = `${el.scrollHeight}px`;
+    requestAnimationFrame(() => {
+      el.style.height = '0px';
+      el.style.opacity = '0';
+    });
+  }
+
+  if (newIndex !== null && answerRefs.value[newIndex]) {
+    const el = answerRefs.value[newIndex];
+    el.style.height = '0px';
+    el.style.opacity = '0';
+    requestAnimationFrame(() => {
+      el.style.height = `${el.scrollHeight}px`;
+      el.style.opacity = '1';
+    });
+  }
+});
+
 
 const fallingContainer = ref(null);
 const faqSectionRef = ref(null);
@@ -206,6 +235,13 @@ function createFaqBodies() {
   return bodies;
 }
 
+setTimeout(() => {
+  if (newIndex !== null && answerRefs.value[newIndex]) {
+    answerRefs.value[newIndex].style.height = 'auto';
+  }
+}, 300);
+
+
 function updateFaqBodies() {
   const world = engine.world;
 
@@ -356,6 +392,14 @@ h2 {
   padding: 0 0 0 32px;
   transition: height 0.3s ease, opacity 0.3s ease;
 }
+
+.faq-answer {
+  height: 0;
+  overflow: hidden;
+  opacity: 0;
+  transition: height 0.3s ease, opacity 0.3s ease;
+}
+
 
 .faq-answer.expanded {
   height: auto;

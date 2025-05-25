@@ -70,12 +70,55 @@ onMounted(() => {
 const redirectToTelegram = () => {
   window.location.href = "https://t.me/your_telegram_channel";
 };
+
+const currentLogo = ref(logo); // поточний логотип
+
+onMounted(() => {
+  const logoElement = document.querySelector('.logo');
+  const benefitsSection = document.querySelector('.benefits');
+  const streamersSection = document.querySelector('#streamers-section');
+
+  if (!logoElement) return;
+
+  const observer = new IntersectionObserver(
+      (entries) => {
+        let shouldSwitchToWhite = false;
+
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            shouldSwitchToWhite = true;
+          }
+        });
+
+        gsap.to(logoElement, {
+          opacity: 0,
+          duration: 0.3,
+          onComplete: () => {
+            currentLogo.value = shouldSwitchToWhite ? logoWhite : logo;
+            gsap.to(logoElement, {
+              opacity: 1,
+              duration: 0.3,
+            });
+          },
+        });
+      },
+      {
+        threshold: 0.3,
+      }
+  );
+
+  if (benefitsSection) observer.observe(benefitsSection);
+  if (streamersSection) observer.observe(streamersSection);
+});
+
+
+
 </script>
 
 
 <template>
   <header class="header header-animate">
-  <img :src="logo" alt="Logo" class="logo" width="150" height="30"/>
+    <img :src="currentLogo" alt="Logo" class="logo" width="150" height="30" />
     <div class="nav">
       <select v-model="selectedLanguage" @change="changeLanguage($event.target.value)" class="language-selector">
         <option value="RU">RU</option>

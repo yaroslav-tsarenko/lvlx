@@ -47,7 +47,7 @@ onMounted(() => {
 
 <template>
   <FadeInFromBottom>
-    <div class="streamers-laptop-wrapper">
+    <div class="streamers-laptop-wrapper" id="streamers-section">
       <img :src="streams" alt="streams" width="180" height="50" class="streams-icon-laptop">
       <div class="streamers-laptop-top">
         <div class="streamers-laptop-upper-section">

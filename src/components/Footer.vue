@@ -21,7 +21,6 @@ const scrollToSection = (sectionId) => {
 <template>
   <footer class="footer" id="footer-section">
     <div class="footer-upper">
-      <FadeInFromBottom>
         <div class="footer-header">
           <p>{{ texts.Footer.text }}</p>
           <img :src="logo" alt="logo" width="150" height="30"/>
@@ -52,7 +51,6 @@ const scrollToSection = (sectionId) => {
             </div>
           </div>
         </div>
-      </FadeInFromBottom>
 
     </div>
     <div class="footer-bottom">
@@ -79,7 +77,7 @@ const scrollToSection = (sectionId) => {
   flex-direction: column;
   background: var(--black);
   border-radius: 35px;
-  gap: 30px;
+  gap: 70px;
   padding: 60px;
 
   @media screen and (max-width: 768px) {
@@ -151,7 +149,6 @@ const scrollToSection = (sectionId) => {
 .footer-item {
   display: flex;
   flex-direction: column;
-  gap: 20px;
 
   @media screen and (max-width: 768px) {
     align-content: center;
