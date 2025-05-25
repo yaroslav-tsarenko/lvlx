@@ -105,7 +105,7 @@ onMounted(() => {
         <img :src="egg" alt="Egg" width="380" height="380" class="egg">
         <img :src="duck" alt="duck" width="700" height="800" class="duck">
         <div class="charts-wrapper">
-          <h3 ref="descriptionRef">{{ typedText }}</h3>
+          <h3>{{ texts.ForStreamers.description }}</h3>
           <div class="charts">
             <ChartItem :p="texts.ForStreamers.visits" h4="11236" :chart="visitorsChart"/>
             <div class="charts-column">

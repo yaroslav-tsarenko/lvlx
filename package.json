@@ -11,6 +11,7 @@
   "dependencies": {
     "@iconify-icons/mdi": "^1.2.48",
     "@iconify/vue": "^4.3.0",
+    "@mdi/font": "^7.4.47",
     "@vee-validate/rules": "^4.15.0",
     "@vue/runtime-core": "^3.5.13",
     "@vueuse/core": "^13.2.0",
@@ -24,7 +25,7 @@
     "vee-validate": "^4.15.0",
     "vue": "^3.5.13",
     "vue-router-prefetch": "^1.6.3",
-    "vuetify": "^3.8.2",
+    "vuetify": "^3.8.6",
     "yup": "^1.6.1"
   },
   "devDependencies": {

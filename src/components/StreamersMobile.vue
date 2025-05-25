@@ -225,7 +225,7 @@ const texts = getTextByLanguage();
 
 .charts-mobile {
   display: flex;
-  height: 50dvh;
+  height: 35dvh;
 
   @media screen and (max-width: 768px) {
     scale: 1;

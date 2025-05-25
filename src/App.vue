@@ -1,10 +1,10 @@
 <script setup>
 import {ref, onMounted, nextTick, defineAsyncComponent, onUnmounted} from 'vue'
 import gsap from 'gsap'
-import FadeInOnView from "@/components/FadeInOnView.vue";
 import logo from './assets/logo/lvlx-logo.svg';
 import LenisScriptLoader from "@/components/LenisScriptLoader.vue";
 import Header from "@/components/Header.vue";
+import MobileMenu from "@/components/MobileMenu.vue";
 const Hero = defineAsyncComponent(() => import('@/components/Hero.vue'))
 const Footer = defineAsyncComponent(() => import('@/components/Footer.vue'))
 const Benefits = defineAsyncComponent(() => import('@/components/Benefits.vue'))
@@ -130,15 +130,13 @@ onUnmounted(() => {
     <LenisScriptLoader/>
     <Popup :visible="isPopupVisible" @update:visible="closePopup"/>
     <BottomNav/>
+    <MobileMenu/>
     <transition name="fade-slide-down">
       <div v-if="showHeader" class="fixed-header-wrapper">
         <Header />
       </div>
     </transition>
-    <FadeInOnView>
       <Hero @formSubmitted="handleFormSubmitted"/>
-    </FadeInOnView>
-
     <Benefits/>
     <Product/>
     <ProductMobile/>
@@ -163,34 +161,22 @@ onUnmounted(() => {
   transition: opacity 1s ease;
 }
 
-.fade-slide-down-enter-active,
-.fade-slide-down-leave-active {
-  transition: opacity 0.2s ease, transform 0.2s ease;
-}
-
-.fade-slide-down-enter-from,
-.fade-slide-down-leave-to {
-  opacity: 0;
-  transform: translateY(-10px);
-}
-
-.fade-slide-down-enter-to,
-.fade-slide-down-leave-from {
-  opacity: 1;
-  transform: translateY(0);
-}
-
 .fixed-header-wrapper {
   position: fixed;
   top: 5%;
-  left: 50%;
+  left: 49.5%;
+  max-width: 1840px;
   transform: translate(-50%, -50%);
   margin: 0 auto;
   align-content: center;
   justify-content: center;
   align-items: center;
-  width: 94%;
+  width: 100%;
   z-index: 1000;
+
+  @media screen and (max-width: 768px) {
+    width: 90%;
+  }
 }
 
 .preloader.hide {

@@ -142,7 +142,7 @@ const scrollToSection = (sectionId) => {
 
   @media screen and (max-width: 768px) {
     flex-direction: column;
-    gap: 30px;
+    gap: 40px;
   }
 }
 
@@ -155,6 +155,7 @@ const scrollToSection = (sectionId) => {
     justify-content: center;
     align-items: center;
     justify-items: center;
+    gap: 20px;
   }
 
   p {
@@ -192,9 +193,14 @@ const scrollToSection = (sectionId) => {
   align-items: flex-end;
   justify-items: flex-end;
 
+  @media screen and (max-width: 768px) {
+    gap: 5px;
+  }
+
   img {
     cursor: pointer;
     transition: 0.3s all ease-in-out;
+    transform: scale(0.8);
 
     &:hover {
       transform: scale(1.1);

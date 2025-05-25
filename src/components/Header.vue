@@ -142,7 +142,7 @@ onMounted(() => {
 <style scoped>
 
 .header {
-  padding: 1rem;
+  padding: 1rem 0;
   position: sticky;
   text-align: center;
   font-size: 1.5rem;

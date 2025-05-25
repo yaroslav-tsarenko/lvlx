@@ -21,8 +21,9 @@
           </div>
           <div
               class="faq-answer"
+              ref="el => answerRefs.value[index] = el"
               :style="expandedIndex === index ? 'height: auto; opacity: 1;' : ''"
-              ref="answerRefs[index]">
+          >
             <div class="faq-answer-inner">
               {{ item.answer }}
             </div>
@@ -50,12 +51,39 @@ import FadeInFromBottom from "@/components/FadeInFromBottom.vue";
 
 const texts = getTextByLanguage();
 const faqItems = texts.Faq.faqItems;
+const answerRefs = ref([]);
+
+const toggle = (index) => {
+  const el = answerRefs.value[index];
+  const isExpanding = expandedIndex.value !== index;
+
+  if (el) {
+    el.style.overflow = 'hidden';
+
+    if (isExpanding) {
+      el.style.height = '0px';
+      el.style.opacity = '0';
+      requestAnimationFrame(() => {
+        el.style.transition = 'height 0.35s ease, opacity 0.35s ease';
+        el.style.height = el.scrollHeight + 'px';
+        el.style.opacity = '1';
+      });
+    } else {
+      el.style.transition = 'height 0.35s ease, opacity 0.35s ease';
+      el.style.height = el.scrollHeight + 'px';
+      requestAnimationFrame(() => {
+        el.style.height = '0px';
+        el.style.opacity = '0';
+      });
+    }
+  }
+
+  expandedIndex.value = isExpanding ? index : null;
+  setTimeout(() => updateFaqPhysics(), 400);
+};
+
 
 const expandedIndex = ref(null);
-const toggle = (index) => {
-  expandedIndex.value = expandedIndex.value === index ? null : index;
-  setTimeout(() => updateFaqPhysics(), 300);
-};
 const getArrowSrc = (index) => {
   return expandedIndex.value === index ? arrowOrange : arrowBlack;
 };
@@ -147,7 +175,7 @@ function setupMatter() {
   const isMobile = screenWidth < 768;
   const isLaptop = screenWidth >= 1280 && screenWidth < 1600;
 
-  const fallingEggs = Array.from({ length: isMobile ? 35 : 20 }, () => {
+  const fallingEggs = Array.from({length: isMobile ? 35 : 20}, () => {
     const radius = isMobile
         ? 25 + Math.random() * 2
         : isLaptop
@@ -280,6 +308,14 @@ onBeforeUnmount(() => {
   @media screen and (max-width: 768px) {
     padding-block: 20%;
   }
+}
+
+.faq-answer {
+  height: 0;
+  opacity: 0;
+  overflow: hidden;
+  font-size: 18px;
+  padding-left: 32px;
 }
 
 .matter-canvas {

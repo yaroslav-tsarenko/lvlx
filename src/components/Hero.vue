@@ -1,5 +1,5 @@
 <script setup>
-import { onMounted, onUnmounted, ref } from 'vue';
+import {onMounted, onUnmounted, ref} from 'vue';
 import {gsap} from 'gsap';
 import bgVideo from '../assets/videos/girl.mp4';
 import bgVideoMobile from '../assets/videos/girl mobile.mp4';
@@ -8,7 +8,8 @@ import {defineRule, configure} from "vee-validate";
 import {required, email, min, confirmed, regex} from "@vee-validate/rules";
 import Form from "@/components/Form.vue";
 import {getTextByLanguage} from "@/config.js";
-import { defineEmits } from 'vue';
+import {defineEmits} from 'vue';
+
 const texts = getTextByLanguage();
 
 defineRule("required", required);
@@ -123,7 +124,6 @@ onUnmounted(() => {
 <template>
   <div class="hero" id="home-section">
     <Header/>
-
     <video
         ref="videoRef"
         class="bg-video video-animate"
@@ -138,7 +138,7 @@ onUnmounted(() => {
         <div class="main-title">
           <h1>{{ texts.Hero.title }}</h1>
           <h2>{{ texts.Hero.title }}</h2>
-          <p ref="typedElement">{{typedText}}</p>
+          <p ref="typedElement">{{ typedText }}</p>
         </div>
         <div class="left-side-images">
           <img :src="revShareDesc" alt="rev share" width="320" height="160"/>
@@ -150,7 +150,7 @@ onUnmounted(() => {
         </div>
       </div>
       <div class="right-side" ref="rightSideRef">
-        <Form @formSubmitted="handleFormSubmitted" />
+        <Form @formSubmitted="handleFormSubmitted"/>
       </div>
     </div>
   </div>
@@ -178,6 +178,7 @@ onUnmounted(() => {
   @media screen and (max-width: 768px) {
     padding: 20px;
     gap: 10px;
+    height: 100svh;
   }
 }
 
@@ -282,6 +283,7 @@ onUnmounted(() => {
 
   @media screen and (max-width: 768px) {
     padding: 5px 0 0 0;
+    gap: 0;
   }
 }
 
@@ -356,7 +358,7 @@ onUnmounted(() => {
   @media screen and (max-width: 768px) {
     display: flex;
     gap: 10px;
-    padding: 0 0 12% 0;
+    padding: 0 0 13% 0;
     width: 100%;
   }
 

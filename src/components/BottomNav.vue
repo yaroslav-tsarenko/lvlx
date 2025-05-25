@@ -46,7 +46,7 @@ const togglePopup = () => {
     <img :src="vLine" alt="home icon" width="1" height="52"/>
     <button class="nav-button" @click="scrollToSection('faq-section')">{{ texts.BottomNav.faq }}</button>
   </div>
-  <div class="bottom-nav-mobile bottom-nav-animate" :style="{ bottom: isMenuOpen ? '-14%' : '0' }">
+  <div class="bottom-nav-mobile bottom-nav-animate">
     <div class="bottom-nav-menu" v-show="isMenuOpen">
       <button @click="scrollToSection('benefits-section')">{{ texts.BottomNav.benefits }}</button>
       <img :src="hLine" alt="home icon" width="250" height="2"/>
@@ -213,16 +213,14 @@ const togglePopup = () => {
   align-items: center;
   position: fixed;
   flex-direction: column;
-  left: 50%;
-  bottom: 0;
-  transform: translate(-50%, -50%);
   background-color: var(--black);
+  margin: 0 auto;
   border-radius: 32px;
   padding: 7px;
   z-index: 1;
 
   @media screen and (max-width: 1028px) {
-    display: flex;
+
   }
 }
 

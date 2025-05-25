@@ -138,6 +138,14 @@ onMounted(() => {
 
 <style scoped>
 
+.benefits-title{
+  display: flex;
+
+  @media screen and (max-width: 768px) {
+    font-size: 12px;
+  }
+}
+
 .fade {
   opacity: 0;
   animation: fadeIn 0.8s cubic-bezier(0.25, 0.8, 0.25, 1) forwards;
@@ -277,7 +285,14 @@ onMounted(() => {
     }
 
     @media screen and (max-width: 476px) {
-      font-size: 40px;
+      font-size: 35px;
+      flex-direction: column;
+      line-height: 120%;
+      margin: 15px 0;
+    }
+
+    @media screen and (max-width: 375px) {
+      font-size: 30px;
       flex-direction: column;
       line-height: 120%;
       margin: 15px 0;

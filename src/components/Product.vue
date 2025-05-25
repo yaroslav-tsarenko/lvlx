@@ -308,18 +308,6 @@ watch(currentSlide, async () => {
   border-radius: 20px;
   backdrop-filter: blur(20px);
   z-index: 1;
-  --r: 60px; /* control the rounded part */
-  --s: 120px; /* control the size of the cut */
-  --a: 20deg; /* control the depth of the curvature */
-  --p: 50%; /* control the position */
-  --_m:, #000 calc(100% - 1px), #0000;
-  --_r: var(--r) at calc(100% - var(--r));
-  --_d:(var(--s) + var(--r)) * cos(var(--a));
-  mask: radial-gradient(var(--_r) calc(var(--p) + var(--_d)) var(--_m)),
-  radial-gradient(var(--_r) calc(var(--p) - var(--_d)) var(--_m)),
-  radial-gradient(var(--s) at calc(100% + sin(var(--a)) * var(--s)) var(--p),
-      #0000 100%, #000 calc(100% + 1px)) calc(var(--r) * (sin(var(--a)) - 1)) 0 no-repeat,
-  linear-gradient(#000 calc(var(--p) - var(--_d)), #0000 0 calc(var(--p) + var(--_d)), #000 0);
 }
 
 .slider-info-details {

@@ -261,18 +261,14 @@ watch(currentSlide, async () => {
   display: flex;
   gap: 10px;
   position: absolute;
-  top: 0;
+  top: 15px;
   left: 50%;
   transform: translateX(-50%);
-  z-index: 999;
+  z-index: 9;
 }
 
 .product-mobile-slide-info {
   position: relative;
-  --r: 20px; /* control the rounded part */
-  --s: 190px; /* control the size of the cut */
-  --a: 40deg; /* control the depth of the curvature */
-  --p: 50%; /* control the position */
   backdrop-filter: blur(15px);
   aspect-ratio: 3/2;
   display: flex;
@@ -283,14 +279,6 @@ watch(currentSlide, async () => {
   gap: 20px;
   width: 100%;
   background: rgba(152, 152, 152, 0.11);
-  border-radius: var(--r);
-  --_m: var(--r), #000 calc(100% - 1px), #0000;
-  --_d:(var(--s) + var(--r)) * cos(var(--a));
-  mask: radial-gradient(var(--r) at calc(var(--p) + var(--_d)) var(--_m)),
-  radial-gradient(var(--r) at calc(var(--p) - var(--_d)) var(--_m)),
-  radial-gradient(var(--s) at var(--p) calc(-1 * sin(var(--a)) * var(--s)),
-      #0000 100%, #000 calc(100% + 1px)) 0 calc(var(--r) * (1 - sin(var(--a)))) no-repeat,
-  linear-gradient(90deg, #000 calc(var(--p) - var(--_d)), #0000 0 calc(var(--p) + var(--_d)), #000 0);
 
   @media screen and (max-width: 768px) {
     padding: 5% 0 1% 0;
