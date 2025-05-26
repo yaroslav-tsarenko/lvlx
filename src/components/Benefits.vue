@@ -78,7 +78,6 @@ onMounted(() => {
 </script>
 
 <template>
-  <FadeInFromBottom>
     <div class="benefits" id="benefits-section">
       <img :src="referralIcon" alt="referral-icon" width="350" height="80" class="referral-icon">
       <div class="benefits-wrapper">
@@ -133,7 +132,6 @@ onMounted(() => {
         </div>
       </div>
     </div>
-  </FadeInFromBottom>
 </template>
 
 <style scoped>
@@ -403,6 +401,7 @@ onMounted(() => {
     justify-content: flex-start;
     padding: 0 0 0 28%;
     align-items: center;
+    font-size: 18px;
   }
 }
 

@@ -1,5 +1,4 @@
 <template>
-  <FadeInFromBottom>
     <div ref="containerRef" id="faq-section" class="matter-container">
       <canvas ref="canvasRef" class="matter-canvas"/>
       <h2 class="faq-title">{{ texts.Faq.title }}</h2>
@@ -31,7 +30,6 @@
         </div>
       </div>
     </div>
-  </FadeInFromBottom>
 </template>
 
 
@@ -332,6 +330,7 @@ onBeforeUnmount(() => {
   display: flex;
   flex-direction: column;
   gap: 12px;
+  position: relative;
   border: none;
   margin: 0 auto;
   padding: 20px;
@@ -392,6 +391,11 @@ onBeforeUnmount(() => {
   font-weight: 500;
   font-size: 25px;
   transition: color 0.3s ease;
+
+  @media screen and (max-width: 768px) {
+    font-size: 20px;
+    gap: 12px;
+  }
 }
 
 .faq-question.expanded {

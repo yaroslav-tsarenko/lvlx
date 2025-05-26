@@ -97,8 +97,7 @@ watch(currentSlide, async () => {
             :key="'pagination-' + index"
             class="pagination-item-mobile"
             :class="{ active: currentSlide === index }"
-            @click="changeSlide(index)"
-        >
+            @click="changeSlide(index)">
           {{ index + 1 }}
         </div>
       </div>
@@ -329,6 +328,10 @@ watch(currentSlide, async () => {
   font-size: 15px;
   justify-content: space-between;
   align-items: center;
+
+  @media screen and (max-width: 768px) {
+    font-size: 12px;
+  }
 }
 
 .tablet-content{

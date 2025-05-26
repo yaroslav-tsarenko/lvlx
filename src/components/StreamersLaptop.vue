@@ -46,7 +46,6 @@ onMounted(() => {
 </script>
 
 <template>
-  <FadeInFromBottom>
     <div class="streamers-laptop-wrapper" id="streamers-section">
       <img :src="streams" alt="streams" width="180" height="50" class="streams-icon-laptop">
       <div class="streamers-laptop-top">
@@ -77,7 +76,6 @@ onMounted(() => {
         </div>
       </div>
     </div>
-  </FadeInFromBottom>
 </template>
 
 <style scoped>

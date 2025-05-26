@@ -1,43 +1,54 @@
 <template>
-  <div class="wrapper">
-    <transition name="menu-fade">
-      <div v-if="menuOpen" class="dropdown-menu">
-        <ul>
-          <li v-for="(item, index) in menuItems" :key="item" @click="scrollToSection(index)">
-            <div class="link-bottom-nav">
-              {{ item }}
-            </div>
-            <img :src="hLine" alt="line icon" width="250" height="2" />
-          </li>
-        </ul>
-      </div>
-    </transition>
+  <transition name="fade-wrapper">
+    <div class="wrapper" v-if="showWrapper" id="bottom-menu">
+      <transition name="menu-fade">
+        <div v-if="menuOpen" class="dropdown-menu">
+          <ul>
+            <li v-for="(item, index) in menuItems" :key="item" @click="scrollToSection(index)">
+              <div class="link-bottom-nav">
+                {{ item }}
+              </div>
+              <img :src="hLine" alt="line icon" width="250" height="2" />
+            </li>
+          </ul>
+        </div>
+      </transition>
 
-    <!-- Bottom bar -->
-    <div class="bottom-tab-bar">
-      <div class="tab-content">
-        <button class="burger" @click="toggleMenu">
-          <img v-if="!menuOpen" :src="burgerButton" alt="Menu" width="22" height="22" class="icon" />
-          <img v-else :src="timesIcon" alt="Close" width="22" height="22" class="icon" />
-        </button>
-        <span class="menu-label" @click="toggleMenu">Меню</span>
-        <button class="register-btn">Зарегистрироваться</button>
+      <div class="bottom-tab-bar">
+        <div class="tab-content">
+          <button class="burger" @click="toggleMenu">
+            <img v-if="!menuOpen" :src="burgerButton" alt="Menu" width="22" height="22" class="icon" />
+            <img v-else :src="timesIcon" alt="Close" width="22" height="22" class="icon" />
+          </button>
+          <span class="menu-label" @click="toggleMenu">Меню</span>
+          <button class="register-btn">Зарегистрироваться</button>
+        </div>
       </div>
     </div>
-  </div>
+  </transition>
 </template>
 
+
 <script setup>
-import { ref } from 'vue';
+import { ref, onMounted } from 'vue';
 
 const menuOpen = ref(false);
+const showWrapper = ref(false);
+
 const toggleMenu = () => {
   menuOpen.value = !menuOpen.value;
 };
 
+onMounted(() => {
+  setTimeout(() => {
+    showWrapper.value = true;
+  }, 1600);
+});
+
 import burgerButton from "@/assets/icons/burger-button.svg"
 import timesIcon from "@/assets/icons/times-icon.svg"
 import hLine from "@/assets/images/line-image.svg";
+import FadeInFromBottom from "@/components/FadeInFromBottom.vue";
 
 const menuItems = ['Преимущества', 'Продукт', 'Стримерам', 'FAQ'];
 
@@ -69,6 +80,17 @@ const scrollToSection = (index) => {
     display: flex;
   }
 }
+
+.fade-wrapper-enter-active {
+  transition: opacity 2s ease;
+}
+.fade-wrapper-enter-from {
+  opacity: 0;
+}
+.fade-wrapper-enter-to {
+  opacity: 1;
+}
+
 
 .bottom-tab-bar {
   background: #000;

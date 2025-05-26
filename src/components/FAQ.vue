@@ -35,7 +35,7 @@
 </template>
 
 <script setup>
-import { ref, onMounted, onBeforeUnmount, nextTick } from 'vue';
+import { ref, onMounted, onBeforeUnmount, nextTick, watch } from 'vue';
 import arrowBlack from '../assets/icons/arrow-black.svg';
 import arrowOrange from '../assets/icons/arrow-orange.svg';
 import { getTextByLanguage } from '@/config';
@@ -56,7 +56,9 @@ const toggleItem = (index) => {
 const answerRefs = ref([]);
 
 const setFaqAnswerRef = (el, index) => {
-  if (el) answerRefs.value[index] = el;
+  if (el) {
+    answerRefs.value[index] = el;
+  }
 };
 
 watch(expandedIndex, async (newIndex, oldIndex) => {
@@ -65,6 +67,7 @@ watch(expandedIndex, async (newIndex, oldIndex) => {
   if (oldIndex !== null && answerRefs.value[oldIndex]) {
     const el = answerRefs.value[oldIndex];
     el.style.height = `${el.scrollHeight}px`;
+    el.style.opacity = '1';
     requestAnimationFrame(() => {
       el.style.height = '0px';
       el.style.opacity = '0';
@@ -79,8 +82,18 @@ watch(expandedIndex, async (newIndex, oldIndex) => {
       el.style.height = `${el.scrollHeight}px`;
       el.style.opacity = '1';
     });
+
+    // Set height to auto after animation completes
+    setTimeout(() => {
+      if (answerRefs.value[newIndex]) {
+        answerRefs.value[newIndex].style.height = 'auto';
+      }
+    }, 300);
   }
+
+  setTimeout(() => updateFaqBodies(), 310);
 });
+
 
 
 const fallingContainer = ref(null);
@@ -282,13 +295,13 @@ onBeforeUnmount(() => {
 
 <style scoped>
 
-.faq-wrapper {
-  position: relative;
-  width: 100%;
-  height: 90dvh;
-  max-width: 1920px;
-  margin: 0 auto;
+.faq-answer {
+  height: 0;
   overflow: hidden;
+  opacity: 0;
+  font-size: 18px;
+  padding: 0 0 0 32px;
+  transition: height 0.3s ease, opacity 0.3s ease;
 }
 
 .matter-canvas {
@@ -332,6 +345,7 @@ h2 {
 
 .faq-items {
   display: flex;
+  position: relative;
   flex-direction: column;
   gap: 10px;
 
@@ -345,6 +359,7 @@ h2 {
   border-radius: 25px;
   padding: 35px;
   cursor: pointer;
+  position: absolute;
   transition: all 0.3s ease;
   background-color: white;
 
@@ -364,6 +379,11 @@ h2 {
   font-weight: 500;
   font-size: 25px;
   transition: color 0.3s ease;
+
+  @media screen and (max-width: 768px) {
+    font-size: 20px;
+    gap: 10px;
+  }
 }
 
 .faq-question.expanded {

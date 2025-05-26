@@ -7,12 +7,10 @@ import earningsChart from "@/assets/gifs/graph-3.webm";
 import depositChart from "@/assets/gifs/graph-4.webm";
 import ChartItem from "@/components/ChartItem.vue";
 import streams from "../assets/icons/streem.svg";
-import FadeInFromBottom from "@/components/FadeInFromBottom.vue";
 const texts = getTextByLanguage();
 </script>
 
 <template>
-  <FadeInFromBottom>
     <div class="for-streamers-mobile-wrapper" id="streamers-section">
       <img :src="streams" alt="streams" width="180" height="50" class="streams-icon">
       <div class="for-streamers-mobile">
@@ -47,7 +45,6 @@ const texts = getTextByLanguage();
         </div>
       </div>
     </div>
-  </FadeInFromBottom>
 </template>
 
 <style scoped>

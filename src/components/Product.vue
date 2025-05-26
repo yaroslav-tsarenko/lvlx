@@ -41,7 +41,6 @@ watch(currentSlide, async () => {
 </script>
 
 <template>
-  <FadeInFromBottom>
     <div class="slider-wrapper" id="product-section">
       <div class="slider-info-wrapper">
         <div class="pagination">
@@ -108,7 +107,6 @@ watch(currentSlide, async () => {
         />
       </div>
     </div>
-  </FadeInFromBottom>
 </template>
 
 <style scoped>

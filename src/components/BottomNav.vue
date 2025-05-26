@@ -250,13 +250,15 @@ const togglePopup = () => {
   background: var(--orange);
   outline: none;
   border: none;
+  display: flex;
   cursor: pointer;
   width: 50px;
   height: 50px;
+  align-items: center;
+  text-align: center;
   border-radius: 50px;
   align-content: center;
   justify-content: center;
-  align-items: center;
   justify-items: center;
   transition: all 0.3s ease;
 }

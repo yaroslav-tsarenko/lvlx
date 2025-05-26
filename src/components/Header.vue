@@ -71,7 +71,7 @@ const redirectToTelegram = () => {
   window.location.href = "https://t.me/your_telegram_channel";
 };
 
-const currentLogo = ref(logo); // поточний логотип
+const currentLogo = ref(logo);
 
 onMounted(() => {
   const logoElement = document.querySelector('.logo');
@@ -156,6 +156,17 @@ onMounted(() => {
 
   @media screen and (max-width: 768px) {
     padding: 0;
+  }
+
+}
+
+.logo{
+  display: flex;
+
+  @media screen and (max-width: 768px) {
+    display: flex;
+    height: 20px;
+    width: auto;
   }
 }
 
